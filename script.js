@@ -1,6 +1,8 @@
 // hydra
 
 var canvas = document.createElement("CANVAS");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 canvas.style.width = "100%";
 canvas.style.height = "100%";
 document.querySelector("#canvas-container").appendChild(canvas);
