@@ -24,18 +24,16 @@ class HydraApp extends Torus.StyledComponent {
   }
   styles() {
     return css`
-      canvas {
         position: absolute;
         top: 0;
         left: 0;
         z-index: 0;
         width: 100%;
         height: 100%;
-      }
     `;
   }
   compose() {
-    return jdom`${this.canvas}`;
+    return this.canvas;
   }
 }
 
@@ -60,7 +58,6 @@ class CodeApp extends Torus.StyledComponent {
   }
   styles() {
     return css`
-.editor-container {
   font-family: "VT323", monospace;
   position: relative;
   top: 0;
@@ -73,11 +70,10 @@ class CodeApp extends Torus.StyledComponent {
 
   background-color: rgba(255, 255, 255, 0);
   font-size: 20pt;
-}
 `;
   }
   compose() {
-    return jdom`${this.container}`;
+    return this.container;
   }
 }
 
@@ -86,13 +82,11 @@ class App extends Torus.StyledComponent {
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
   }
-  style() {
+  styles() {
     return css`
-      .wrapper {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
+      position: absolute;
+      width: 100%;
+      height: 100%;
     `;
   }
   compose() {
@@ -102,6 +96,7 @@ class App extends Torus.StyledComponent {
     </>`;
   }
 }
+
 
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
