@@ -45,11 +45,11 @@ h1 {
   height: 100%;
 }
 
-/* .container {
-  width:50%;
+.styled-background {
+  background-color: salmon
 }
- */
-#editor-container .CodeMirror {
+
+.editor-containero {
   font-family: "VT323", monospace;
   position: relative;
   top: 0;
@@ -62,8 +62,4 @@ h1 {
 
   background-color: rgba(255, 255, 255, 0);
   font-size: 20pt;
-}
-
-.styled-background {
-  background-color: salmon
 }

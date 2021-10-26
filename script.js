@@ -15,8 +15,6 @@ class HydraApp extends Torus.StyledComponent {
     this.canvas = document.createElement("CANVAS");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.canvas.style.width = "100%";
-    this.canvas.style.height = "100%";
     this.hydra = new Hydra({
       canvas: this.canvas,
       detectAudio: false,
@@ -24,7 +22,7 @@ class HydraApp extends Torus.StyledComponent {
     });
     osc().out();
   }
-  style() {
+  styles() {
     return css`
       canvas {
         position: absolute;
@@ -44,7 +42,7 @@ class HydraApp extends Torus.StyledComponent {
 class CodeApp extends Torus.StyledComponent {
   init() {
     this.container = document.createElement("div");
-    this.container.id = "editor-container";
+    this.container.className = "editor-container";
     this.el = document.createElement("TEXTAREA");
     //document.body.appendChild(container);
     this.container.appendChild(this.el);
@@ -60,8 +58,23 @@ class CodeApp extends Torus.StyledComponent {
       `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
     );
   }
-  style() {
-    return css``;
+  styles() {
+    return css`
+.editor-container {
+  font-family: "VT323", monospace;
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 100%;
+  height: calc(100vh - 200px);
+
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 20pt;
+}
+`;
   }
   compose() {
     return jdom`${this.container}`;
