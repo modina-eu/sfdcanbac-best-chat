@@ -1,15 +1,6 @@
 /* global Torus jdom css */
 /* global Hydra */
 
-// <div id="canvas-container">
-// </div>
-
-// <div id="editors">
-// <div id="editor-container" class="container">
-
-// </div>
-// </div>
-
 class HydraApp extends Torus.StyledComponent {
   init() {
     this.canvas = document.createElement("CANVAS");
@@ -21,16 +12,6 @@ class HydraApp extends Torus.StyledComponent {
       enableStreamCapture: false
     });
     osc().out();
-  }
-  styles() {
-    return css`
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-    `;
   }
   compose() {
     return this.canvas;
@@ -55,22 +36,6 @@ class CodeApp extends Torus.StyledComponent {
     this.cm.setValue(
       `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
     );
-  }
-  styles() {
-    return css`
-  font-family: "VT323", monospace;
-  position: relative;
-  top: 0;
-  left: 0;
-  margin: 0;
-  box-sizing: border-box;
-  z-index: 1;
-  width: 100%;
-  height: calc(100vh - 200px);
-
-  background-color: rgba(255, 255, 255, 0);
-  font-size: 20pt;
-`;
   }
   compose() {
     return this.container;
