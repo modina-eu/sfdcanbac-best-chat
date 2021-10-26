@@ -1,4 +1,5 @@
 /* global Torus jdom css */
+/* global Hydra */
 
 // <div id="canvas-container">
 // </div>
@@ -9,8 +10,8 @@
 // </div>
 // </div>
 
-class App extends Torus.StyledComponent {
-  initHydra() {
+class HydraApp extends Torus.StyledComponent {
+  init() {
     this.canvas = document.createElement("CANVAS");
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -21,45 +22,76 @@ class App extends Torus.StyledComponent {
       detectAudio: false,
       enableStreamCapture: false
     });
-    osc().out()
-  }
-  init() {
-    this.initHydra();
+    osc().out();
   }
   style() {
     return css`
-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-}`
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+      }
+    `;
   }
   compose() {
-    return jdom`${this.canvas}`
+    return jdom`${this.canvas}`;
+  }
+}
+
+class CodeApp extends Torus.StyledComponent {
+  init() {
+    this.container = document.createElement("div");
+    this.container.id = "editor-container";
+    this.el = document.createElement("TEXTAREA");
+    //document.body.appendChild(container);
+    this.container.appendChild(this.el);
+    this.cm = CodeMirror.fromTextArea(this.el, {
+      theme: "paraiso-dark",
+      value: "a",
+      mode: { name: "javascript", globalVars: true },
+      lineWrapping: true,
+      styleSelectedText: true
+    });
+    this.cm.refresh();
+    this.cm.setValue(
+      `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
+    );
+  }
+  style() {
+    return css``;
+  }
+  compose() {
+    return jdom`${this.container}`;
+  }
+}
+
+class App extends Torus.StyledComponent {
+  init() {
+    this.hydraApp = new HydraApp();
+    this.codeApp = new CodeApp();
+  }
+  style() {
+    return css`
+      .wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    `;
+  }
+  compose() {
+    return jdom`<div class="wrapper">
+    ${this.hydraApp.node}
+    ${this.codeApp.node}
+    </>`;
   }
 }
 
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
-
-
-var container = document.querySelector("#editor-container");
-var el = document.createElement("TEXTAREA");
-//document.body.appendChild(container);
-container.appendChild(el);
-
-// const cm = CodeMirror.fromTextArea(el, {
-//   theme: "paraiso-dark",
-//   value: "a",
-//   mode: { name: "javascript", globalVars: true },
-//   lineWrapping: true,
-//   styleSelectedText: true
-// });
-// cm.refresh();
-// cm.setValue(`osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`);
 
 // // https://github.com/ojack/hydra/blob/3dcbf85c22b9f30c45b29ac63066e4bbb00cf225/hydra-server/app/src/editor.js
 // const flashCode = function(start, end) {
@@ -101,7 +133,6 @@ container.appendChild(el);
 
 //   return str
 // }
-
 
 // {
 //   // init
