@@ -34,7 +34,8 @@ class CodeApp extends Torus.StyledComponent {
     this.cm.setValue(
       `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
     );
-    this.cm.refresh();
+    this.cm.refresh()
+    setTimeout(this.cm.refresh,100);
 
     this.console = document.createElement("code");
   }
@@ -42,7 +43,7 @@ class CodeApp extends Torus.StyledComponent {
     return jdom`
     <div>
     ${this.container}
-    <div class="editor-console">
+    <div class="editor-console" onmouseenter="${this.cm.refresh}">
     >> ${this.console}
     </div>
     </div>
