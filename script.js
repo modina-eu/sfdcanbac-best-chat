@@ -20,31 +20,32 @@ class HydraApp extends Torus.StyledComponent {
 
 class CodeApp extends Torus.StyledComponent {
   init() {
-    this.container = document.createElement("div");
-    this.container.className = "editor-container";
     this.el = document.createElement("TEXTAREA");
-    this.container.appendChild(this.el);
-    this.cm = CodeMirror.fromTextArea(this.el, {
-      theme: "paraiso-dark",
-      value: "a",
-      mode: { name: "javascript", globalVars: true },
-      lineWrapping: true,
-      styleSelectedText: true
-    });
-    this.cm.setValue(
-      `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
-    );
-
-    this.console = document.createElement("code");
+  }
+  render() {
+    super.render();
+    if (this.cm == undefined) {
+      this.cm = CodeMirror.fromTextArea(this.el, {
+        theme: "paraiso-dark",
+        value: "a",
+        mode: { name: "javascript", globalVars: true },
+        lineWrapping: true,
+        styleSelectedText: true
+      });
+      this.cm.setValue(
+        `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
+      );
+      setTimeout(() => this.cm.refresh(), 0);
+    }
   }
   compose() {
-    setTimeout(()=>this.cm.refresh(),0)
-    console.log("oi")
     return jdom`
     <div>
-    ${this.container}
+    <div class="editor-container">
+    ${this.el}
+    </div>
     <div class="editor-console">
-    >> ${this.console}
+    >> <code></code>
     </div>
     </div>
     `;
