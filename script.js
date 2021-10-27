@@ -20,11 +20,9 @@ class HydraApp extends Torus.StyledComponent {
 
 class CodeApp extends Torus.StyledComponent {
   init() {
-    this.editors = document.createElement("div");
     this.container = document.createElement("div");
     this.container.className = "editor-container";
     this.el = document.createElement("TEXTAREA");
-    this.editors.appendChild(this.container);
     this.container.appendChild(this.el);
     this.cm = CodeMirror.fromTextArea(this.el, {
       theme: "paraiso-dark",
@@ -33,25 +31,22 @@ class CodeApp extends Torus.StyledComponent {
       lineWrapping: true,
       styleSelectedText: true
     });
-    this.cm.refresh();
     this.cm.setValue(
       `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
     );
-    
-    this.console = document.createElement("div");
-    this.console.className = "editor-console";
-    this.consoleText = document.createElement("code");
-    this.console.innerText = ">> "
-    this.console.appendChild(this.consoleText);
-    this.editors.appendChild(this.console);
+
+    this.console = document.createElement("code");
   }
   compose() {
+    this.cm.refresh();
     return jdom`
     <div>
     ${this.container}
-    ${this.console}
+    <div class="editor-console">
+    >> ${this.console}
     </div>
-    `
+    </div>
+    `;
   }
 }
 
@@ -74,7 +69,6 @@ class App extends Torus.StyledComponent {
     </>`;
   }
 }
-
 
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
