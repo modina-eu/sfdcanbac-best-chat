@@ -37,13 +37,8 @@ class CodeApp extends Torus.StyledComponent {
 
     this.console = document.createElement("code");
   }
-  render() {
-    let jdom = super.render();
-    this.cm.refresh()
-    return jdom;
-    // setTimeout(()=>this.cm.refresh(),1)
-  }
   compose() {
+    setTimeout(()=>this.cm.refresh(),0)
     console.log("oi")
     return jdom`
     <div>
