@@ -12,6 +12,10 @@ body {
   background-color: salmon;
 }
 
+.hide {
+  visibility: hidden;
+}
+
 canvas {
   position: absolute;
   top: 0;
@@ -38,4 +42,12 @@ canvas {
 
 span[role=presentation] {
   background-color: rgba(0,0,0, 0.8);
+}
+
+.normal {
+  color: black;
+}
+
+.error {
+  color: crimson;
 }

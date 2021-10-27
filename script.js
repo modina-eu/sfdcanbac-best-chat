@@ -1,5 +1,7 @@
 /* global Torus jdom css */
 /* global Hydra */
+/* global hotkeys */
+/* global CodeMirror */
 
 class HydraApp extends Torus.StyledComponent {
   init() {
@@ -21,141 +23,136 @@ class HydraApp extends Torus.StyledComponent {
 class CodeApp extends Torus.StyledComponent {
   init() {
     this.el = document.createElement("TEXTAREA");
-    
-    
-// https://github.com/ojack/hydra/blob/3dcbf85c22b9f30c45b29ac63066e4bbb00cf225/hydra-server/app/src/editor.js
-const flashCode = (l0, l1) => {
-  if (l0 === undefined) l0 = cm.firstLine();
-  if (l1 === undefined) l1 = cm.lastLine() + 1;
-  let count = 0;
-  for(let l = l0; l < l1; l++) {
-    const start = { line: l, ch: 0 };
-    const end = { line: l + 1, ch: 0 };
-    setTimeout(() => {
-      const marker = cm.markText(start, end, { className: "styled-background" });
-      setTimeout(() => marker.clear(), 300);
-    }, count * 500 / (Math.max(1, l1 - l0)));
-    count++;
-  }
-};
+    this.console = "";
+    this.consoleClass = "";
+    this.showEditor = true;
 
-const getLine = () => {
-  var c = cm.getCursor();
-  var s = cm.getLine(c.line);
-  flashCode(c.line, c.line + 1);
-  return s;
-};
+    // https://github.com/ojack/hydra/blob/3dcbf85c22b9f30c45b29ac63066e4bbb00cf225/hydra-server/app/src/editor.js
+    const flashCode = (l0, l1) => {
+      if (l0 === undefined) l0 = this.cm.firstLine();
+      if (l1 === undefined) l1 = this.cm.lastLine() + 1;
+      let count = 0;
+      for (let l = l0; l < l1; l++) {
+        const start = { line: l, ch: 0 };
+        const end = { line: l + 1, ch: 0 };
+        setTimeout(() => {
+          const marker = this.cm.markText(start, end, {
+            className: "styled-background"
+          });
+          setTimeout(() => marker.clear(), 300);
+        }, (count * 500) / Math.max(1, l1 - l0));
+        count++;
+      }
+    };
 
-const getCurrentBlock = () => {
-  // thanks to graham wakefield + gibber
-  var editor = cm;
-  var pos = editor.getCursor();
-  var startline = pos.line;
-  var endline = pos.line;
-  while (startline > 0 && cm.getLine(startline) !== "") {
-    startline--;
-  }
-  while (endline < editor.lineCount() && cm.getLine(endline) !== "") {
-    endline++;
-  }
-  var pos1 = {
-    line: startline,
-    ch: 0
-  };
-  var pos2 = {
-    line: endline,
-    ch: 0
-  };
-  var str = editor.getRange(pos1, pos2);
+    const getLine = () => {
+      var c = this.cm.getCursor();
+      var s = this.cm.getLine(c.line);
+      flashCode(c.line, c.line + 1);
+      return s;
+    };
 
-  flashCode(startline, endline);
+    const getCurrentBlock = () => {
+      // thanks to graham wakefield + gibber
+      var pos = this.cm.getCursor();
+      var startline = pos.line;
+      var endline = pos.line;
+      while (startline > 0 && this.cm.getLine(startline) !== "") {
+        startline--;
+      }
+      while (endline < this.cm.lineCount() && this.cm.getLine(endline) !== "") {
+        endline++;
+      }
+      var pos1 = {
+        line: startline,
+        ch: 0
+      };
+      var pos2 = {
+        line: endline,
+        ch: 0
+      };
+      var str = this.cm.getRange(pos1, pos2);
 
-  return str;
-};
+      flashCode(startline, endline);
 
-const editorConsoleText = document.getElementById("editor-console-text");
-const evalCode = (c) => {
-  try {
-    let result = eval(c);
-    if (result === undefined) result = "";
-    editorConsoleText.innerText = result;
-    editorConsoleText.className = "normal";
-    localStorage.setItem("hydracode", cm.getValue());
-  } catch (e) {
-    console.log(e);
-    editorConsoleText.innerText = e;
-    editorConsoleText.className = "error";
-  }
-}
+      return str;
+    };
 
-toggleCode = () {
-  if (container.style.visibility == "hidden") {
-    container.style.visibility = "inherit";
-  } else {
-    container.style.visibility = "hidden";
-  }
-}
+    this.evalCode = c => {
+      try {
+        let result = eval(c);
+        if (result === undefined) result = "";
+        this.console = result;
+        this.consoleClass = "normal";
+        // localStorage.setItem("hydracode", this.cm.getValue());
+      } catch (e) {
+        console.log(e);
+        this.console = e;
+        this.consoleClass = "error";
+      }
+      this.render();
+    };
 
-const commands = {
-  evalAll: () => {
-    const code = cm.getValue();
-    flashCode();
-    evalCode(code);
-  },
-  toggleEditor: () => {
-    toggleCode();
-  },
-  evalLine: () => {
-    const code = getLine();
-    evalCode(code);
-  },
-  toggleComment: () => {
-    cm.toggleComment();
-  },
-  evalBlock: () => {
-    const code = getCurrentBlock();
-    evalCode(code);
-  }
-};
+    const commands = {
+      evalAll: () => {
+        const code = this.cm.getValue();
+        flashCode();
+        this.evalCode(code);
+      },
+      toggleEditor: () => {
+        this.showEditor = !this.showEditor;
+        this.render();
+      },
+      evalLine: () => {
+        const code = getLine();
+        this.evalCode(code);
+      },
+      toggleComment: () => {
+        this.cm.toggleComment();
+      },
+      evalBlock: () => {
+        const code = getCurrentBlock();
+        this.evalCode(code);
+      }
+    };
 
-const keyMap = {
-  evalAll: { key: "ctrl+shift+enter" },
-  toggleEditor: { key: "ctrl+shift+h" },
-  toggleComment: { key: "ctrl+/" },
-  evalLine: { key: "shift+enter,ctrl+enter" },
-  evalBlock: { key: "alt+enter" }
-};
+    const keyMap = {
+      evalAll: { key: "ctrl+shift+enter" },
+      toggleEditor: { key: "ctrl+shift+h" },
+      toggleComment: { key: "ctrl+/" },
+      evalLine: { key: "shift+enter,ctrl+enter" },
+      evalBlock: { key: "alt+enter" }
+    };
 
-// enable in textarea
-hotkeys.filter = function(event) {
-  return true;
-};
-const commandNames = Object.keys(keyMap);
-for (const commandName of commandNames) {
-  const hk = keyMap[commandName];
-  if (typeof commands[commandName] === "function") {
-    hotkeys(hk.key, function(e, hotkeyHandler) {
-      e.preventDefault();
-      commands[commandName]();
-    });
-  }
-}
-
+    // enable in textarea
+    hotkeys.filter = function(event) {
+      return true;
+    };
+    const commandNames = Object.keys(keyMap);
+    for (const commandName of commandNames) {
+      const hk = keyMap[commandName];
+      if (typeof commands[commandName] === "function") {
+        hotkeys(hk.key, function(e, hotkeyHandler) {
+          e.preventDefault();
+          commands[commandName]();
+        });
+      }
+    }
   }
   styles() {
     return css`
-.editor-console {
-  font-family: monospace;
-  font-variant-ligatures: no-common-ligatures;
-  font-size: 14pt;
-  color: #000000;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-`
+      .editor-console {
+        font-family: monospace;
+        font-variant-ligatures: no-common-ligatures;
+        font-size: 14pt;
+        color: #000000;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    `;
   }
   render() {
     let r = super.render();
@@ -170,20 +167,22 @@ for (const commandName of commandNames) {
       this.cm.setValue(
         `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
       );
+      
       setTimeout(() => this.cm.refresh(), 0);
     }
-    this.cm.refresh()
+    this.cm.refresh();
     return r;
   }
   compose() {
     return jdom`
     <div>
-    <div class="editor-container">
-    ${this.el}
-    </div>
-    <div class="editor-console">
-    >> <code></code>
-    </div>
+      <div class="editor-container ${this.showEditor ? "" : "hide"}">
+        ${this.el}
+      </div>
+    
+      <div class="editor-console">
+      >> <code class="${this.consoleClass}">${this.console}</code>
+      </div>
     </div>
     `;
   }
