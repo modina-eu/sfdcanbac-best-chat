@@ -14,6 +14,8 @@ class HydraApp extends Torus.StyledComponent {
       enableStreamCapture: false
     });
     osc().out();
+    window.addEventListener('resize',
+      () => this.hydra.resize(window.innerWidth, window.innerHeight), true);
   }
   compose() {
     return this.canvas;
@@ -87,7 +89,7 @@ class CodeApp extends Torus.StyledComponent {
         // localStorage.setItem("hydracode", this.cm.getValue());
       } catch (e) {
         console.log(e);
-        this.console = e;
+        this.console = e + "";
         this.consoleClass = "error";
       }
       this.render();
@@ -167,8 +169,9 @@ class CodeApp extends Torus.StyledComponent {
       this.cm.setValue(
         `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
       );
-      
+      this.evalCode(this.cm.getValue());
       setTimeout(() => this.cm.refresh(), 0);
+      // this.cm.refresh()
     }
     this.cm.refresh();
     return r;
