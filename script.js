@@ -234,7 +234,7 @@ class InfoApp extends Torus.StyledComponent {
     return jdom`
     <div>
       <div>${this.name}</div>
-      <div>info</div>
+      <div>info<br />br</div>
     </div>
     `;
   }
@@ -254,7 +254,7 @@ class App extends Torus.StyledComponent {
       .container {
         position: absolute;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
       }
