@@ -218,8 +218,9 @@ class CodeApp extends Torus.StyledComponent {
 }
 
 class MenuApp extends Torus.StyledComponent {
-  init() {
+  init(app) {
     this.name = window.location.hostname;
+    this.app = app;
   }
   styles() {
     return css`
@@ -227,7 +228,7 @@ class MenuApp extends Torus.StyledComponent {
     color: white;
     display: flex;
     justify-content: space-between;
-    padding: 0 1em 0 1em;
+    padding: 0 .1em 0 .1em;
     margin: 0;
     flex: 1 1 auto;
     
@@ -239,8 +240,8 @@ class MenuApp extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div>
-      <div><div class="inline">🌐</div><div class="inline">${this.name}</div></div>
-      <div>🔰info</div>
+      <div class="url">🌐${this.name}</div>
+      <div onclick="${() => app.toggleDialog()}">🔰info</div>
     </div>
     `;
   }
@@ -248,9 +249,14 @@ class MenuApp extends Torus.StyledComponent {
 
 class App extends Torus.StyledComponent {
   init() {
+    this.dialog = false;
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
-    this.menuApp = new MenuApp();
+    this.menuApp = new MenuApp(this.toggleDialog);
+  }
+  toggleDialog() {
+    this.dialog = !this.dialog;
+    this.render();
   }
   styles() {
     return css`
@@ -265,6 +271,14 @@ class App extends Torus.StyledComponent {
         flex-direction: column;
         overflow: hidden;
       }
+      .dialog {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     `;
   }
   compose() {
@@ -274,6 +288,9 @@ class App extends Torus.StyledComponent {
       <div class="container">
         ${this.menuApp.node}
         ${this.codeApp.node}
+      </div>
+      <div class="dialog">
+        ${this.dialog ? "a" : "n"}
       </div>
     </>`;
   }
