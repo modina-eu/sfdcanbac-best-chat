@@ -235,13 +235,16 @@ class MenuApp extends Torus.StyledComponent {
     .inline {
       display: inline;
     }
+    .pointer {
+      cursor: pointer;
+    }
     `
   }
   compose() {
     return jdom`
     <div>
       <div class="url">🌐${this.name}</div>
-      <div onclick="${() => app.toggleDialog()}">🔰info</div>
+      <div class="pointer" onclick="${() => this.app.toggleDialog()}">🔰info</div>
     </div>
     `;
   }
@@ -258,12 +261,17 @@ class InfoApp extends Torus.StyledComponent {
       border-radius: 1em;
       padding: 1em;
       box-shadow: 0 0 10px black;
+      max-width: 500px;
       .title {
         font-weight: bold;
       }
       a {
-        font-weight: bold;
-        
+        /*font-weight: bold;*/
+        color: white;
+        background: black;
+      }
+      div {
+        margin: .5em 0 .5em 0;
       }
     `
   }
@@ -284,8 +292,8 @@ class App extends Torus.StyledComponent {
     this.dialog = false;
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
-    this.menuApp = new MenuApp();
-    this.infoApp = new InfoApp();
+    this.menuApp = new MenuApp(this);
+    this.infoApp = new InfoApp(this);
   }
   toggleDialog() {
     this.dialog = !this.dialog;
@@ -327,7 +335,7 @@ class App extends Torus.StyledComponent {
         ${this.menuApp.node}
         ${this.codeApp.node}
       </div>
-      <div class="dialog ${this.dialog ? "" : "hide"}" onclick="${()=>this.toggleDialog()}">
+      <div id="dialogback" class="dialog ${this.dialog ? "" : "hide"}" onclick="${(e)=>e.target.id=="dialogback"&&this.toggleDialog()}">
         ${this.infoApp.node}
       </div>
     </>`;
