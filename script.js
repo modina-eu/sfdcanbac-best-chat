@@ -158,8 +158,7 @@ class CodeApp extends Torus.StyledComponent {
     return css`
       position: relative;
       height: 100%;
-      flex: 0 0 auto;
-      overflow: scroll;
+      overflow: hidden;
       .editor-container {
         position: relative;
         height: 100%;
@@ -218,7 +217,7 @@ class CodeApp extends Torus.StyledComponent {
   }
 }
 
-class InfoApp extends Torus.StyledComponent {
+class MenuApp extends Torus.StyledComponent {
   init() {
     this.name = window.location.hostname;
   }
@@ -231,13 +230,17 @@ class InfoApp extends Torus.StyledComponent {
     padding: 0 1em 0 1em;
     margin: 0;
     flex: 1 1 auto;
+    
+    .inline {
+      display: inline;
+    }
     `
   }
   compose() {
     return jdom`
     <div>
-      <div>${this.name}</div>
-      <div>info<br />br</div>
+      <div><div class="inline">🌐</div><div class="inline">${this.name}</div></div>
+      <div>🔰info</div>
     </div>
     `;
   }
@@ -247,7 +250,7 @@ class App extends Torus.StyledComponent {
   init() {
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
-    this.infoApp = new InfoApp();
+    this.menuApp = new MenuApp();
   }
   styles() {
     return css`
@@ -269,7 +272,7 @@ class App extends Torus.StyledComponent {
     <div class="wrapper">
       ${this.hydraApp.node}
       <div class="container">
-        ${this.infoApp.node}
+        ${this.menuApp.node}
         ${this.codeApp.node}
       </div>
     </>`;
