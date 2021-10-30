@@ -253,12 +253,27 @@ class InfoApp extends Torus.StyledComponent {
   }
   styles() {
     return css`
-
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+      border-radius: 1em;
+      padding: 1em;
+      box-shadow: 0 0 10px black;
+      .title {
+        font-weight: bold;
+      }
+      a {
+        font-weight: bold;
+        
+      }
     `
   }
   compose() {
     return jdom`
-    <div>lalala
+    <div>
+      <div class="title">hydra-editor-torus</div>
+      <div>This project is a small <a href="https://github.com/ojack/hydra-synth/" target="_blank">Hydra</a> editor made with <a href="https://github.com/thesephist/torus" target="_blank">Torus</a> JavaScript framework. Feel free to <a href="https://glitch.com/edit/#!/hydra-editor-torus" target="_blank">remix</a> the project!</div>
+      <div>Naoto Hieda 2021</div>
+      <button onclick="${()=>this.app.toggleDialog()}">close</button>
     </div>
     `;
   }
@@ -269,7 +284,8 @@ class App extends Torus.StyledComponent {
     this.dialog = false;
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
-    this.menuApp = new MenuApp(this.toggleDialog);
+    this.menuApp = new MenuApp();
+    this.infoApp = new InfoApp();
   }
   toggleDialog() {
     this.dialog = !this.dialog;
@@ -311,7 +327,8 @@ class App extends Torus.StyledComponent {
         ${this.menuApp.node}
         ${this.codeApp.node}
       </div>
-      <div class="dialog ${this.dialog ? "" : "hide"}">hi!!!
+      <div class="dialog ${this.dialog ? "" : "hide"}" onclick="${()=>this.toggleDialog()}">
+        ${this.infoApp.node}
       </div>
     </>`;
   }
