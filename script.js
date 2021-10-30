@@ -156,7 +156,12 @@ class CodeApp extends Torus.StyledComponent {
   }
   styles() {
     return css`
-    height: 100%;
+      position: relative;
+      height: 100%;
+      .editor-container {
+        position: relative;
+        height: 100%;
+      }
       .editor-console {
         font-family: monospace;
         font-variant-ligatures: no-common-ligatures;
@@ -249,10 +254,9 @@ class App extends Torus.StyledComponent {
       .container {
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
       }
     `;
   }
