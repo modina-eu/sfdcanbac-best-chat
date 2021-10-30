@@ -247,6 +247,23 @@ class MenuApp extends Torus.StyledComponent {
   }
 }
 
+class InfoApp extends Torus.StyledComponent {
+  init(app) {
+    this.app = app;
+  }
+  styles() {
+    return css`
+
+    `
+  }
+  compose() {
+    return jdom`
+    <div>lalala
+    </div>
+    `;
+  }
+}
+
 class App extends Torus.StyledComponent {
   init() {
     this.dialog = false;
@@ -270,6 +287,7 @@ class App extends Torus.StyledComponent {
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        z-index: 2;
       }
       .dialog {
         position: absolute;
@@ -278,6 +296,10 @@ class App extends Torus.StyledComponent {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 3;
+      }
+      .hide {
+        display: none;
       }
     `;
   }
@@ -289,8 +311,7 @@ class App extends Torus.StyledComponent {
         ${this.menuApp.node}
         ${this.codeApp.node}
       </div>
-      <div class="dialog">
-        ${this.dialog ? "a" : "n"}
+      <div class="dialog ${this.dialog ? "" : "hide"}">hi!!!
       </div>
     </>`;
   }
