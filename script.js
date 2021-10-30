@@ -28,6 +28,7 @@ class HydraApp extends Torus.StyledComponent {
       z-index: 0;
       width: 100%;
       height: 100%;
+      background-color: black;
     `
   }
   compose() {
@@ -55,7 +56,7 @@ class CodeApp extends Torus.StyledComponent {
             css: "background-color: salmon;"
           });
           setTimeout(() => marker.clear(), 300);
-        }, (count * 500) / Math.max(1, l1 - l0));
+        }, 0*(count * 500) / Math.max(1, l1 - l0));
         count++;
       }
     };
@@ -196,7 +197,13 @@ class CodeApp extends Torus.StyledComponent {
         styleSelectedText: true
       });
       this.cm.setValue(
-        `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
+        `src(o0)
+  .modulate(src(o0).pixelate().brightness(-.5), 0.01)
+  .layer(
+  osc(50,0.1,1.2).mask(osc(25,0.15).thresh(0.5,0))
+  .rotate(()=>mouse.y/100)
+  .modulate(noise(3),()=>mouse.x/window.innerWidth/4)
+).out()`
       );
       this.evalCode(this.cm.getValue());
     }
@@ -267,8 +274,7 @@ class InfoApp extends Torus.StyledComponent {
       }
       a {
         /*font-weight: bold;*/
-        color: white;
-        background: black;
+        color: black;
       }
       div {
         margin: .5em 0 .5em 0;
@@ -279,7 +285,7 @@ class InfoApp extends Torus.StyledComponent {
     return jdom`
     <div>
       <div class="title">hydra-editor-torus</div>
-      <div>This project is a small <a href="https://github.com/ojack/hydra-synth/" target="_blank">Hydra</a> editor made with <a href="https://github.com/thesephist/torus" target="_blank">Torus</a> JavaScript framework. Feel free to <a href="https://glitch.com/edit/#!/hydra-editor-torus" target="_blank">remix</a> the project!</div>
+      <div>This project is a small <a href="https://github.com/ojack/hydra-synth/" target="_blank">Hydra</a> editor made with <a href="https://github.com/thesephist/torus" target="_blank">Torus</a> JavaScript framework. Feel free to <a href="https://glitch.com/edit/#!/hydra-editor-torus" target="_blank">remix</a> the project to make your own editor!</div>
       <div>Naoto Hieda 2021</div>
       <button onclick="${()=>this.app.toggleDialog()}">close</button>
     </div>
@@ -321,6 +327,7 @@ class App extends Torus.StyledComponent {
         justify-content: center;
         align-items: center;
         z-index: 3;
+        background-color: rgba(0, 0, 0, 0.3);
       }
       .hide {
         display: none;
