@@ -156,6 +156,7 @@ class CodeApp extends Torus.StyledComponent {
   }
   styles() {
     return css`
+    height: 100%;
       .editor-console {
         font-family: monospace;
         font-variant-ligatures: no-common-ligatures;
@@ -220,6 +221,8 @@ class InfoApp extends Torus.StyledComponent {
     color: white;
     display: flex;
     justify-content: space-between;
+    padding: 0 1em 0 1em;
+    margin: 0;
     `
   }
   compose() {
@@ -249,6 +252,7 @@ class App extends Torus.StyledComponent {
         height: 100%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
     `;
   }
