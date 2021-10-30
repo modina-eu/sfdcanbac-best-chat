@@ -161,6 +161,9 @@ class CodeApp extends Torus.StyledComponent {
   }
   render() {
     let r = super.render();
+    return r;
+  }
+  loaded() {
     if (this.cm == undefined) {
       this.cm = CodeMirror.fromTextArea(this.el, {
         theme: "paraiso-dark",
@@ -173,11 +176,8 @@ class CodeApp extends Torus.StyledComponent {
         `osc(50,0.1,1.5).rotate(()=>mouse.y/100).modulate(noise(3),()=>mouse.x/window.innerWidth/4).out()`
       );
       this.evalCode(this.cm.getValue());
-      setTimeout(() => this.cm.refresh(), 0);
-      // this.cm.refresh()
     }
     this.cm.refresh();
-    return r;
   }
   compose() {
     return jdom`
@@ -212,7 +212,11 @@ class App extends Torus.StyledComponent {
     ${this.codeApp.node}
     </>`;
   }
+  loaded() {
+    this.codeApp.loaded();
+  }
 }
 
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
+app.loaded();
