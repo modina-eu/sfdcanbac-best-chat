@@ -51,12 +51,10 @@ class CodeApp extends Torus.StyledComponent {
       for (let l = l0; l < l1; l++) {
         const start = { line: l, ch: 0 };
         const end = { line: l + 1, ch: 0 };
-        setTimeout(() => {
-          const marker = this.cm.markText(start, end, {
-            css: "background-color: salmon;"
-          });
-          setTimeout(() => marker.clear(), 300);
-        }, 0*(count * 500) / Math.max(1, l1 - l0));
+        const marker = this.cm.markText(start, end, {
+          css: "background-color: salmon;"
+        });
+        setTimeout(() => marker.clear(), 300);
         count++;
       }
     };
