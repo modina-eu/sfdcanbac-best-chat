@@ -112,6 +112,10 @@ class CodeApp extends Torus.StyledComponent {
         const code = this.cm.getValue();
         this.flashCode();
         this.evalCode(code);
+        const enc = btoa(encodeURIComponent(code));
+        const params = new URLSearchParams(location.search);
+        params.set('code', enc);
+        window.history.replaceState({}, '', `${location.pathname}?${params}`);
       },
       toggleEditor: () => {
         this.showEditor = !this.showEditor;
@@ -193,16 +197,20 @@ class CodeApp extends Torus.StyledComponent {
         mode: { name: "javascript", globalVars: true },
         lineWrapping: true,
         styleSelectedText: true
-      });
-      this.cm.setValue(
-        `src(o0)
+      });      
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      let code = `src(o0)
   .modulate(src(o0).pixelate().brightness(-.5), 0.01)
   .layer(
   osc(50,0.1,1.2).mask(osc(25,0.15).thresh(0.5,0))
   .rotate(()=>mouse.y/100)
   .modulate(noise(3),()=>mouse.x/window.innerWidth/4)
-).out()`
-      );
+).out()`;
+      const c = urlParams.get("code");
+      if (c !== null) code = decodeURIComponent(atob(c));
+
+      this.cm.setValue(code);
       this.evalCode(this.cm.getValue());
     }
     this.cm.refresh();
