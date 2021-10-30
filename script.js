@@ -158,6 +158,8 @@ class CodeApp extends Torus.StyledComponent {
     return css`
       position: relative;
       height: 100%;
+      flex: 0 0 auto;
+      overflow: scroll;
       .editor-container {
         position: relative;
         height: 100%;
@@ -228,6 +230,7 @@ class InfoApp extends Torus.StyledComponent {
     justify-content: space-between;
     padding: 0 1em 0 1em;
     margin: 0;
+    flex: 1 1 auto;
     `
   }
   compose() {
@@ -257,6 +260,7 @@ class App extends Torus.StyledComponent {
         height: 100%;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
     `;
   }
