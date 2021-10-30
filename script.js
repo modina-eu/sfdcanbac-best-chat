@@ -16,8 +16,8 @@ class HydraApp extends Torus.StyledComponent {
     window.addEventListener('resize',
       () => {
       this.hydra.setResolution(window.innerWidth, window.innerHeight);
-      // this.canvas.width = window.innerWidth;
-      // this.canvas.height = window.innerHeight;
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
     }, true);
   }
   compose() {
@@ -33,7 +33,7 @@ class CodeApp extends Torus.StyledComponent {
     this.showEditor = true;
 
     // https://github.com/ojack/hydra/blob/3dcbf85c22b9f30c45b29ac63066e4bbb00cf225/hydra-server/app/src/editor.js
-    const flashCode = (l0, l1) => {
+    this.flashCode = (l0, l1) => {
       if (l0 === undefined) l0 = this.cm.firstLine();
       if (l1 === undefined) l1 = this.cm.lastLine() + 1;
       let count = 0;
@@ -51,34 +51,34 @@ class CodeApp extends Torus.StyledComponent {
     };
 
     const getLine = () => {
-      var c = this.cm.getCursor();
-      var s = this.cm.getLine(c.line);
-      flashCode(c.line, c.line + 1);
+      const c = this.cm.getCursor();
+      const s = this.cm.getLine(c.line);
+      this.flashCode(c.line, c.line + 1);
       return s;
     };
 
-    const getCurrentBlock = () => {
+    this.getCurrentBlock = () => {
       // thanks to graham wakefield + gibber
-      var pos = this.cm.getCursor();
-      var startline = pos.line;
-      var endline = pos.line;
+      const pos = this.cm.getCursor();
+      let startline = pos.line;
+      let endline = pos.line;
       while (startline > 0 && this.cm.getLine(startline) !== "") {
         startline--;
       }
       while (endline < this.cm.lineCount() && this.cm.getLine(endline) !== "") {
         endline++;
       }
-      var pos1 = {
+      const pos1 = {
         line: startline,
         ch: 0
       };
-      var pos2 = {
+      const pos2 = {
         line: endline,
         ch: 0
       };
-      var str = this.cm.getRange(pos1, pos2);
+      const str = this.cm.getRange(pos1, pos2);
 
-      flashCode(startline, endline);
+      this.flashCode(startline, endline);
 
       return str;
     };
@@ -101,7 +101,7 @@ class CodeApp extends Torus.StyledComponent {
     const commands = {
       evalAll: () => {
         const code = this.cm.getValue();
-        flashCode();
+        this.flashCode();
         this.evalCode(code);
       },
       toggleEditor: () => {
@@ -116,7 +116,7 @@ class CodeApp extends Torus.StyledComponent {
         this.cm.toggleComment();
       },
       evalBlock: () => {
-        const code = getCurrentBlock();
+        const code = this.getCurrentBlock();
         this.evalCode(code);
       }
     };
@@ -150,12 +150,15 @@ class CodeApp extends Torus.StyledComponent {
         font-family: monospace;
         font-variant-ligatures: no-common-ligatures;
         font-size: 14pt;
-        color: #000000;
+        color: #fff;
         position: absolute;
         bottom: 0;
         left: 0;
         z-index: 1;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .error {
+        color: crimson;
       }
     `;
   }
@@ -194,22 +197,46 @@ class CodeApp extends Torus.StyledComponent {
   }
 }
 
+class InfoApp extends Torus.StyledComponent {
+  init() {
+  }
+  styles() {
+    return css`
+    `
+  }
+  compose() {
+    return jdom`
+    <div>info</div>
+    `;
+  }
+}
+
 class App extends Torus.StyledComponent {
   init() {
     this.hydraApp = new HydraApp();
     this.codeApp = new CodeApp();
+    this.infoApp = new InfoApp();
   }
   styles() {
     return css`
       position: absolute;
       width: 100%;
       height: 100%;
+      .container {
+        po
+        display: flex;
+        flex-direction: column;
+      }
     `;
   }
   compose() {
-    return jdom`<div class="wrapper">
-    ${this.hydraApp.node}
-    ${this.codeApp.node}
+    return jdom`
+    <div class="wrapper">
+      ${this.hydraApp.node}
+      <div class="container">
+        ${this.infoApp.node}
+        ${this.codeApp.node}
+      </div>
     </>`;
   }
   loaded() {
