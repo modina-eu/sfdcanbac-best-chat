@@ -20,8 +20,18 @@ class HydraApp extends Torus.StyledComponent {
       this.canvas.height = window.innerHeight;
     }, true);
   }
+  styles() {
+    return css`
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    `
+  }
   compose() {
-    return this.canvas;
+    return jdom`<div>${this.canvas}</div>`;
   }
 }
 
@@ -42,7 +52,7 @@ class CodeApp extends Torus.StyledComponent {
         const end = { line: l + 1, ch: 0 };
         setTimeout(() => {
           const marker = this.cm.markText(start, end, {
-            className: "styled-background"
+            css: "background-color: salmon;"
           });
           setTimeout(() => marker.clear(), 300);
         }, (count * 500) / Math.max(1, l1 - l0));
@@ -160,6 +170,9 @@ class CodeApp extends Torus.StyledComponent {
       .error {
         color: crimson;
       }
+      .hide {
+        visibility: hidden;
+      }
     `;
   }
   render() {
@@ -199,14 +212,22 @@ class CodeApp extends Torus.StyledComponent {
 
 class InfoApp extends Torus.StyledComponent {
   init() {
+    this.name = window.location.hostname;
   }
   styles() {
     return css`
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    display: flex;
+    justify-content: space-between;
     `
   }
   compose() {
     return jdom`
-    <div>info</div>
+    <div>
+      <div>${this.name}</div>
+      <div>info</div>
+    </div>
     `;
   }
 }
@@ -223,7 +244,9 @@ class App extends Torus.StyledComponent {
       width: 100%;
       height: 100%;
       .container {
-        po
+        position: absolute;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
       }
