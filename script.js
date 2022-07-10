@@ -1,7 +1,6 @@
 /* global Torus jdom css */
 /* global Hydra */
 /* global hotkeys */
-/* global CodeMirror */
 
 class HydraApp extends Torus.StyledComponent {
   init() {
@@ -33,200 +32,6 @@ class HydraApp extends Torus.StyledComponent {
   }
   compose() {
     return jdom`<div>${this.canvas}</div>`;
-  }
-}
-
-class CodeApp extends Torus.StyledComponent {
-  init() {
-    this.el = document.createElement("TEXTAREA");
-    this.console = "";
-    this.consoleClass = "";
-    this.showEditor = true;
-
-    // https://github.com/ojack/hydra/blob/3dcbf85c22b9f30c45b29ac63066e4bbb00cf225/hydra-server/app/src/editor.js
-    this.flashCode = (l0, l1) => {
-      if (l0 === undefined) l0 = this.cm.firstLine();
-      if (l1 === undefined) l1 = this.cm.lastLine() + 1;
-      let count = 0;
-      for (let l = l0; l < l1; l++) {
-        const start = { line: l, ch: 0 };
-        const end = { line: l + 1, ch: 0 };
-        const marker = this.cm.markText(start, end, {
-          css: "background-color: salmon;"
-        });
-        setTimeout(() => marker.clear(), 300);
-        count++;
-      }
-    };
-
-    const getLine = () => {
-      const c = this.cm.getCursor();
-      const s = this.cm.getLine(c.line);
-      this.flashCode(c.line, c.line + 1);
-      return s;
-    };
-
-    this.getCurrentBlock = () => {
-      // thanks to graham wakefield + gibber
-      const pos = this.cm.getCursor();
-      let startline = pos.line;
-      let endline = pos.line;
-      while (startline > 0 && this.cm.getLine(startline) !== "") {
-        startline--;
-      }
-      while (endline < this.cm.lineCount() && this.cm.getLine(endline) !== "") {
-        endline++;
-      }
-      const pos1 = {
-        line: startline,
-        ch: 0
-      };
-      const pos2 = {
-        line: endline,
-        ch: 0
-      };
-      const str = this.cm.getRange(pos1, pos2);
-
-      this.flashCode(startline, endline);
-
-      return str;
-    };
-
-    this.evalCode = c => {
-      try {
-        let result = eval(c);
-        if (result === undefined) result = "";
-        this.console = result;
-        this.consoleClass = "normal";
-        // localStorage.setItem("hydracode", this.cm.getValue());
-      } catch (e) {
-        console.log(e);
-        this.console = e + "";
-        this.consoleClass = "error";
-      }
-      this.render();
-    };
-
-    const commands = {
-      evalAll: () => {
-        const code = this.cm.getValue();
-        this.flashCode();
-        this.evalCode(code);
-        const enc = btoa(encodeURIComponent(code));
-        const params = new URLSearchParams(location.search);
-        params.set('code', enc);
-        window.history.replaceState({}, '', `${location.pathname}?${params}`);
-      },
-      toggleEditor: () => {
-        this.showEditor = !this.showEditor;
-        this.render();
-      },
-      evalLine: () => {
-        const code = getLine();
-        this.evalCode(code);
-      },
-      toggleComment: () => {
-        this.cm.toggleComment();
-      },
-      evalBlock: () => {
-        const code = this.getCurrentBlock();
-        this.evalCode(code);
-      }
-    };
-
-    const keyMap = {
-      evalAll: { key: "ctrl+shift+enter" },
-      toggleEditor: { key: "ctrl+shift+h" },
-      toggleComment: { key: "ctrl+/" },
-      evalLine: { key: "shift+enter,ctrl+enter" },
-      evalBlock: { key: "alt+enter" }
-    };
-
-    // enable in textarea
-    hotkeys.filter = function(event) {
-      return true;
-    };
-    const commandNames = Object.keys(keyMap);
-    for (const commandName of commandNames) {
-      const hk = keyMap[commandName];
-      if (typeof commands[commandName] === "function") {
-        hotkeys(hk.key, function(e, hotkeyHandler) {
-          e.preventDefault();
-          commands[commandName]();
-        });
-      }
-    }
-  }
-  styles() {
-    return css`
-      position: relative;
-      height: 100%;
-      overflow: hidden;
-      .editor-container {
-        position: relative;
-        height: 100%;
-      }
-      .editor-console {
-        font-family: monospace;
-        font-variant-ligatures: no-common-ligatures;
-        font-size: 14pt;
-        color: #fff;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-      .error {
-        color: crimson;
-      }
-      .hide {
-        visibility: hidden;
-      }
-    `;
-  }
-  render() {
-    let r = super.render();
-    return r;
-  }
-  loaded() {
-    if (this.cm == undefined) {
-      this.cm = CodeMirror.fromTextArea(this.el, {
-        theme: "paraiso-dark",
-        value: "a",
-        mode: { name: "javascript", globalVars: true },
-        lineWrapping: true,
-        styleSelectedText: true
-      });      
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      let code = `src(o0)
-  .modulate(src(o0).pixelate().brightness(-.5), 0.01)
-  .layer(
-  osc(50,0.1,1.2).mask(osc(25,0.15).thresh(0.5,0))
-  .rotate(()=>mouse.y/100)
-  .modulate(noise(3),()=>mouse.x/window.innerWidth/4)
-).out()`;
-      const c = urlParams.get("code");
-      if (c !== null) code = decodeURIComponent(atob(c));
-
-      this.cm.setValue(code);
-      this.evalCode(this.cm.getValue());
-    }
-    this.cm.refresh();
-  }
-  compose() {
-    return jdom`
-    <div>
-      <div class="editor-container ${this.showEditor ? "" : "hide"}">
-        ${this.el}
-      </div>
-    
-      <div class="editor-console">
-      >> <code class="${this.consoleClass}">${this.console}</code>
-      </div>
-    </div>
-    `;
   }
 }
 
@@ -303,7 +108,6 @@ class App extends Torus.StyledComponent {
   init() {
     this.dialog = false;
     this.hydraApp = new HydraApp();
-    this.codeApp = new CodeApp();
     this.menuApp = new MenuApp(this);
     this.infoApp = new InfoApp(this);
   }
@@ -319,7 +123,6 @@ class App extends Torus.StyledComponent {
       .container {
         position: absolute;
         width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -346,7 +149,6 @@ class App extends Torus.StyledComponent {
       ${this.hydraApp.node}
       <div class="container">
         ${this.menuApp.node}
-        ${this.codeApp.node}
       </div>
       <div id="dialogback" class="dialog ${this.dialog ? "" : "hide"}" onclick="${(e)=>e.target.id=="dialogback"&&this.toggleDialog()}">
         ${this.infoApp.node}
@@ -354,10 +156,67 @@ class App extends Torus.StyledComponent {
     </>`;
   }
   loaded() {
-    this.codeApp.loaded();
+    osc().out()
   }
 }
 
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
 app.loaded();
+
+
+const base = new Airtable({ apiKey: "keyTYazyYV8X1bjqR" }).base(
+  "app1d5uZIdpFJ67RW"
+);
+
+let first = true;
+
+base("Table 1")
+.select({
+  pageSize: 6,
+  view: "Gallery",
+})
+.eachPage(
+  function page(records, fetchNextPage) {
+    // records.forEach((record) => {
+    //   console.log(record.fields);
+    // });
+    // console.log("got records", records, fetchNextPage);
+
+    const r = records.map((e) => {
+      const newEl = {};
+      // newEl.visible = first ? true : false;
+      // newEl.title = e.fields.Name;
+      // newEl.start = new Date(e.fields.Created);
+      // newEl.desc = e.fields.Notes;
+      // newEl.type = [];
+      // newEl.topic = e.fields.tag || [];
+      // newEl.image = "";
+      // for (let i = 0; i < e.fields.Attachments.length; i++) {
+      //   newEl.image = e.fields.Attachments[i].url;
+      //   if (e.fields.Attachments[i].thumbnails !== undefined) {
+      //     if (e.fields.Attachments[i].thumbnails.large) {
+      //       newEl.image = e.fields.Attachments[i].thumbnails.large.url;
+      //       break;
+      //     }
+      //   }
+      // }
+      // newEl.related = e.fields.Related;
+      return newEl;
+    });
+    // state.schedule = [...state.schedule, ...scheduleFormatter(r, state, emitter)]//.sort((a, b) => -a.date + b.date);
+
+    // emitter.emit("tablePageLoaded")
+    if (first) {
+      first = false;
+      // emitter.emit("render")
+    }
+    fetchNextPage();
+  },
+  function done(err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  }
+);
