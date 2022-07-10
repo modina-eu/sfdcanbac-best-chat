@@ -35,6 +35,72 @@ class HydraApp extends Torus.StyledComponent {
   }
 }
 
+class AirtableLoader {
+  constructor() {
+    
+  }
+  load() {
+    
+    const base = new Airtable({ apiKey: "keyTYazyYV8X1bjqR" }).base(
+      "app1d5uZIdpFJ67RW"
+    );
+
+    let first = true;
+
+    const soupElements = [];
+
+    base("Table 1")
+    .select({
+      pageSize: 6,
+      view: "Gallery",
+    })
+    .eachPage(
+      function page(records, fetchNextPage) {
+        records.forEach((record) => {
+          console.log(record.fields);
+        });
+
+        const r = records.map((e) => {
+          const el = {};
+          el.name = e.fields.Name;
+          el.created = new Date(e.fields.Created);
+          el.notes = e.fields.Notes;
+          el.type = e.fields.Type;
+          el.image = "";
+          if (e.fields.Attachments) {
+            for (let i = 0; i < e.fields.Attachments.length; i++) {
+              el.image = e.fields.Attachments[i].url;
+              if (e.fields.Attachments[i].thumbnails !== undefined) {
+                if (e.fields.Attachments[i].thumbnails.large) {
+                  el.image = e.fields.Attachments[i].thumbnails.large.url;
+                  break;
+                }
+              }
+            }
+          }
+          el.related = e.fields.Related;
+          return el;
+        });
+        soupElements.push(...r);
+
+        // emitter.emit("tablePageLoaded")
+        if (first) {
+          first = false;
+          app.render();
+        }
+        fetchNextPage();
+      },
+      function done(err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+      }
+    );
+
+  }
+}
+
 class MenuApp extends Torus.StyledComponent {
   init(app) {
     this.name = window.location.hostname;
@@ -164,59 +230,3 @@ const app = new App();
 document.querySelector("div#app").appendChild(app.node);
 app.loaded();
 
-
-const base = new Airtable({ apiKey: "keyTYazyYV8X1bjqR" }).base(
-  "app1d5uZIdpFJ67RW"
-);
-
-let first = true;
-
-base("Table 1")
-.select({
-  pageSize: 6,
-  view: "Gallery",
-})
-.eachPage(
-  function page(records, fetchNextPage) {
-    // records.forEach((record) => {
-    //   console.log(record.fields);
-    // });
-    // console.log("got records", records, fetchNextPage);
-
-    const r = records.map((e) => {
-      const newEl = {};
-      // newEl.visible = first ? true : false;
-      // newEl.title = e.fields.Name;
-      // newEl.start = new Date(e.fields.Created);
-      // newEl.desc = e.fields.Notes;
-      // newEl.type = [];
-      // newEl.topic = e.fields.tag || [];
-      // newEl.image = "";
-      // for (let i = 0; i < e.fields.Attachments.length; i++) {
-      //   newEl.image = e.fields.Attachments[i].url;
-      //   if (e.fields.Attachments[i].thumbnails !== undefined) {
-      //     if (e.fields.Attachments[i].thumbnails.large) {
-      //       newEl.image = e.fields.Attachments[i].thumbnails.large.url;
-      //       break;
-      //     }
-      //   }
-      // }
-      // newEl.related = e.fields.Related;
-      return newEl;
-    });
-    // state.schedule = [...state.schedule, ...scheduleFormatter(r, state, emitter)]//.sort((a, b) => -a.date + b.date);
-
-    // emitter.emit("tablePageLoaded")
-    if (first) {
-      first = false;
-      // emitter.emit("render")
-    }
-    fetchNextPage();
-  },
-  function done(err) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-  }
-);
