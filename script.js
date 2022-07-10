@@ -2,6 +2,7 @@
 /* global Hydra */
 /* global hotkeys */
 /* global Airtable */
+/* global markdownit */
 
 class HydraApp extends Torus.StyledComponent {
   init() {
@@ -38,6 +39,7 @@ class HydraApp extends Torus.StyledComponent {
 
 class AirtableLoader {
   constructor(key, baseName) {
+    this.md = new markdownit({linkify: true, breaks: true});
     this.elements = [];
     this.base = new Airtable({ apiKey: key }).base(baseName);
   }
@@ -59,7 +61,9 @@ class AirtableLoader {
           const el = {};
           el.name = e.fields.Name;
           el.created = new Date(e.fields.Created);
-          el.notes = e.fields.Notes;
+          el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
+          el.notes = this.md.render(el.notes)
+          // .replace(/(<a )/g, `$1 target="_blank" `);
           el.type = e.fields.Type;
           el.image = "";
           if (e.fields.Attachments) {
