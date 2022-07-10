@@ -169,17 +169,19 @@ class InfoApp extends Torus.StyledComponent {
 
 class SoupElement extends Torus.StyledComponent {
   init(el) {
-    this.note = el.note
+    this.name = el.name;
+    this.note = el.note;
   }
   styles() {
     return css`
+    position: relative;
     `;
   }
   compose() {
     return jdom`
     <div>
-      ${ this.note }
-    </>`;
+      ${ this.name }
+    </div>`;
   }
 }
 
@@ -197,7 +199,7 @@ class App extends Torus.StyledComponent {
       for (const el of r) {
         this.elements.push(new SoupElement(el));
       }
-      this.
+      this.render();
     });
   }
   toggleDialog() {
@@ -235,12 +237,13 @@ class App extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div class="wrapper">
-      ${this.hydraApp.node}
+      ${ this.hydraApp.node }
       <div class="container">
-        ${this.menuApp.node}
+        ${ this.menuApp.node }
+        ${ this.elements.map(e => e.node) }
       </div>
-      <div id="dialogback" class="dialog ${this.dialog ? "" : "hide"}" onclick="${(e)=>e.target.id=="dialogback"&&this.toggleDialog()}">
-        ${this.infoApp.node}
+      <div id="dialogback" class="dialog ${ this.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
+        ${ this.infoApp.node }
       </div>
     </>`;
   }
