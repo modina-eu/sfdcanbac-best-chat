@@ -174,16 +174,23 @@ class SoupElement extends Torus.StyledComponent {
   styles() {
     return css`
     position: relative;
+    .name {
+      background-color: white;
+      display: inline;
+    }
+    .notes {
+      background-color: white;
+    }
     `;
   }
   compose() {
     return jdom`
     <div>
-      <div>
+      <div class="name">
         ${ this.name }
       </div>
-      <div>
-        ${ this.notes   }
+      <div class="notes">
+        ${ this.notes }
       </div>
     </div>`;
   }
