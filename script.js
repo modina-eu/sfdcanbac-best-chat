@@ -84,7 +84,6 @@ class AirtableLoader {
         // emitter.emit("tablePageLoaded")
         if (first) {
           first = false;
-          app.render();
         }
         fetchNextPage();
       },
@@ -170,7 +169,7 @@ class InfoApp extends Torus.StyledComponent {
 class SoupElement extends Torus.StyledComponent {
   init(el) {
     this.name = el.name;
-    this.note = el.note;
+    this.notes = el.notes === undefined ? "" : el.notes;
   }
   styles() {
     return css`
@@ -180,7 +179,12 @@ class SoupElement extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div>
-      ${ this.name }
+      <div>
+        ${ this.name }
+      </div>
+      <div>
+        ${ this.notes   }
+      </div>
     </div>`;
   }
 }
