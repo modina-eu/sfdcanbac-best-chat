@@ -1,6 +1,7 @@
 /* global Torus jdom css */
 /* global Hydra */
 /* global hotkeys */
+/* global Airtable */
 
 class HydraApp extends Torus.StyledComponent {
   init() {
@@ -36,29 +37,23 @@ class HydraApp extends Torus.StyledComponent {
 }
 
 class AirtableLoader {
-  constructor() {
-    
+  constructor(key, baseName) {
+    this.elements = [];
+    this.base = new Airtable({ apiKey: key }).base(baseName);
   }
-  load() {
-    
-    const base = new Airtable({ apiKey: "keyTYazyYV8X1bjqR" }).base(
-      "app1d5uZIdpFJ67RW"
-    );
-
+  load(loadCallback) {
     let first = true;
 
-    const soupElements = [];
-
-    base("Table 1")
+    this.base("Table 1")
     .select({
       pageSize: 6,
       view: "Gallery",
     })
     .eachPage(
-      function page(records, fetchNextPage) {
-        records.forEach((record) => {
-          console.log(record.fields);
-        });
+      (records, fetchNextPage) => {
+        // records.forEach((record) => {
+        //   console.log(record.fields);
+        // });
 
         const r = records.map((e) => {
           const el = {};
@@ -81,7 +76,10 @@ class AirtableLoader {
           el.related = e.fields.Related;
           return el;
         });
-        soupElements.push(...r);
+        this.elements.push(...r);
+        if (loadCallback !== undefined) {
+          loadCallback(r);
+        }
 
         // emitter.emit("tablePageLoaded")
         if (first) {
@@ -97,7 +95,6 @@ class AirtableLoader {
         }
       }
     );
-
   }
 }
 
@@ -170,12 +167,38 @@ class InfoApp extends Torus.StyledComponent {
   }
 }
 
+class SoupElement extends Torus.StyledComponent {
+  init(el) {
+    this.note = el.note
+  }
+  styles() {
+    return css`
+    `;
+  }
+  compose() {
+    return jdom`
+    <div>
+      ${ this.note }
+    </>`;
+  }
+}
+
 class App extends Torus.StyledComponent {
   init() {
     this.dialog = false;
     this.hydraApp = new HydraApp();
     this.menuApp = new MenuApp(this);
     this.infoApp = new InfoApp(this);
+    
+    this.elements = [];
+    
+    this.airtableLoader = new AirtableLoader("keyTYazyYV8X1bjqR", "app1d5uZIdpFJ67RW");
+    this.airtableLoader.load((r) => {
+      for (const el of r) {
+        this.elements.push(new SoupElement(el));
+      }
+      this.
+    });
   }
   toggleDialog() {
     this.dialog = !this.dialog;
