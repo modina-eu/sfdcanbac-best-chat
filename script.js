@@ -42,7 +42,7 @@ class AirtableLoader {
     this.elements = [];
     this.base = new Airtable({ apiKey: key }).base(baseName);
   }
-  load(loadCallback) {
+  load(loadCallback, doneCallback) {
     let first = true;
 
     this.base("Table 1")
@@ -91,7 +91,10 @@ class AirtableLoader {
         }
         fetchNextPage();
       },
-      function done(err) {
+      (err) => {
+        if (doneCallback !== undefined) {
+          doneCallback();
+        }
         if (err) {
           console.error(err);
           return;
@@ -172,8 +175,12 @@ class InfoApp extends Torus.StyledComponent {
 
 class SoupElement extends Torus.StyledComponent {
   init(el) {
+    this.id = el.id;
     this.name = el.name;
     this.notes = el.notes === undefined ? "" : el.notes;
+    this.created = el.created;
+    this.type = el.type;
+    this.image = el.image;
   }
   styles() {
     return css`
@@ -207,26 +214,33 @@ class App extends Torus.StyledComponent {
     this.menuApp = new MenuApp(this);
     this.infoApp = new InfoApp(this);
     
+    this.element = "";
     this.elements = [];
     
     this.airtableLoader = new AirtableLoader("keyTYazyYV8X1bjqR", "app1d5uZIdpFJ67RW");
-    this.airtableLoader.load((r) => {
-      for (const el of r) {
-        this.elements.push(new SoupElement(el));
+    this.airtableLoader.load(
+      // every
+      (r) => {
+        for (const el of r) {
+          this.elements.push(new SoupElement(el));
+        }
+        this.render();
+      },
+      // done
+      () => {
+        this.bind(router, ([name, params]) => {
+          switch (name) {
+            case "el":
+              console.log(params.id)
+              console.log(this.elements.find(e=>e.id == params.id));
+              break;
+            default:
+              break;
+          }
+          this.render();
+        })
       }
-      this.render();
-    });
-    
-    this.bind(router, ([name, params]) => {
-      switch (name) {
-        case "el":
-          console.log(params.id)
-          break;
-        default:
-          break;
-      }
-      this.render();
-    });
+    );
   }
   toggleDialog() {
     this.dialog = !this.dialog;
