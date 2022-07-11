@@ -194,7 +194,7 @@ class SoupElement extends Torus.StyledComponent {
         ${ this.name }
       </div>
       <div class="notes">
-        ${ this.notes }
+        ${ (this.notes) }
       </div>
     </div>`;
   }
