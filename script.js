@@ -39,7 +39,6 @@ class HydraApp extends Torus.StyledComponent {
 
 class AirtableLoader {
   constructor(key, baseName) {
-    this.md = new markdownit({linkify: true, breaks: true});
     this.elements = [];
     this.base = new Airtable({ apiKey: key }).base(baseName);
   }
@@ -62,7 +61,7 @@ class AirtableLoader {
           el.name = e.fields.Name;
           el.created = new Date(e.fields.Created);
           el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
-          el.notes = this.md.render(el.notes)
+          el.notes = Markus(el.notes)
           // .replace(/(<a )/g, `$1 target="_blank" `);
           el.type = e.fields.Type;
           el.image = "";
