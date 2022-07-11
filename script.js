@@ -181,6 +181,7 @@ class SoupElement extends Torus.StyledComponent {
     this.created = el.created;
     this.type = el.type;
     this.image = el.image;
+    this.related = el.related === undefined ? [] : el.related;
   }
   styles() {
     return css`
@@ -192,6 +193,9 @@ class SoupElement extends Torus.StyledComponent {
     .notes {
       background-color: white;
     }
+    .related {
+      background-color: white;
+    }
     `;
   }
   compose() {
@@ -201,7 +205,10 @@ class SoupElement extends Torus.StyledComponent {
         ${ this.name }
       </div>
       <div class="notes">
-        ${ (this.notes) }
+        ${ this.notes }
+      </div>
+      <div class="related">
+        ${ this.related.join(", ") }
       </div>
     </div>`;
   }
