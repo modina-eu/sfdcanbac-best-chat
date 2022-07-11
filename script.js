@@ -58,6 +58,7 @@ class AirtableLoader {
 
         const r = records.map((e) => {
           const el = {};
+          el.id = e.id;
           el.name = e.fields.Name;
           el.created = new Date(e.fields.Created);
           el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
@@ -215,6 +216,17 @@ class App extends Torus.StyledComponent {
       }
       this.render();
     });
+    
+    this.bind(router, ([name, params]) => {
+      switch (name) {
+        case "el":
+          console.log(params.id)
+          break;
+        default:
+          break;
+      }
+      this.render();
+    });
   }
   toggleDialog() {
     this.dialog = !this.dialog;
@@ -254,6 +266,9 @@ class App extends Torus.StyledComponent {
       ${ this.hydraApp.node }
       <div class="container">
         ${ this.menuApp.node }
+        <div>
+          <a href="/#!/el/recyZwvUMAHjOnJRn">oi</a>
+        </div>
         ${ this.elements.map(e => e.node) }
       </div>
       <div id="dialogback" class="dialog ${ this.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
@@ -266,7 +281,11 @@ class App extends Torus.StyledComponent {
   }
 }
 
+const router = new Torus.Router({
+  el: "/#!/el/:id",
+  default: "/"
+});
 const app = new App();
 document.querySelector("div#app").appendChild(app.node);
-app.loaded();
+router.go(window.location.href.split(window.location.host)[1]);
 
