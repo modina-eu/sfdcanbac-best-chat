@@ -214,7 +214,7 @@ class App extends Torus.StyledComponent {
     this.menuApp = new MenuApp(this);
     this.infoApp = new InfoApp(this);
     
-    this.element = "";
+    this.element = { node: "" };
     this.elements = [];
     
     this.airtableLoader = new AirtableLoader("keyTYazyYV8X1bjqR", "app1d5uZIdpFJ67RW");
@@ -232,7 +232,8 @@ class App extends Torus.StyledComponent {
           switch (name) {
             case "el":
               console.log(params.id)
-              console.log(this.elements.find(e=>e.id == params.id));
+              this.element = this.elements.find(e=>e.id == params.id);
+              this.render();
               break;
             default:
               break;
@@ -283,7 +284,8 @@ class App extends Torus.StyledComponent {
         <div>
           <a href="/#!/el/recyZwvUMAHjOnJRn">oi</a>
         </div>
-        ${ this.elements.map(e => e.node) }
+        ${ //this.elements.map(e => e.node) 
+        this.element.node }
       </div>
       <div id="dialogback" class="dialog ${ this.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
         ${ this.infoApp.node }
