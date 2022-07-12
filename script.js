@@ -239,6 +239,7 @@ class App extends Torus.StyledComponent {
     
     let initId;
     this.bind(router, ([name, params]) => {
+      console.log(params);
       switch (name) {
         case "el":
           console.log(params.id)
