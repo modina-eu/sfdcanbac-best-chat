@@ -196,14 +196,16 @@ class SoupElement extends Torus.StyledComponent {
     .related {
       background-color: white;
     }
+    .relatedElement {
+      cursor: pointer;
+    }
     `;
   }
   parseRelated() {
     const list = [];
     for (const id of this.related) {
-      console.log(app.elements[id])
       list.push(jdom`
-        <div class="relatedElement" onclick="${ () => router.go(`/#!/el/${ id }`) }">${ app.elements[id].name }</div>
+        <div class="relatedElement" onclick="${ () => router.go(`/#!/el/${ id }`, {replace: true}) }">${ app.loadedElements[id].name }</div>
       `)
     }
     return list;
@@ -233,13 +235,20 @@ class App extends Torus.StyledComponent {
     
     this.element = { node: "" };
     this.elements = {};
+    this.loadedElements = {};
     
     let initId;
     this.bind(router, ([name, params]) => {
       switch (name) {
         case "el":
           console.log(params.id)
-          initId = params.id;
+          if (this.elements[params.id] !== undefined) {
+            this.element = this.elements[params.id];
+            this.render();
+          }
+          else {
+            initId = params.id;
+          }
           break;
         default:
           break;
@@ -252,12 +261,14 @@ class App extends Torus.StyledComponent {
       // every
       (r) => {
         for (const el of r) {
-          this.elements[el.id] = new SoupElement(el);
+          this.loadedElements[el.id] = el;
         }
-        this.render();
       },
       // done
       () => {
+        for (const id of Object.keys(this.loadedElements)) {
+          this.elements[id] = new SoupElement(this.loadedElements[id]);
+        }
         if (initId !== undefined) {
           this.element = this.elements[initId];
           this.render();
