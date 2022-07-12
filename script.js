@@ -285,6 +285,16 @@ class App extends Torus.StyledComponent {
       // done
       () => {
         for (const id of Object.keys(this.loadedElements)) {
+          const el = this.loadedElements[id];
+          if (el.related !== undefined) {
+            for (const relatedId of el.related) {
+              if (this.loadedElements[relatedId].related?.some(i => i === id) === false) {
+                this.loadedElements[relatedId].related.push(id);
+              }
+            }
+          }
+        }
+        for (const id of Object.keys(this.loadedElements)) {
           this.elements[id] = new SoupElement(this.loadedElements[id]);
         }
         if (initId !== undefined) {
