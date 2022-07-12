@@ -201,8 +201,9 @@ class SoupElement extends Torus.StyledComponent {
   parseRelated() {
     const list = [];
     for (const id of this.related) {
+      console.log(app.elements[id])
       list.push(jdom`
-        <div onclick="${ () => router.go(`/#!/el/${ id }`) }">${ app.elements[id].name }</div>
+        <div class="relatedElement" onclick="${ () => router.go(`/#!/el/${ id }`) }">${ app.elements[id].name }</div>
       `)
     }
     return list;
@@ -233,6 +234,19 @@ class App extends Torus.StyledComponent {
     this.element = { node: "" };
     this.elements = {};
     
+    let initId;
+    this.bind(router, ([name, params]) => {
+      switch (name) {
+        case "el":
+          console.log(params.id)
+          initId = params.id;
+          break;
+        default:
+          break;
+      }
+      this.render();
+    })
+
     this.airtableLoader = new AirtableLoader("keyTYazyYV8X1bjqR", "app1d5uZIdpFJ67RW");
     this.airtableLoader.load(
       // every
@@ -244,18 +258,10 @@ class App extends Torus.StyledComponent {
       },
       // done
       () => {
-        this.bind(router, ([name, params]) => {
-          switch (name) {
-            case "el":
-              console.log(params.id)
-              this.element = this.elements[params.id];
-              this.render();
-              break;
-            default:
-              break;
-          }
+        if (initId !== undefined) {
+          this.element = this.elements[initId];
           this.render();
-        })
+        }
       }
     );
   }
