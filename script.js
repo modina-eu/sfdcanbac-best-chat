@@ -182,6 +182,15 @@ class SoupElement extends Torus.StyledComponent {
     this.type = el.type;
     this.image = el.image;
     this.related = el.related === undefined ? [] : el.related;
+    
+    this.imageDom = "";
+    if (this.image !== undefined) {
+      this.imageDom = jdom`
+      <div class="images">
+        <img src="${ this.image }" />
+      </div>
+      `;
+    }
   }
   styles() {
     return css`
@@ -192,6 +201,13 @@ class SoupElement extends Torus.StyledComponent {
     }
     .notes {
       background-color: white;
+    }
+    .images {
+      width: 100%;
+    }
+    .images > img {
+      width: 100%;
+      height: auto;
     }
     .related {
       background-color: white;
@@ -216,6 +232,7 @@ class SoupElement extends Torus.StyledComponent {
       <div class="name">
         ${ this.name }
       </div>
+      ${ this.imageDom }
       <div class="notes">
         ${ this.notes }
       </div>
