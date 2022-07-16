@@ -187,7 +187,7 @@ class SoupElement extends Torus.StyledComponent {
     if (this.image !== undefined) {
       this.imageDom = jdom`
       <div class="images">
-        <img src="${ this.image }" />
+        <img lazy src="${ this.image }" />
       </div>
       `;
     }
@@ -310,16 +310,23 @@ class App extends Torus.StyledComponent {
   }
   styles() {
     return css`
-      position: absolute;
+      // position: absolute;
       width: 100%;
-      height: 100%;
+      // height: 100%;
       .container {
         position: absolute;
         width: 100%;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
         z-index: 2;
+      }
+      .contents {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        align-content: stretch;
       }
       .dialog {
         position: absolute;
@@ -336,17 +343,18 @@ class App extends Torus.StyledComponent {
       }
     `;
   }
+      // ${ this.hydraApp.node }
   compose() {
     return jdom`
     <div class="wrapper">
-      ${ this.hydraApp.node }
       <div class="container">
         ${ this.menuApp.node }
-        <div>
+        <div class="contents">
           <a href="/#!/el/recyZwvUMAHjOnJRn">oi</a>
+          ${ this.elements.map(e => e.node) 
+          //this.element.node
+          }
         </div>
-        ${ //this.elements.map(e => e.node) 
-        this.element.node }
       </div>
       <div id="dialogback" class="dialog ${ this.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
         ${ this.infoApp.node }
