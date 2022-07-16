@@ -195,6 +195,7 @@ class SoupElement extends Torus.StyledComponent {
   styles() {
     return css`
     position: relative;
+    max-width: 500px;
     .name {
       background-color: white;
       display: inline;
@@ -351,7 +352,7 @@ class App extends Torus.StyledComponent {
         ${ this.menuApp.node }
         <div class="contents">
           <a href="/#!/el/recyZwvUMAHjOnJRn">oi</a>
-          ${ this.elements.map(e => e.node) 
+          ${ Object.keys(this.elements).map(e => this.elements[e].node) 
           //this.element.node
           }
         </div>
