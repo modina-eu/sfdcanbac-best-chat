@@ -300,31 +300,20 @@ class ContentApp extends Torus.StyledComponent {
   addElement(el) {
     if (el.image !== undefined) {
       const d = jdom`
-      <div class="element">
-        <img lazy class="pointer" alt="${ el.alt }"
-          onclick="${
-            () => {
-              router.go(`/el/${ el.id }`, {replace: false});
-            } }"
-          src="${ el.image }" />
-      </div>
-      `;
-      this.imgElements.push(d);
-    }
-    if (el.description !== undefined) {
-      const d = jdom`
-      <div class="alt pointer" style="background-color: ${ el.color }"
+      <div class="box pointer"
         onclick="${
           () => {
             router.go(`/el/${ el.id }`, {replace: false});
           } }"
       >
-        <div>
+        <img lazy alt="${ el.alt }"
+          src="${ el.image }" />
+        <div class="description">
           ${ el.description != "" ? el.description : el.alt }
         </div>
       </div>
       `;
-      this.altElements.push(d);
+      this.imgElements.push(d);
     }
   }
   styles() {
