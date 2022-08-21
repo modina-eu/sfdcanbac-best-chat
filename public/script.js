@@ -186,6 +186,7 @@ class SoupElement extends Torus.StyledComponent {
     this.created = el.created;
     this.type = el.type;
     this.image = el.image;
+    this.color = el.color;
     this.alt = el.alt;
     this.related = el.related === undefined ? [] : el.related;
     
@@ -312,7 +313,7 @@ class ContentApp extends Torus.StyledComponent {
     }
     if (el.description !== undefined) {
       const d = jdom`
-      <div class="alt pointer"
+      <div class="alt pointer" style="background-color: ${ el.color }"
         onclick="${
           () => {
             router.go(`/el/${ el.id }`, {replace: false});
