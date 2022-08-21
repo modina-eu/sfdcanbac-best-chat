@@ -300,7 +300,7 @@ class ContentApp extends Torus.StyledComponent {
   addElement(el) {
     if (el.image !== undefined) {
       const d = jdom`
-      <div class="box pointer"
+      <div class="element pointer"
         onclick="${
           () => {
             router.go(`/el/${ el.id }`, {replace: false});
@@ -308,12 +308,24 @@ class ContentApp extends Torus.StyledComponent {
       >
         <img lazy alt="${ el.alt }"
           src="${ el.image }" />
-        <div class="description">
+      </div>
+      `;
+      this.imgElements.push(d);
+    }
+    if (el.description !== undefined) {
+      const d = jdom`
+      <div class="alt pointer"
+        onclick="${
+          () => {
+            router.go(`/el/${ el.id }`, {replace: false});
+          } }"
+      >
+        <div>
           ${ el.description != "" ? el.description : el.alt }
         </div>
       </div>
       `;
-      this.imgElements.push(d);
+      this.altElements.push(d);
     }
   }
   styles() {
