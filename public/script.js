@@ -8,7 +8,7 @@ const debugMode = true;
 
 class State {
   constructor() {
-    this.modeKeys = ["alt", "infodump"];
+    this.modeKeys = ["form", "infodump"];
     this.modes = {};
     for (const key of this.modeKeys) {
       this.modes[key] = urlParams.get(key) !== null;
@@ -275,7 +275,7 @@ class SoupElement extends Torus.StyledComponent {
     return jdom`
     <div>
       <div class="content">
-        ${ state.getMode("alt") ? this.altDom : this.imageDom }
+        ${ state.getMode("form") == "alt" ? this.altDom : this.imageDom }
         <div class="info">
           <div class="name">
             ${ this.name }
@@ -293,13 +293,12 @@ class SoupElement extends Torus.StyledComponent {
 
 class ContentApp extends Torus.StyledComponent {
   init(app) {
-    this.imgElements = [];
-    this.altElements = [];
+    this.elements = [];
     this.showCount = 20;
   }
   addElement(el) {
-    if (el.image !== undefined) {
-      const d = jdom`
+    if (el.image !== undefined && el.description !== undefined) {
+      const img = jdom`
       <div class="element pointer"
         onclick="${
           () => {
@@ -310,10 +309,7 @@ class ContentApp extends Torus.StyledComponent {
           src="${ el.image }" />
       </div>
       `;
-      this.imgElements.push(d);
-    }
-    if (el.description !== undefined) {
-      const d = jdom`
+      const alt = jdom`
       <div class="alt pointer"
         onclick="${
           () => {
@@ -325,7 +321,7 @@ class ContentApp extends Torus.StyledComponent {
         </div>
       </div>
       `;
-      this.altElements.push(d);
+      this.imgElements.push({ img, alt });
     }
   }
   styles() {
@@ -363,10 +359,10 @@ class ContentApp extends Torus.StyledComponent {
     `
   }
   compose() {
-    const data = state.getMode("alt") ? this.altElements : this.imgElements;
+    const mode = state.getMode("form") == "alt" ? "alt" : "img";
     return jdom`
     <div class="contents">
-      ${ data.slice(0, this.showCount) }
+      ${ this.elements.slice(0, this.showCount).map(e => e[mode]) }
     </div>
     `
   }
@@ -398,7 +394,20 @@ class App extends Torus.StyledComponent {
               state.toggleMode("infodump");
             }
             if (this.viewElement.name == "Non Binary") {
-              state.toggleMode("alt");
+              if (state.getMode("form") == "alt") {
+                state.setMode("form", null);
+              }
+              else {
+                state.setMode("form", "alt");
+              }
+            }
+            if (this.viewElement.name == "Colors") {
+              if (state.getMode("form") == "color") {
+                state.setMode("form", null);
+              }
+              else {
+                state.setMode("form", "color");
+              }
             }
           }
           else {
