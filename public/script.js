@@ -190,19 +190,24 @@ class SoupElement extends Torus.StyledComponent {
     this.alt = el.alt;
     this.related = el.related === undefined ? [] : el.related;
     
-    this.altDom = jdom`
+    const alt = jdom`
     <div class="alt">
       ${ this.alt }
     </div>
     `;
-    this.imageDom = "";
+    let img = "";
     if (this.image !== undefined) {
-      this.imageDom = jdom`
+      img = jdom`
       <div class="images">
         <img alt="${ this.alt }" src="${ this.image }" />
       </div>
       `;
     }
+    let color = jdom`
+    <div class="alt" style="background-color: ${this.color}">
+    </div>
+    `;
+    this.frame = { img, alt, color };
   }
   styles() {
     return css`
@@ -272,10 +277,12 @@ class SoupElement extends Torus.StyledComponent {
     return list;
   }
   compose() {
+    const mode = ["img", "alt", "color"].includes(state.getMode("form")) ? state.getMode("form") : "img";
+    
     return jdom`
     <div>
       <div class="content">
-        ${ state.getMode("form") == "alt" ? this.altDom : this.imageDom }
+        ${ this.frame[mode] }
         <div class="info">
           <div class="name">
             ${ this.name }
@@ -321,7 +328,16 @@ class ContentApp extends Torus.StyledComponent {
         </div>
       </div>
       `;
-      this.imgElements.push({ img, alt });
+      const color = jdom`
+      <div class="alt pointer" style="background-color: ${ el.color }"
+        onclick="${
+          () => {
+            router.go(`/el/${ el.id }`, {replace: false});
+          } }"
+      >
+      </div>
+      `;
+      this.elements.push({ img, alt, color });
     }
   }
   styles() {
@@ -359,7 +375,7 @@ class ContentApp extends Torus.StyledComponent {
     `
   }
   compose() {
-    const mode = state.getMode("form") == "alt" ? "alt" : "img";
+    const mode = ["img", "alt", "color"].includes(state.getMode("form")) ? state.getMode("form") : "img";
     return jdom`
     <div class="contents">
       ${ this.elements.slice(0, this.showCount).map(e => e[mode]) }
