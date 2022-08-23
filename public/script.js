@@ -10,6 +10,7 @@ class State {
   constructor() {
     this.modeKeys = ["form", "infodump", "hashtag"];
     this.modes = {};
+    this.lastUnlockMode = "none";
     for (const key of this.modeKeys) {
       this.modes[key] = urlParams.get(key) !== null;
     }
@@ -23,6 +24,7 @@ class State {
     this.setMode(mode, !this.modes[mode]);
   }
   setMode(mode, value) {
+    if (value) this.lastUnlockMode = mode;
     this.modes[mode] = value;
     this.notifications.push(`${mode} mode ${this.modes[mode] ? "enabled" : "disabled"}`);
     this.notificationsRead = false;
@@ -32,9 +34,34 @@ class State {
     return this.modes[mode];
   }
   lastUnlock() {
-    
+    return this.lastUnlockMode;
   }
-  ]
+  currentPage(name) {
+    if (name == "Autism") {
+      this.setMode("infodump", true);
+      app.toggleDialog("unlock")
+    }
+    if (name == "Hashtag") {
+      this.setMode("hashtag", true);
+      app.toggleDialog("unlock")
+    }
+    if (name == "Non Binary") {
+      if (this.getMode("form") == "alt") {
+        this.setMode("form", null);
+      }
+      else {
+        this.setMode("form", "alt");
+      }
+    }
+    if (name == "Colors") {
+      if (this.getMode("form") == "color") {
+        this.setMode("form", null);
+      }
+      else {
+        this.setMode("form", "color");
+      }
+    }
+  }
 }
 const state = new State;
 
@@ -179,7 +206,7 @@ class InfoApp extends Torus.StyledComponent {
     if (state.dialogMode === "unlock") {
       return jdom`
       <div>
-        <div>unlocked ${ state.lastUnlock() }</div>
+        <div>❗unlocked ${ state.lastUnlock() }❗</div>
         <button onclick="${()=>this.app.toggleDialog()}">close</button>
       </div>
       `;
@@ -418,31 +445,7 @@ class App extends Torus.StyledComponent {
           this.contentApp.showCount++;
           if (this.elements[params.id] !== undefined) {
             this.viewElement = this.elements[params.id];
-            console.log(this.viewElement.name)
-            if (this.viewElement.name == "Autism") {
-              state.setMode("infodump", true);
-              this.toggleDialog("unlock")
-            }
-            if (this.viewElement.name == "Hashtag") {
-              state.setMode("hashtag", true);
-              this.toggleDialog("unlock")
-            }
-            if (this.viewElement.name == "Non Binary") {
-              if (state.getMode("form") == "alt") {
-                state.setMode("form", null);
-              }
-              else {
-                state.setMode("form", "alt");
-              }
-            }
-            if (this.viewElement.name == "Colors") {
-              if (state.getMode("form") == "color") {
-                state.setMode("form", null);
-              }
-              else {
-                state.setMode("form", "color");
-              }
-            }
+            state.currentPage(this.viewElement.name);
           }
           else {
             initId = params.id;
