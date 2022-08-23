@@ -31,6 +31,10 @@ class State {
   getMode(mode) {
     return this.modes[mode];
   }
+  lastUnlock() {
+    
+  }
+  ]
 }
 const state = new State;
 
@@ -168,6 +172,14 @@ class InfoApp extends Torus.StyledComponent {
       <div>
         <div class="title">Inbox</div>
         <div>${ messages }</div>
+        <button onclick="${()=>this.app.toggleDialog()}">close</button>
+      </div>
+      `;
+    }
+    if (state.dialogMode === "unlock") {
+      return jdom`
+      <div>
+        <div>unlocked ${ state.lastUnlock() }</div>
         <button onclick="${()=>this.app.toggleDialog()}">close</button>
       </div>
       `;
@@ -409,9 +421,11 @@ class App extends Torus.StyledComponent {
             console.log(this.viewElement.name)
             if (this.viewElement.name == "Autism") {
               state.setMode("infodump", true);
+              this.toggleDialog("unlock")
             }
             if (this.viewElement.name == "Hashtag") {
               state.setMode("hashtag", true);
+              this.toggleDialog("unlock")
             }
             if (this.viewElement.name == "Non Binary") {
               if (state.getMode("form") == "alt") {
