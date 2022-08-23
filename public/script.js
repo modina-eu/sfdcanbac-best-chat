@@ -379,7 +379,7 @@ class ContentApp extends Torus.StyledComponent {
     const mode = ["img", "alt", "color"].includes(state.getMode("form")) ? state.getMode("form") : "img";
     return jdom`
     <div class="contents">
-      ${ this.elements.slice(0, this.showCount).map(e => e[mode]) }
+      ${ this.elements.slice(-this.showCount).map(e => e[mode]) }
     </div>
     `
   }
@@ -448,7 +448,7 @@ class App extends Torus.StyledComponent {
     fetch("/data")
     .then(res => res.json())
     .then(data => {
-      data.sort((a, b) => a.hidden - b.hidden);
+      data.sort((a, b) => b.hidden - a.hidden);
       console.log(data);
       for (const el of data) {
         if (el.image !== "") {
