@@ -29,6 +29,7 @@ module.exports = class AirtableLoader {
           el.hidden = e.fields.Hidden;
           el.image = "";
           el.color = e.fields.Color;
+          el.character = e.fields.Character;
           el.alt = e.fields.Alt;
           if (e.fields.Attachments) {
             for (let i = 0; i < e.fields.Attachments.length; i++) {

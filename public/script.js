@@ -8,7 +8,7 @@ const debugMode = true;
 
 class State {
   constructor() {
-    this.modeKeys = ["form", "infodump"];
+    this.modeKeys = ["form", "infodump", "hashtag"];
     this.modes = {};
     for (const key of this.modeKeys) {
       this.modes[key] = urlParams.get(key) !== null;
@@ -187,6 +187,7 @@ class SoupElement extends Torus.StyledComponent {
     this.type = el.type;
     this.image = el.image;
     this.color = el.color;
+    this.character = el.character;
     this.alt = el.alt;
     this.related = el.related === undefined ? [] : el.related;
     
@@ -290,7 +291,7 @@ class SoupElement extends Torus.StyledComponent {
           <div class="notes">
             ${ this.notes }
             ${ state.getMode("infodump") ? this.insights : "" }
-            ${ this.parseRelated() }
+            ${ state.getMode("hashtag") ? this.parseRelated() : "" }
           </div>
         </div>
       </div>
@@ -407,7 +408,10 @@ class App extends Torus.StyledComponent {
             this.viewElement = this.elements[params.id];
             console.log(this.viewElement.name)
             if (this.viewElement.name == "Autism") {
-              state.toggleMode("infodump");
+              state.setMode("infodump", true);
+            }
+            if (this.viewElement.name == "Hashtag") {
+              state.setMode("hashtag", true);
             }
             if (this.viewElement.name == "Non Binary") {
               if (state.getMode("form") == "alt") {
