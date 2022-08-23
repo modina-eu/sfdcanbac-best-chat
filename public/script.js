@@ -24,7 +24,7 @@ class State {
     this.setMode(mode, !this.modes[mode]);
   }
   setMode(mode, value) {
-    if (value) this.lastUnlockMode = mode;
+    if (value) this.lastUnlockMode = value == true ? mode : value;
     this.modes[mode] = value;
     this.notifications.push(`${mode} mode ${this.modes[mode] ? "enabled" : "disabled"}`);
     this.notificationsRead = false;
@@ -51,6 +51,7 @@ class State {
       }
       else {
         this.setMode("form", "alt");
+        app.toggleDialog("unlock")
       }
     }
     if (name == "Colors") {
@@ -59,6 +60,7 @@ class State {
       }
       else {
         this.setMode("form", "color");
+        app.toggleDialog("unlock")
       }
     }
   }
