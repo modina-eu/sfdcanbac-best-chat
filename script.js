@@ -1,8 +1,6 @@
 /* global Torus jdom css */
 /* global Hydra */
-/* global hotkeys */
 /* global Airtable */
-/* global io */
 
 const urlParams = new URLSearchParams(window.location.search);
 const debugMode = true;//urlParams.get("debug") !== null || window.location.pathname !== "/";
@@ -64,11 +62,8 @@ class AirtableLoader {
           const el = {};
           el.id = e.id;
           el.name = e.fields.Name;
-          el.created = new Date(e.fields.Created);
+          // el.created = new Date(e.fields.Created);
           el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
-          el.notes = Markus(el.notes)
-          // .replace(/(<a )/g, `$1 target="_blank" `);
-          el.type = e.fields.Type;
           el.image = "";
           if (e.fields.Attachments) {
             for (let i = 0; i < e.fields.Attachments.length; i++) {
@@ -81,7 +76,6 @@ class AirtableLoader {
               }
             }
           }
-          el.related = e.fields.Related;
           return el;
         });
         this.elements.push(...r);
@@ -174,9 +168,8 @@ class InfoApp extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div>
-      <div class="title">hydra-editor-torus</div>
-      <div>This project is a small <a href="https://github.com/ojack/hydra-synth/" target="_blank">Hydra</a> editor made with <a href="https://github.com/thesephist/torus" target="_blank">Torus</a> JavaScript framework. Feel free to <a href="https://glitch.com/edit/#!/hydra-editor-torus" target="_blank">remix</a> the project to make your own editor!</div>
-      <div>Naoto Hieda 2021</div>
+      <div class="title">nail.glitches.me</div>
+      <div>Naoto Hieda 2022</div>
       <button onclick="${()=>this.app.toggleDialog()}">close</button>
     </div>
     `;
@@ -186,12 +179,10 @@ class InfoApp extends Torus.StyledComponent {
 class SoupElement extends Torus.StyledComponent {
   init(el) {
     this.id = el.id;
-    this.name = el.name;
+    this.name = el.name === undefined ? "" : el.name;
     this.notes = el.notes === undefined ? "" : el.notes;
-    this.created = el.created;
-    this.type = el.type;
+    // this.created = el.created;
     this.image = el.image;
-    this.related = el.related === undefined ? [] : el.related;
     
     this.imageDom = "";
     if (this.image !== undefined) {
@@ -245,22 +236,6 @@ class SoupElement extends Torus.StyledComponent {
     }
     `;
   }
-  parseRelated() {
-    const list = [];
-    for (const id of this.related) {
-      if (app.loadedElements[id] !== undefined) {
-        list.push(jdom`
-          <div class="relatedElement pointer"
-          onclick="${ () => router.go(`/el/${ id }`, {replace: false}) }">
-            #${ app.loadedElements[id].name
-                .replace(/(^\w{1})|(\s+\w{1})/g, c => c.toUpperCase())
-                .replace(/[ #]/g, "") }
-          </div>
-        `)
-      }
-    }
-    return list;
-  }
   compose() {
     return jdom`
     <div>
@@ -272,7 +247,6 @@ class SoupElement extends Torus.StyledComponent {
           </div>
           <div class="notes">
             ${ this.notes }
-            ${ this.parseRelated() }
           </div>
         </div>
       </div>
@@ -285,15 +259,17 @@ class ContentApp extends Torus.StyledComponent {
     this.elements = [];
   }
   addElement(el) {
+          //     class="pointer"
+          // onclick="${
+          //   () => {
+          //     router.go(`/el/${ el.id }`, {replace: false});
+          //     app.render();
+          //   } }"
+
     if (el.image !== undefined) {
       const d = jdom`
       <div class="element">
-        <img lazy class="pointer"
-          onclick="${
-            () => {
-              router.go(`/el/${ el.id }`, {replace: false});
-              app.render();
-            } }"
+        <img lazy
           src="${ el.image }" />
       </div>
       `;
@@ -366,7 +342,7 @@ class App extends Torus.StyledComponent {
       this.render();
     })
 
-    this.airtableLoader = new AirtableLoader("keyTYazyYV8X1bjqR", "app1d5uZIdpFJ67RW");
+    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "appZEdeTQowBSvzza");
     this.airtableLoader.load(
       // every
       (r) => {
