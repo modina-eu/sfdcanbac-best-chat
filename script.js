@@ -49,7 +49,7 @@ class AirtableLoader {
 
     this.base("Table 1")
     .select({
-      pageSize: 6,
+      pageSize: 100,
       view: "Gallery",
     })
     .eachPage(
