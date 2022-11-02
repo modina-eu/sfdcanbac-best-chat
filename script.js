@@ -65,6 +65,7 @@ class AirtableLoader {
           // el.created = new Date(e.fields.Created);
           el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
           el.image = "";
+          el.audio = "";
           if (e.fields.Attachments) {
             for (let i = 0; i < e.fields.Attachments.length; i++) {
               el.image = e.fields.Attachments[i].url;
@@ -73,6 +74,9 @@ class AirtableLoader {
                   el.image = e.fields.Attachments[i].thumbnails.large.url;
                   break;
                 }
+              }
+              else {
+                el.audio = e.fields.Attachments[i].url;
               }
             }
           }
@@ -265,15 +269,23 @@ class ContentApp extends Torus.StyledComponent {
           //     router.go(`/el/${ el.id }`, {replace: false});
           //     app.render();
           //   } }"
-
-    if (el.image !== undefined) {
+    if (el.image !== undefined && el.image !== "") {
       const d = jdom`
       <div class="element">
         <img lazy
           src="${ el.image }" />
       </div>
       `;
-    this.elements.push(d);
+      this.elements.push(d);
+    }
+    else if (el.audio !== undefined) {
+      const d = jdom`
+      <div class="element">
+        <audio
+          src="${ el.audio }" />
+      </div>
+      `;
+      this.elements.push(d);
     }
   }
   styles() {
@@ -342,7 +354,7 @@ class App extends Torus.StyledComponent {
       this.render();
     })
 
-    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "appZEdeTQowBSvzza");
+    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "appM4Jz7PKkdKEu0K");
     this.airtableLoader.load(
       // every
       (r) => {
