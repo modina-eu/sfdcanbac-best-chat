@@ -68,7 +68,7 @@ class AirtableLoader {
           el.audio = "";
           if (e.fields.Attachments) {
             for (let i = 0; i < e.fields.Attachments.length; i++) {
-              el.image = e.fields.Attachments[i].url;
+              // el.image = e.fields.Attachments[i].url;
               if (e.fields.Attachments[i].thumbnails !== undefined) {
                 if (e.fields.Attachments[i].thumbnails.large) {
                   el.image = e.fields.Attachments[i].thumbnails.large.url;
@@ -282,6 +282,7 @@ class ContentApp extends Torus.StyledComponent {
       const d = jdom`
       <div class="element">
         <audio
+          controls
           src="${ el.audio }" />
       </div>
       `;
@@ -301,8 +302,9 @@ class ContentApp extends Torus.StyledComponent {
       position: relative;
       width: 100%;
       padding-top: 100%;
+      background-color: grey;
     }
-    .element > img {
+    .element > img, .element > audio {
       position: absolute;
       top: 0;
       left: 0;
@@ -359,7 +361,7 @@ class App extends Torus.StyledComponent {
       // every
       (r) => {
         for (const el of r) {
-          if (el.image !== "") {
+          if (el.image !== "" || el.audio !== "") {
             this.loadedElements[el.id] = el;
             this.contentApp.addElement(el);
           }
