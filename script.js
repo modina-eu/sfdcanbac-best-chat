@@ -172,7 +172,7 @@ class InfoApp extends Torus.StyledComponent {
   compose() {
     return jdom`
     <div>
-      <div class="title">nail.glitches.me</div>
+      <div class="title">hambaga.glitch.me</div>
       <div>Naoto Hieda 2022</div>
       <button onclick="${()=>this.app.toggleDialog()}">close</button>
     </div>
@@ -356,7 +356,7 @@ class App extends Torus.StyledComponent {
       this.render();
     })
 
-    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "appM4Jz7PKkdKEu0K");
+    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "applVwzkUPT8IBchv");
     this.airtableLoader.load(
       // every
       (r) => {
