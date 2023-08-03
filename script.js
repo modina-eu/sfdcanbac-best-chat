@@ -42,7 +42,11 @@ class HydraApp extends Torus.StyledComponent {
 class AirtableLoader {
   constructor(key, baseName) {
     this.elements = [];
-    this.base = new Airtable({ apiKey: key }).base(baseName);
+    Airtable.configure({
+      endpointUrl: 'https://api.airtable.com',
+      apiKey: key
+    });
+    this.base = Airtable.base(baseName);
   }
   load(loadCallback, doneCallback) {
     let first = true;
@@ -356,7 +360,7 @@ class App extends Torus.StyledComponent {
       this.render();
     })
 
-    this.airtableLoader = new AirtableLoader("key1S3rtGoYU17uqC", "applVwzkUPT8IBchv");
+    this.airtableLoader = new AirtableLoader("pat0Es1dY81qJYLYt.67d298ef8e547647e2f0a7a3308a0c9137863ede02ae657696fd2875148b95a1", "applVwzkUPT8IBchv");
     this.airtableLoader.load(
       // every
       (r) => {
