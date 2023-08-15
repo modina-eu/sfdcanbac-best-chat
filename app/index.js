@@ -1,9 +1,8 @@
-/* global Torus jdom css */
-/* global Hydra */
-/* global Airtable */
-
 import Torus from "torus-dom";
 import Airtable from "airtable";
+
+const jdom = Torus.jdom;
+const css = Torus.css;
 
 const urlParams = new URLSearchParams(window.location.search);
 const debugMode = true;//urlParams.get("debug") !== null || window.location.pathname !== "/";
@@ -273,7 +272,7 @@ class ContentApp extends Torus.StyledComponent {
       position: relative;
       width: 100%;
       padding-top: 100%;
-      background-color: lime;
+      background-color: lightgrey;
     }
     .element > img, .element > audio {
       position: absolute;
