@@ -1,25 +1,19 @@
 {
   "install": {
     "include": [
-      "^package\\.json$",
-      "^\\.env$"
-    ]
+      "^package\\.json$"
+    ],
+    "exclude": []
   },
   "restart": {
-    "exclude": [
-      "^public/",
-      "^admin/",
-      "^v2/",
-      "^v3/",
-      "^v4/",
-      "^v5/",
-      "^haus/"
-    ],
     "include": [
-      "\\.js$",
-      "\\.coffee$",
-      "\\.json"
+      "^\\.env$",
+      "^backend/"
+    ],
+    "exclude": [
+      "public/",
+      "vite.config.js"
     ]
   },
-  "throttle": 100
+  "noSavedEvents": true
 }

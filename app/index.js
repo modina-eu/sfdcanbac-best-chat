@@ -2,42 +2,11 @@
 /* global Hydra */
 /* global Airtable */
 
+import Torus from "torus-dom";
+import Airtable from "airtable";
+
 const urlParams = new URLSearchParams(window.location.search);
 const debugMode = true;//urlParams.get("debug") !== null || window.location.pathname !== "/";
-
-
-class HydraApp extends Torus.StyledComponent {
-  init() {
-    this.canvas = document.createElement("CANVAS");
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-    this.hydra = new Hydra({
-      canvas: this.canvas,
-      detectAudio: false,
-      enableStreamCapture: false
-    });
-    window.addEventListener('resize',
-      () => {
-      this.hydra.setResolution(window.innerWidth, window.innerHeight);
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-    }, true);
-  }
-  styles() {
-    return css`
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-    `
-  }
-  compose() {
-    return jdom`<div>${this.canvas}</div>`;
-  }
-}
 
 class AirtableLoader {
   constructor(key, baseName) {
@@ -304,7 +273,7 @@ class ContentApp extends Torus.StyledComponent {
       position: relative;
       width: 100%;
       padding-top: 100%;
-      background-color: grey;
+      background-color: lime;
     }
     .element > img, .element > audio {
       position: absolute;
@@ -329,7 +298,6 @@ class ContentApp extends Torus.StyledComponent {
 class App extends Torus.StyledComponent {
   init() {
     this.dialog = false;
-    this.hydraApp = new HydraApp();
     this.menuApp = new MenuApp(this);
     this.infoApp = new InfoApp(this);
     this.contentApp = new ContentApp(this);
@@ -429,7 +397,6 @@ class App extends Torus.StyledComponent {
       }
     `;
   }
-      // ${ this.hydraApp.node }
   compose() {
     return jdom`
     <div class="wrapper">
@@ -443,7 +410,6 @@ class App extends Torus.StyledComponent {
     </>`;
   }
   loaded() {
-    osc().out()
   }
 }
 
