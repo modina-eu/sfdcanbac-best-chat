@@ -29,10 +29,10 @@ export default function(state, emit) {
       <div class="">
         🌐${ name }
       </div>
-      <div class="pointer" onclick="${onclick}">🔰info</div>
+      <div class="pointer" onclick="${showInfo}">🔰info</div>
     </div>
   `;
-  function onclick(e) {
-    
+  function showInfo(e) {
+    emit("show info");
   }
 }

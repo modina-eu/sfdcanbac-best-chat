@@ -4,7 +4,7 @@
   "description": "What am I about?",
   "main": "index.html",
   "scripts": {
-    "start": "vite dev",
+    "start": "vite build --watch & vite dev",
     "build": "vite build",
     "serve": "static-server -n index.html -p 8000 build",
     "release": "auto shipit"

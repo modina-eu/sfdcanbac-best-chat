@@ -15,8 +15,8 @@ export default (state, emitter) => {
     },
     // done
     () => {
-      console.log(state.airtableData)
-      state.msg = "oii";
+      console.log(state.airtableData);
+      state.currentData = state.airtableData[0];
       emitter.emit("render");
     }
   );

@@ -2,15 +2,15 @@
 import choo from "choo";
 import html from "choo/html";
 
+import machine from "./stores/machine.js";
 import airtable from "./stores/airtable.js";
 
 // initialize choo
 const app = choo({ hash: true });
+app.use(machine);
 app.use(airtable);
 
 app.route("/*", notFound);
-
-// const splash = urlParams.get("splash");
 
 function notFound() {
   return html`
