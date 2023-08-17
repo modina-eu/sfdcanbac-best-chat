@@ -53,6 +53,14 @@ export default function(state, emit, item) {
       links.push(formatLink(id));
     }
   }
+  
+  let img = "";
+  if (item.image != "") {
+    img = html`
+    <div>
+      <img src=${ item.image } />
+    </div>`;
+  }
 
   return html`
     <div class=${ mainCss }>
@@ -63,6 +71,7 @@ export default function(state, emit, item) {
         <div class="button">x</div>
       </div>
       <div class="content">
+        ${ img }
         <div>
           ${ item.notes }
         </div>
