@@ -2,7 +2,7 @@
 import choo from "choo";
 import html from "choo/html";
 
-// import socket from "./stores/socket.js";
+import airtable from "./stores/airtable.js";
 
 // initialize choo
 const app = choo({ hash: true });

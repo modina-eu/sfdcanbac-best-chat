@@ -8,7 +8,7 @@ const mainCss = css`
 export default function(state, emit) {
   return html`
     <div class=${ mainCss }>
-      hallo
+      hallo ${ state.msg }
     </div>
   `;
 }
