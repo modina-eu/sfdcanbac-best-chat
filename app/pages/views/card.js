@@ -2,7 +2,6 @@ import html from "choo/html";
 import { css } from "@emotion/css";
 
 const mainCss = css`
-font-family: "arial", sans-serif;
 z-index: 10;
 margin: 5px;
 padding: 5px;
@@ -38,6 +37,12 @@ max-width: ${ 500 }px;
 .pressed {
   border: 2px inset #eee;
 }
+button {
+  border: 2px outset #eee;
+  margin: auto 1px;
+  display: inline;
+  font-size: 1em;
+}
 `;
 
 // export module
@@ -70,9 +75,9 @@ export default function(state, emit, item) {
   
   function formatLink(id) {
     return html`
-    <span onclick=${ () => linkClick(id) }>
+    <button onclick=${ () => linkClick(id) }>
       ${ state.airtableData[id].name }
-    </span>
+    </button>
     `;
   }
   
