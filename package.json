@@ -4,17 +4,19 @@
   "description": "What am I about?",
   "main": "index.html",
   "scripts": {
-    "start": "vite build --watch & vite preview",
+    "start": "vite build --watch & vite dev",
     "build": "vite build",
     "serve": "static-server -n index.html -p 8000 build",
     "release": "auto shipit"
   },
   "dependencies": {
     "choo": "^7.1.0",
-    "@emotion/css": "^11.11.0",
+    "@emotion/css": "^11.11.2",
     "hydra-synth": "hydra-synth/hydra-synth#feature-vite",
     "torus-dom": "^0.4.8",
-    "airtable": "^0.12.1"
+    "airtable": "^0.12.2",
+    "choo-devtools": "^3.0.4",
+    "assert": "^2.0.0"
   },
   "devDependencies": {
     "static-server": "^3.0.0",
