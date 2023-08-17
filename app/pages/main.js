@@ -43,16 +43,28 @@ export default function(state, emit) {
     <div class=${ mainCss }>
       ${ menu(state, emit) }
       <div class="container">
-        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBackClick }">
+        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
           ${ dialog(state, emit) }
+        </div>
+        <div>
+          ${ state.history.length > 0 ? html`
+            <span onclick=${ () => backClick() }>
+              Back
+            </span>`
+             : html``
+          }
         </div>
         ${ currentCard }
       </div>
     </>
   `;
-  function dialogBackClick(e) {
+  function dialogBgClick(e) {
     if (e.target.id == "dialogback") {
       emit("hide info");
     }
+  }
+
+  function backClick() {
+    emit("back");
   }
 }

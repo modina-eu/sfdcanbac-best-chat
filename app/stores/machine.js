@@ -12,14 +12,14 @@ export default (state, emitter) => {
   });
   
   emitter.on("jump", (id) => {
+    state.history.push(state.currentData);
     state.currentData = state.airtableData[id];
     emitter.emit("render");
   });
-  emitter.on("back", (id) => {
+  emitter.on("back", () => {
     if (state.history.length > 0) {
-      const lastId = state.currentData.id;
       state.currentData = state.history[state.history.length - 1];
-      state.history.push(lastId);
+      state.history.pop();
       emitter.emit("render");
     }
   });
