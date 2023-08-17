@@ -6,7 +6,7 @@ import airtable from "./stores/airtable.js";
 
 // initialize choo
 const app = choo({ hash: true });
-// app.use(socket);
+app.use(airtable);
 
 app.route("/*", notFound);
 
