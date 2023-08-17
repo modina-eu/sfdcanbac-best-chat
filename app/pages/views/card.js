@@ -8,7 +8,12 @@ const mainCss = css`
 export default function(state, emit, item) {
   return html`
     <div class=${ mainCss }>
-      ${ item.name }
+      <div>
+        ${ item.name }
+      </div>
+      <div>
+        ${ item.notes }
+      </div>
     </div>
   `;
 }

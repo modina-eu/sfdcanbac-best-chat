@@ -1,8 +1,8 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
-import menu from "./menu.js";
-import card from "./card.js";
-import dialog from "./dialog.js";
+import menu from "./views/menu.js";
+import card from "./views/card.js";
+import dialog from "./views/dialog.js";
 
 const mainCss = css`
 width: 100%;
@@ -32,16 +32,27 @@ width: 100%;
 export default function(state, emit) {
   // state.airtableData.map(e => card(state, emit, e))
   let currentCard = "";
-  if (state.currentCard )
+  if (state.currentData === undefined) {
+    currentCard = "loading";
+  }
+  else {
+    currentCard = card(state, emit, state.currentData);
+  }
+  
   return html`
     <div class=${ mainCss }>
       ${ menu(state, emit) }
       <div class="container">
-        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
+        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBackClick }">
           ${ dialog(state, emit) }
         </div>
         ${ currentCard }
       </div>
     </>
   `;
+  function dialogBackClick(e) {
+    if (e.target.id == "dialogback") {
+      emit("hide info");
+    }
+  }
 }

@@ -21,7 +21,7 @@ function notFound() {
 }
 
 // import a template
-import mainView from "./views/main.js";
+import mainView from "./pages/main.js";
 
 app.route("/", mainView);
 

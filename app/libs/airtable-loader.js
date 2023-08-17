@@ -1,72 +1,61 @@
 import Airtable from "airtable";
 
 export default class AirtableLoader {
-  constructor(key, baseName) {
+  constructor(key, baseName, tableName, viewName) {
     this.elements = [];
     Airtable.configure({
       endpointUrl: 'https://api.airtable.com',
       apiKey: key
     });
     this.base = Airtable.base(baseName);
+    this.tableName = tableName;
+    this.viewName = viewName;
   }
-  load(loadCallback, doneCallback) {
-    let first = true;
-
-    this.base("Table 1")
+  async load(loadCallback, doneCallback) {
+    await this.base(this.tableName)
     .select({
       pageSize: 100,
-      view: "Gallery",
+      view: this.viewName,
     })
     .eachPage(
-      (records, fetchNextPage) => {
-        // records.forEach((record) => {
-        //   console.log(record.fields);
-        // });
-
+      async (records, fetchNextPage) => {
         const r = records.map((e) => {
-          const el = {};
-          el.id = e.id;
-          el.name = e.fields.Name;
-          // el.created = new Date(e.fields.Created);
-          el.notes = e.fields.Notes === undefined ? "" : e.fields.Notes;
-          el.image = "";
-          el.audio = "";
-          if (e.fields.Attachments) {
-            for (let i = 0; i < e.fields.Attachments.length; i++) {
-              // el.image = e.fields.Attachments[i].url;
-              if (e.fields.Attachments[i].thumbnails !== undefined) {
-                if (e.fields.Attachments[i].thumbnails.large) {
-                  el.image = e.fields.Attachments[i].thumbnails.large.url;
-                  break;
+          try {
+            const el = {};
+            el.id = e.id;
+            for (const key of Object.keys(e.fields)) {
+              el[key.toLocaleLowerCase()] = e.fields[key] === undefined ? "" : e.fields[key];
+            }
+            el.image = "";
+            if (e.fields.Attachments) {
+              for (let i = 0; i < e.fields.Attachments.length; i++) {
+                el.image = e.fields.Attachments[i].url;
+                if (e.fields.Attachments[i].thumbnails !== undefined) {
+                  if (e.fields.Attachments[i].thumbnails.large) {
+                    el.image = e.fields.Attachments[i].thumbnails.large.url;
+                    break;
+                  }
                 }
               }
-              else {
-                el.audio = e.fields.Attachments[i].url;
-              }
             }
+            return el;
+          } catch (err) {
+            console.error(err);
           }
-          return el;
         });
         this.elements.push(...r);
         if (loadCallback !== undefined) {
-          loadCallback(r);
+          await loadCallback(r);
         }
 
-        // emitter.emit("tablePageLoaded")
-        if (first) {
-          first = false;
-        }
-        fetchNextPage();
-      },
-      (err) => {
-        if (doneCallback !== undefined) {
-          doneCallback();
-        }
-        if (err) {
-          console.error(err);
-          return;
-        }
+        try { // HERE
+          await fetchNextPage();
+        } catch { return; }
       }
-    );
+    )
+
+    if (doneCallback !== undefined) {
+      await doneCallback();
+    }
   }
 }
