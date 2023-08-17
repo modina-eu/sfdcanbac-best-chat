@@ -29,15 +29,13 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  this.dialog = false;
   return html`
     <div class=${ mainCss }>
       ${ menu(state, emit) }
       <div class="container">
-        <div id="dialogback" class="dialog ${ this.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
+        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ (e)=>e.target.id=="dialogback"&&this.toggleDialog() }">
           ${ "info" }
         </div>
-        hallo ${ state.msg }
         ${ state.airtableData.map(e => card(state, emit, e)) }
       </div>
     </>
