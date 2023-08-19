@@ -43,6 +43,9 @@ button {
   display: inline;
   font-size: 1em;
 }
+img {
+  width: 100%;
+}
 `;
 
 // export module

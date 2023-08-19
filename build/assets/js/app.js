@@ -66,6 +66,9 @@ button {
   display: inline;
   font-size: 1em;
 }
+img {
+  width: 100%;
+}
 `;function Ea(t,r,e){const a=[];if(e.links!==void 0)for(const s of e.links)a.push(n(s));let o="";return e.image!=""&&(o=ie`
     <div>
       <img src=${e.image} />
