@@ -1,6 +1,20 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
 
+const paperCss = css`
+z-index: 10;
+margin: 5px;
+padding: 5px;
+background-color: #bbb;
+border-radius: 3px;
+box-shadow: 4px 4px 10px black;
+overflow: hidden;
+max-width: ${ 500 }px;
+img {
+  width: 100%;
+}
+`
+
 const windowsCss = css`
 z-index: 10;
 margin: 5px;
@@ -26,6 +40,7 @@ max-width: ${ 500 }px;
   color: ${ true !== true ? "#000" : "#fff" };
   margin: 2px;
   width: 1em;
+  font-size: 0.6em;
   text-align: center;
   border: 2px outset #eee;
 }
@@ -69,9 +84,11 @@ export default function(state, emit, item) {
       <img src=${ item.image } />
     </div>`;
   }
+  
+  let currentCss = paperCss;
 
   return html`
-    <div class=${ windowsCss }>
+    <div class=${ currentCss }>
       <div class="header">
         <div class="title">
           ${ item.name }
