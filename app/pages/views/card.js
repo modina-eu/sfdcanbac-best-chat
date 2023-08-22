@@ -1,7 +1,7 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
 
-const mainCss = css`
+const windowsCss = css`
 z-index: 10;
 margin: 5px;
 padding: 5px;
@@ -17,7 +17,20 @@ max-width: ${ 500 }px;
 .title {
   margin: 0 2px;
 }
+.title::after {
+  content: "x";
+  
+  position: absolute;
+  right: 0;
+  background-color: #bbb;
+  color: ${ true !== true ? "#000" : "#fff" };
+  margin: 2px;
+  width: 1em;
+  text-align: center;
+  border: 2px outset #eee;
+}
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,14 +38,6 @@ max-width: ${ 500 }px;
   user-select: none;
   background-color: ${ true ? "#00f" : "#888" };
   color: white;
-}
-.button {
-  background-color: #bbb;
-  color: ${ true !== true ? "#000" : "#fff" };
-  margin: 2px;
-  width: 1em;
-  text-align: center;
-  border: 2px outset #eee;
 }
 .pressed {
   border: 2px inset #eee;
@@ -66,12 +71,11 @@ export default function(state, emit, item) {
   }
 
   return html`
-    <div class=${ mainCss }>
+    <div class=${ windowsCss }>
       <div class="header">
         <div class="title">
           ${ item.name }
         </div>
-        <div class="button">x</div>
       </div>
       <div class="content">
         ${ img }

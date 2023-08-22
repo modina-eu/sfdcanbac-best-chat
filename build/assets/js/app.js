@@ -40,7 +40,20 @@ max-width: ${500}px;
 .title {
   margin: 0 2px;
 }
+.title::after {
+  content: "x";
+  
+  position: absolute;
+  right: 0;
+  background-color: #bbb;
+  color: ${"#fff"};
+  margin: 2px;
+  width: 1em;
+  text-align: center;
+  border: 2px outset #eee;
+}
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,14 +61,6 @@ max-width: ${500}px;
   user-select: none;
   background-color: ${"#00f"};
   color: white;
-}
-.button {
-  background-color: #bbb;
-  color: ${"#fff"};
-  margin: 2px;
-  width: 1em;
-  text-align: center;
-  border: 2px outset #eee;
 }
 .pressed {
   border: 2px inset #eee;
@@ -78,7 +83,6 @@ img {
         <div class="title">
           ${e.name}
         </div>
-        <div class="button">x</div>
       </div>
       <div class="content">
         ${o}
