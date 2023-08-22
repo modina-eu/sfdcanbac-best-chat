@@ -85,7 +85,7 @@ export default function(state, emit, item) {
     </div>`;
   }
   
-  let currentCss = paperCss;
+  let currentCss = state.theme == "windows" ? windowsCss : paperCss;
 
   return html`
     <div class=${ currentCss }>

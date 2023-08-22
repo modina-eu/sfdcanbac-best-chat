@@ -29,9 +29,14 @@ export default function(state, emit) {
       <div class="">
         🌐${ name }
       </div>
+      <div class="pointer" onclick="${toggleTheme}">toggle theme</div>
       <div class="pointer" onclick="${showInfo}">🔰info</div>
     </div>
   `;
+  function toggleTheme(e) {
+    const theme = state.theme == "windows" ? "paper" : "windows";
+    emit("set theme", { theme });
+  }
   function showInfo(e) {
     emit("show info");
   }

@@ -1,5 +1,4 @@
 export default (state, emitter) => {
-  state.history = [];
   state.dialog = false;
   
   emitter.on("show info", () => {
@@ -10,6 +9,15 @@ export default (state, emitter) => {
     state.dialog = false;
     emitter.emit("render");
   });
+  
+  state.theme = "paper";
+  
+  emitter.on("set theme", ({ theme }) => {
+    state.theme = theme;
+    emitter.emit("render");
+  })
+  
+  state.history = [];
   
   emitter.on("jump", (id) => {
     state.history.push(state.currentData);
