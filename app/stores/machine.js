@@ -21,7 +21,6 @@ export default (state, emitter) => {
     if (id !== undefined) {
       state.history.push(state.currentData);
       state.currentData = state.airtableData[id];
-      emitter.emit("render");
     }
   }
   
@@ -29,9 +28,11 @@ export default (state, emitter) => {
     if (state.params.name) {
       findCard();
     }
+    emitter.emit("render");
   })
   emitter.on("navigate", () => {
     findCard();
+    emitter.emit("render");
   })
   
   state.theme = "paper";
