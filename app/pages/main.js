@@ -30,6 +30,11 @@ width: 100%;
 .pointer {
   cursor: pointer;
 }
+.md-content {
+  h2 {
+    background-color: lightblue;
+  }
+}
 `;
 
 // export module
@@ -51,7 +56,7 @@ export default function(state, emit) {
           ${ dialog(state, emit) }
         </div>
         <div class="columns">
-          <div>
+          <div class="md-content">
             ${ state.content }
           </div>
           <div>

@@ -165,6 +165,11 @@ width: 100%;
 .pointer {
   cursor: pointer;
 }
+.md-content {
+  h2 {
+    background-color: lightblue;
+  }
+}
 `;function Da(t,r){let e="";return t.currentData===void 0?e="loading":e=Ia(t,r,t.currentData),ie`
     <div class=${$a}>
       ${La(t,r)}
@@ -173,7 +178,7 @@ width: 100%;
           ${Ma(t,r)}
         </div>
         <div class="columns">
-          <div>
+          <div class="md-content">
             ${t.content}
           </div>
           <div>
