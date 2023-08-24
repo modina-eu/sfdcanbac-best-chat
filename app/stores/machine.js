@@ -1,6 +1,13 @@
+import {html} from "../content.md";
+
 export default (state, emitter) => {
   state.dialog = false;
-  
+  // fetch(content)
+  //   .then(response => response.text())
+  //   .then(text => {
+  //   state.content = text
+  // });
+  state.content = html;
   emitter.on("show info", () => {
     state.dialog = true;
     emitter.emit("render");
