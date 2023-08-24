@@ -13,13 +13,24 @@ export default (state, emitter) => {
     emitter.emit("render");
   });
   
-  emitter.on("navigate", () => {
-    console.log(state.params)
+  emitter.on("DOMContentLoaded", () => {
     const { name } = state.params;
     const keys = Object.keys(state.airtableData);
     const id = keys.find(key => state.airtableData[key].name == name);
     console.log(id)
     if (id !== undefined) {
+      state.history.push(state.currentData);
+      state.currentData = state.airtableData[id];
+      emitter.emit("render");
+    }
+  })
+  emitter.on("navigate", () => {
+    const { name } = state.params;
+    const keys = Object.keys(state.airtableData);
+    const id = keys.find(key => state.airtableData[key].name == name);
+    console.log(id)
+    if (id !== undefined) {
+      state.history.push(state.currentData);
       state.currentData = state.airtableData[id];
       emitter.emit("render");
     }

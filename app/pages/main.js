@@ -39,6 +39,17 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
+
+// if(state.params) {
+//     const { name } = state.params;
+//     const keys = Object.keys(state.airtableData);
+//     const id = keys.find(key => state.airtableData[key].name == name);
+//     console.log(id)
+//     if (id !== undefined) {
+//       // state.history.push(state.currentData);
+//       state.currentData = state.airtableData[id];
+//     }
+// }
   // state.airtableData.map(e => card(state, emit, e))
   let currentCard = "";
   if (state.currentData === undefined) {
@@ -60,7 +71,7 @@ export default function(state, emit) {
             ${ state.content }
           </div>
           <div>
-            ${ state.history.length > 0 ? html`
+            ${ false && state.history.length > 0 ? html`
               <span onclick=${ () => backClick() }>
                 Back
               </span>`
