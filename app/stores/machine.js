@@ -1,3 +1,4 @@
+import raw from "choo/html/raw";
 import {html} from "../content.md";
 
 export default (state, emitter) => {
@@ -7,7 +8,7 @@ export default (state, emitter) => {
   //   .then(text => {
   //   state.content = text
   // });
-  state.content = html;
+  state.content = raw(html);
   emitter.on("show info", () => {
     state.dialog = true;
     emitter.emit("render");

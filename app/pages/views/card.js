@@ -9,7 +9,7 @@ background-color: #bbb;
 border-radius: 3px;
 box-shadow: 4px 4px 10px black;
 overflow: hidden;
-max-width: ${ 500 }px;
+max-width: ${ 300 }px;
 img {
   width: 100%;
 }
@@ -23,7 +23,7 @@ background-color: #bbb;
 border: 2px outset #eee;
 box-shadow: 4px 4px 0 black;
 overflow: hidden;
-max-width: ${ 500 }px;
+max-width: ${ 300 }px;
 
 .content {
   margin: 0 2px;

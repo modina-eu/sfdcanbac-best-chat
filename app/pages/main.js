@@ -1,5 +1,6 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
+
 import menu from "./views/menu.js";
 import card from "./views/card.js";
 import dialog from "./views/dialog.js";
@@ -19,6 +20,9 @@ width: 100%;
   align-items: center;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.columns {
+  display: flex;
 }
 .hide {
   display: none;
@@ -46,16 +50,20 @@ export default function(state, emit) {
         <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
           ${ dialog(state, emit) }
         </div>
-        <div>
-          ${ state.history.length > 0 ? html`
-            <span onclick=${ () => backClick() }>
-              Back
-            </span>`
-             : html``
-          }
+        <div class="columns">
+          <div>
+            ${ state.content }
+          </div>
+          <div>
+            ${ state.history.length > 0 ? html`
+              <span onclick=${ () => backClick() }>
+                Back
+              </span>`
+               : html``
+            }
+            ${ currentCard }
+          </div>
         </div>
-        ${ state.content }
-        ${ currentCard }
       </div>
     </>
   `;
