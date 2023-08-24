@@ -35,6 +35,10 @@ width: 100%;
     background-color: lightblue;
   }
 }
+.deck {
+  position: relative;
+  width: 300px;
+}
 `;
 
 // export module
@@ -56,7 +60,12 @@ export default function(state, emit) {
     currentCard = "loading";
   }
   else {
-    currentCard = card(state, emit, state.currentData);
+    let i = 0;
+    currentCard = [...state.history, state.currentData].slice(-3).map(e => html`
+    <div style="position:absolute;left:${i*3}px;top:${i*10}px;z-index:${i++}">
+    ${ card(state, emit, e) }
+    </div>
+    `);
   }
   
   return html`
@@ -70,8 +79,8 @@ export default function(state, emit) {
           <div class="md-content">
             ${ state.content }
           </div>
-          <div>
-            ${ false && state.history.length > 0 ? html`
+          <div class="deck">
+            ${ state.history.length > 0 ? html`
               <span onclick=${ () => backClick() }>
                 Back
               </span>`

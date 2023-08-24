@@ -13,7 +13,7 @@ export default (state, emitter) => {
     emitter.emit("render");
   });
   
-  emitter.on("DOMContentLoaded", () => {
+  const findCard = () => {
     const { name } = state.params;
     const keys = Object.keys(state.airtableData);
     const id = keys.find(key => state.airtableData[key].name == name);
@@ -22,18 +22,16 @@ export default (state, emitter) => {
       state.history.push(state.currentData);
       state.currentData = state.airtableData[id];
       emitter.emit("render");
+    }
+  }
+  
+  emitter.on("airtable loaded", () => {
+    if (state.params.name) {
+      findCard();
     }
   })
   emitter.on("navigate", () => {
-    const { name } = state.params;
-    const keys = Object.keys(state.airtableData);
-    const id = keys.find(key => state.airtableData[key].name == name);
-    console.log(id)
-    if (id !== undefined) {
-      state.history.push(state.currentData);
-      state.currentData = state.airtableData[id];
-      emitter.emit("render");
-    }
+    findCard();
   })
   
   state.theme = "paper";
