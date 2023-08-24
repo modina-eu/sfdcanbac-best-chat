@@ -24,6 +24,7 @@ function notFound() {
 import mainView from "./pages/main.js";
 
 app.route("/", mainView);
+app.route("/card/:name", mainView);
 
 // start app
 app.mount("#choomount");

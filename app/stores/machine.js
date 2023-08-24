@@ -3,11 +3,6 @@ import {html} from "../content.md";
 
 export default (state, emitter) => {
   state.dialog = false;
-  // fetch(content)
-  //   .then(response => response.text())
-  //   .then(text => {
-  //   state.content = text
-  // });
   state.content = raw(html);
   emitter.on("show info", () => {
     state.dialog = true;
@@ -17,6 +12,18 @@ export default (state, emitter) => {
     state.dialog = false;
     emitter.emit("render");
   });
+  
+  emitter.on("navigate", () => {
+    console.log(state.params)
+    const { name } = state.params;
+    const keys = Object.keys(state.airtableData);
+    const id = keys.find(key => state.airtableData[key].name == name);
+    console.log(id)
+    if (id !== undefined) {
+      state.currentData = state.airtableData[id];
+      emitter.emit("render");
+    }
+  })
   
   state.theme = "paper";
   
