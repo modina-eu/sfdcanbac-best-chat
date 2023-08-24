@@ -54,6 +54,7 @@ export default function(state, emit) {
              : html``
           }
         </div>
+        ${ state.content }
         ${ currentCard }
       </div>
     </>

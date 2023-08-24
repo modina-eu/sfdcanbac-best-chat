@@ -5,6 +5,7 @@ import { defineConfig } from "vite";
 export default defineConfig(async ({ command, mode }) => {
   return {
     root: 'app',
+    assetsInclude: ['**/*.md'],
     build: {
       cssCodeSplit: false,
       outDir: "../build",

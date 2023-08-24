@@ -169,6 +169,7 @@ width: 100%;
               Back
             </span>`:ie``}
         </div>
+        ${statcontent}
         ${e}
       </div>
     </>
