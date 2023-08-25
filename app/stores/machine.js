@@ -1,9 +1,22 @@
 import raw from "choo/html/raw";
-import {html} from "../content.md";
+import html from "choo/html";
+import { html as htmlContent } from "../content.md";
 
 export default (state, emitter) => {
   state.dialog = false;
-  state.content = raw(html);
+  const doms = raw(htmlContent);
+  const divs = [];
+  let first = true;
+  for (const dom of doms) {
+    if (first || dom.nodeName == "H2") {
+      divs.push(html`<div class="md-block"></div>`);
+      first = false;
+    }
+    divs[divs.length - 1].appendChild(dom);
+  }
+  console.log(divs)
+  state.content = divs;
+
   emitter.on("show info", () => {
     state.dialog = true;
     emitter.emit("render");

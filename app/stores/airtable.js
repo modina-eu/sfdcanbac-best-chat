@@ -20,7 +20,7 @@ export default (state, emitter) => {
     },
     // done
     () => {
-      console.log(state.airtableData);
+      // console.log(state.airtableData);
       emitter.emit("airtable loaded");
     }
   );
