@@ -1,6 +1,10 @@
 Do you want to make cards?
 --------
 
+If yes: you are on the right page!
+
+If not: why not? Although this project's focus is to collect ideas and make your own cards, you can also make a photobook, postcards, etc. The goal is to collect your memories, to write about them and to print them out. Excited? Let's proceed⏬
+
 
 I know some of you use social media to keep images
 --------
