@@ -22,8 +22,10 @@ function notFound() {
 
 // import a template
 import mainView from "./pages/main.js";
+import listView from "./pages/list.js";
 
 app.route("/", mainView);
+app.route("/list", listView);
 app.route("/card/:name", mainView);
 
 // start app
