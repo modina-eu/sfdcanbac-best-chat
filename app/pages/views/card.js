@@ -6,7 +6,7 @@ position: relative;
 z-index: 10;
 margin: 5px;
 padding: 5px;
-background-color: #bbb;
+background-color: ivory;
 border-radius: 3px;
 box-shadow: 4px 4px 10px black;
 overflow: hidden;

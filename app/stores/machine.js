@@ -48,7 +48,7 @@ export default (state, emitter) => {
     emitter.emit("render");
   })
   
-  state.theme = "paper";
+  state.theme = "windows";//"paper";
   
   emitter.on("set theme", ({ theme }) => {
     state.theme = theme;
