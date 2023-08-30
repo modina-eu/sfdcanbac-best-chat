@@ -2,6 +2,7 @@ import html from "choo/html";
 import { css } from "@emotion/css";
 
 const paperCss = css`
+position: relative;
 z-index: 10;
 margin: 5px;
 padding: 5px;
@@ -9,13 +10,21 @@ background-color: #bbb;
 border-radius: 3px;
 box-shadow: 4px 4px 10px black;
 overflow: hidden;
-max-width: ${ 300 }px;
+width: ${ 300 }px;
+height: 400px;
 img {
   width: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2; //todo
+}
+.links {
+  position: absolute;
+  bottom: 4px;
 }
 `
 
 const windowsCss = css`
+position: relative;
 z-index: 10;
 margin: 5px;
 padding: 5px;
@@ -23,7 +32,8 @@ background-color: #bbb;
 border: 2px outset #eee;
 box-shadow: 4px 4px 0 black;
 overflow: hidden;
-max-width: ${ 300 }px;
+width: ${ 300 }px;
+height: 400px;
 
 .content {
   margin: 0 2px;
@@ -65,6 +75,12 @@ button {
 }
 img {
   width: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2; //todo
+}
+.links {
+  position: absolute;
+  bottom: 4px;
 }
 `;
 
@@ -99,7 +115,7 @@ export default function(state, emit, item) {
         <div>
           ${ item.notes }
         </div>
-        <div>
+        <div class="links">
           ${ links }
         </div>
       </div>
