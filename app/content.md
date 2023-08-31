@@ -28,3 +28,12 @@ hi
 For whom?
 Friend? Mom?
 
+
+not every card has to be dramatic
+
+walk around and find what is interesting
+
+what did you eat?
+
+what makes you happy? what are your concerns?
+
