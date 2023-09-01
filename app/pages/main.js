@@ -36,7 +36,7 @@ width: 100%;
   }
 }
 .md-block {
-  min-height: 100vh;
+  // min-height: 100vh;
 }
 .deck {
   position: relative;

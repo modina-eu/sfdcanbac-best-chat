@@ -12,9 +12,11 @@ export default (state, emitter) => {
     // every
     (r) => {
       for (const el of r) {
-        state.airtableData[el.id] = el;
-        if (state.currentData === undefined) {
-          state.currentData = el;
+        if (el.enabled) {
+          state.airtableData[el.id] = el;
+          if (state.currentData === undefined) {
+            state.currentData = el;
+          }
         }
       }
     },
