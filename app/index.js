@@ -29,6 +29,7 @@ import listView from "./pages/list.js";
 app.route("/", mainView);
 app.route("/list", listView);
 app.route("/card/:name", mainView);
+app.route("/doc/:key", mainView);
 
 // start app
 app.mount("#choomount");
