@@ -29,9 +29,10 @@ export default (state, emitter) => {
   const findCard = () => {
     const { name } = state.params;
     const keys = Object.keys(state.airtableData);
-    const id = keys.find(key => state.airtableData[key].name == name);
-    console.log(id)
-    if (id !== undefined) {
+    const ids = keys.filter(key => state.airtableData[key].name == name);
+    console.log(ids)
+    if (ids.length > 0) {
+      const id = ids[Math.floor(Math.random() * ids.length)];
       state.history.push(state.currentData);
       state.currentData = state.airtableData[id];
     }
