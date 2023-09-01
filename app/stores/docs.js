@@ -29,11 +29,15 @@ export default (state, emitter) => {
     state.docs[key] = divs;
   }
   
-  emitter.on("navigate", () => {
+  function parseParams() {
+    console.log(state.params)
     const { key } = state.params;
     if (key !== undefined && state.docs[key] !== undefined) {
       state.currentDoc = key;
     }
     emitter.emit("render");
-  })
+  }
+
+  emitter.on("DOMContentLoaded", parseParams);
+  emitter.on("navigate", parseParams);
 }

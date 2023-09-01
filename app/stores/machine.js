@@ -13,28 +13,23 @@ export default (state, emitter) => {
     emitter.emit("render");
   });
   
-  const findCard = () => {
+  function parseParams() {
     const { name } = state.params;
-    const keys = Object.keys(state.airtableData);
-    const ids = keys.filter(key => state.airtableData[key].name == name);
-    console.log(ids)
-    if (ids.length > 0) {
-      const id = ids[Math.floor(Math.random() * ids.length)];
-      state.history.push(state.currentData);
-      state.currentData = state.airtableData[id];
+    if (name !== undefined) {
+      const keys = Object.keys(state.airtableData);
+      const ids = keys.filter(key => state.airtableData[key].name == name);
+      if (ids.length > 0) {
+        const id = ids[Math.floor(Math.random() * ids.length)];
+        state.history.push(state.currentData);
+        state.currentData = state.airtableData[id];
+      }
     }
+    emitter.emit("render");
   }
-  
-  emitter.on("airtable loaded", () => {
-    if (state.params.name) {
-      findCard();
-    }
-    emitter.emit("render");
-  });
-  emitter.on("navigate", () => {
-    findCard();
-    emitter.emit("render");
-  });
+
+  // emitter.on("DOMContentLoaded", parseParams);
+  emitter.on("airtable loaded", parseParams);
+  emitter.on("navigate", parseParams);
   
   state.theme = "windows";//"paper";
   
