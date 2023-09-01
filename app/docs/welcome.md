@@ -12,4 +12,6 @@ This edition, 24-Hour Heartbreak Deck, is made between August 29 and 30, 2023, t
 
 Let's [start](#doc/start)
 
+[[start]]
+
 [Autism](#card/Autism)

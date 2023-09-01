@@ -64,12 +64,6 @@ export default function(state, emit) {
         <div class="columns">
           ${ doc(state, emit) }
           <div class="deck">
-            ${ state.history.length > 0 ? html`
-              <span onclick=${ () => backClick() }>
-                Back
-              </span>`
-               : html``
-            }
             ${ currentCard }
           </div>
         </div>
@@ -89,7 +83,13 @@ export default function(state, emit) {
     }
   }
 
-  function backClick() {
-    emit("back");
-  }
+  //           ${ state.history.length > 0 ? html`
+  //             <span onclick=${ () => backClick() }>
+  //               Back
+  //             </span>`
+  //              : html``
+  //           }
+  // function backClick() {
+  //   emit("back");
+  // }
 }
