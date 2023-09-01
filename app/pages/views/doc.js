@@ -5,6 +5,9 @@ const mainCss = css`
 h2 {
   background-color: lightblue;
 }
+img {
+  width: 400px;
+}
 `;
 
 // export module

@@ -45,22 +45,18 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  let currentCard = "";
+  let content;
   if (state.currentData === undefined) {
-    currentCard = "loading";
+    content = "loading";
   }
   else {
+    let currentCard = "";
     let i = 0;
-    currentCard = [...state.history, state.currentData].slice(-3).map(e => html`
-    <div style="position:absolute;left:${i*3}px;top:${i*10}px;z-index:${i++}">
+    currentCard = [...state.history, state.currentData].slice(-3).reverse().map(e => html`
     ${ card(state, emit, e) }
-    </div>
     `);
-  }
-  
-  return html`
-    <div class=${ mainCss }>
-      ${ menu(state, emit) }
+    
+    content = html`
       <div class="container">
         <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
           ${ dialog(state, emit) }
@@ -78,6 +74,13 @@ export default function(state, emit) {
           </div>
         </div>
       </div>
+    `;
+  }
+  
+  return html`
+    <div class=${ mainCss }>
+      ${ menu(state, emit) }
+      ${ content }
     </>
   `;
   function dialogBgClick(e) {

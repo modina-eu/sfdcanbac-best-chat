@@ -30,7 +30,7 @@ export default (state, emitter) => {
   }
   
   function parseParams() {
-    console.log(state.params)
+    console.log(state.params, state.currentDoc)
     const { key } = state.params;
     if (key !== undefined && state.docs[key] !== undefined) {
       state.currentDoc = key;
@@ -40,4 +40,5 @@ export default (state, emitter) => {
 
   emitter.on("DOMContentLoaded", parseParams);
   emitter.on("navigate", parseParams);
+  emitter.on("popState", parseParams);
 }
