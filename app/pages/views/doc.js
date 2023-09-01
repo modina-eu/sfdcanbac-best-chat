@@ -9,10 +9,10 @@ h2 {
 
 // export module
 export default function(state, emit) {
-  const content = 
+  const content = state.docs[state.currentDoc];
   return html`
     <div class=${ mainCss }>
-      ${ state.content }
+      ${ content }
     </>
   `;
 }

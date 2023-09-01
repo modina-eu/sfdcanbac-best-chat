@@ -8,6 +8,6 @@ I started making my own collectible cards in 2022. Growing up with Pokemon Cards
 
 This edition, 24-Hour Heartbreak Deck, is made between August 29 and 30, 2023, this time having a journal in mind rather than a biography. My focus was about self-reflection, but you can use this process to compile memories from your vacation, a process of your latest dance performance, ...
 
-
+Let's [start](#doc/start)
 
 [Autism](#card/Autism)

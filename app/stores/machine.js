@@ -30,18 +30,18 @@ export default (state, emitter) => {
       findCard();
     }
     emitter.emit("render");
-  })
+  });
   emitter.on("navigate", () => {
     findCard();
     emitter.emit("render");
-  })
+  });
   
   state.theme = "windows";//"paper";
   
   emitter.on("set theme", ({ theme }) => {
     state.theme = theme;
     emitter.emit("render");
-  })
+  });
   
   state.history = [];
   

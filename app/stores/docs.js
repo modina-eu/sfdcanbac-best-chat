@@ -11,7 +11,8 @@ export default (state, emitter) => {
   }
   const keys = Object.keys(docs);
   
-  state.content = {};
+  state.docs = {};
+  state.currentDoc = "welcome";
   
   for (const key of keys) {
     const doms = raw(docs[key]);
@@ -25,6 +26,14 @@ export default (state, emitter) => {
       divs[divs.length - 1].appendChild(dom);
     }
     console.log(divs)
-    state.content[key] = divs;
+    state.docs[key] = divs;
   }
+  
+  emitter.on("navigate", () => {
+    const { key } = state.params;
+    if (key !== undefined && state.docs[key] !== undefined) {
+      state.currentDoc = key;
+    }
+    emitter.emit("render");
+  })
 }

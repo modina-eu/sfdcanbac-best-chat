@@ -31,11 +31,6 @@ width: 100%;
 .pointer {
   cursor: pointer;
 }
-.md-content {
-  h2 {
-    background-color: lightblue;
-  }
-}
 .md-block {
   // min-height: 100vh;
 }
