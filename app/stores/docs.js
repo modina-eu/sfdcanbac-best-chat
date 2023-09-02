@@ -12,7 +12,8 @@ export default (state, emitter) => {
     welcome,
     start,
     airtable,
-    photos
+    photos,
+    texts,
   }
   const keys = Object.keys(docs);
   
