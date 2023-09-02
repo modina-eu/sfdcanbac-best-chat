@@ -3,11 +3,13 @@ import html from "choo/html";
 
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
+import { html as airtable } from "../docs/airtable.md";
 
 export default (state, emitter) => {
   const docs = {
     welcome,
     start,
+    airtable,
   }
   const keys = Object.keys(docs);
   
