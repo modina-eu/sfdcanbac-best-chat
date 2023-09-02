@@ -4,12 +4,15 @@ import html from "choo/html";
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
 import { html as airtable } from "../docs/airtable.md";
+import { html as photos } from "../docs/photos.md";
+import { html as texts } from "../docs/texts.md";
 
 export default (state, emitter) => {
   const docs = {
     welcome,
     start,
     airtable,
+    photos
   }
   const keys = Object.keys(docs);
   
