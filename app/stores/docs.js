@@ -22,17 +22,18 @@ export default (state, emitter) => {
   
   for (const key of keys) {
     const doms = raw(docs[key]);
-    const divs = [];
-    let first = true;
-    for (const dom of doms) {
-      if (first || dom.nodeName == "H2") {
-        divs.push(html`<div class="md-block"></div>`);
-        first = false;
-      }
-      divs[divs.length - 1].appendChild(dom);
-    }
-    console.log(divs)
-    state.docs[key] = divs;
+    // const divs = [];
+    // let first = true;
+    // for (const dom of doms) {
+    //   if (first || dom.nodeName == "H2") {
+    //     divs.push(html`<div class="md-block"></div>`);
+    //     first = false;
+    //   }
+    //   divs[divs.length - 1].appendChild(dom);
+    // }
+    // console.log(divs)
+    // state.docs[key] = divs;
+    state.docs[key] = doms;
   }
   
   function parseParams() {

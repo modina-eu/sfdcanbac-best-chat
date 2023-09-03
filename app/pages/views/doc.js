@@ -14,7 +14,7 @@ img {
 export default function(state, emit) {
   const content = state.docs[state.currentDoc];
   return html`
-    <div class=${ mainCss }>
+    <div class=${ mainCss } id="md-${ state.currentDoc }">
       ${ content }
     </>
   `;

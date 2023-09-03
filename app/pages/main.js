@@ -50,6 +50,9 @@ export default function(state, emit) {
   if (key !== undefined && state.docs[key] !== undefined) {
     state.currentDoc = key;
   }
+  else {
+    state.currentDoc = "welcome";
+  }
   
   let content;
   if (state.currentData === undefined) {
