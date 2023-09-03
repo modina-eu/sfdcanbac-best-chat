@@ -9,3 +9,11 @@ Airtable has Bases and Workspaces. A Base is like a project: for example, inspir
 
 Inside a Base, there are Tables. They are like spreadsheets, but let's stick to the default Table 1. Inside a Table, there are Views. Having 2 Views can be handy; a Grid view to see the overview of the records, and a Gallery view to present them like cards.
 
+First, let's add an "attachment" field, where you can upload images (and any kind of files). In the table view, at the top right, there is a plus sign next to "Status". Click on the plus sign, select "attachment" and press "Create field".
+
+![gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-attachments.png?v=1693751898749)
+
+To add a gallery view, find "Create..." menu at the bottom left and click on the plus sign next to "Gallery". Leave the default name and press "Create new view". 
+
+![gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-gallery.png?v=1693751898749)
+
