@@ -36,12 +36,12 @@ export default (state, emitter) => {
   }
   
   function parseParams() {
-    console.log(state.params, state.currentDoc)
-    const { key } = state.params;
-    if (key !== undefined && state.docs[key] !== undefined) {
-      state.currentDoc = key;
-    }
-    emitter.emit("render");
+    // console.log(state.params, state.currentDoc)
+    // const { key } = state.params;
+    // if (key !== undefined && state.docs[key] !== undefined) {
+    //   state.currentDoc = key;
+    // }
+    // emitter.emit("render");
   }
 
   emitter.on("DOMContentLoaded", parseParams);

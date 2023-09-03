@@ -29,7 +29,7 @@ export default (state, emitter) => {
 
   // emitter.on("DOMContentLoaded", parseParams);
   emitter.on("airtable loaded", parseParams);
-  emitter.on("navigate", parseParams);
+  // emitter.on("navigate", parseParams);
   
   state.theme = "windows";//"paper";
   

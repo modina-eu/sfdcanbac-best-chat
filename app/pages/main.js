@@ -45,6 +45,12 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
+  console.log("main", state.params)
+  const { key } = state.params;
+  if (key !== undefined && state.docs[key] !== undefined) {
+    state.currentDoc = key;
+  }
+  
   let content;
   if (state.currentData === undefined) {
     content = "loading";
