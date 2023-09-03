@@ -8,7 +8,7 @@
 <p><a href="#card/Autism">Autism</a></p>
 `,Bn=`<h2>Where to start</h2>
 <p>I use <a href="https://airtable.com/">Airtable</a> to organize data. It's like a spreadsheet but with more features, like adding images. It comes with a mobile app, so you can easily upload photos from your phone and edit texts anywhere. Here are more <a href="#doc/airtable">technical details</a>.</p>
-<p>We start with setting the main topic. If you don't have one yet, don't worry, you can start with something trivial and change the topic as you design the cards. It can be about what you have on your desk or in your bag. What is important (to me) is not to miss small clues. The cozy restaurant you found on the road,</p>
+<p>We start with setting the main topic. If you don't have one yet, don't worry, you can start with something trivial and change the topic as you design the cards. It can be about what you have on your desk or in your bag or what you are wearing on your skin or under your skin. What is important (to me) is not to miss small clues. The cozy restaurant you found on the road, the movie you watched the night before the rehearsal, ... they are everywhere.</p>
 <p><a href="#doc/photos">Starting from photos</a></p>
 <p><a href="#doc/texts">Starting from texts</a></p>
 `,Vn=`<h2>How to setup Airtable</h2>
