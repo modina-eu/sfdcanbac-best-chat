@@ -7,9 +7,11 @@ You might have an album on the phone or a folder of random images collected from
 
 Great :sparkles:
 
-By the way, you don't have to curate the "best" photos. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have some blurry photos or screenshot of Google maps; if you find them 
+By the way, you don't have to curate the "best" photos of your trip or the production. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have a blurry photo or a screenshot of Google Maps; if you find them somehow intriguing, let's add these images, too.
 
-Now we come up with 
+Because I order printed cards on meinspiel.de, I aim for 55 cards in the end. But I would start with about 10 cards until I am clear about the theme and the direction of the deck.
+
+Now, we come up with names (titles) and texts. A name can be a word, a few words,
 
 You can also check out [starting from texts](#doc/texts)
 
