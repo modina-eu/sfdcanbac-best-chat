@@ -10,4 +10,4 @@ From here, you can decide to start from photos or from the texts. However, they 
 
 You might have an album on the phone or a folder of random images collected from the Internet on your laptop. Then let's [start from photos](#doc/photos) :camera:
 
-If you have some keywords in your notebook, let's [start from texts](#doc/texts)
+If you have some keywords in your notebook, or if you want to follow a certain naming convention (e.g., tarot), let's [start from texts](#doc/texts) :pen:
