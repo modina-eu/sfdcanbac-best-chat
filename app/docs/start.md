@@ -1,5 +1,5 @@
 Where to start
---------
+========
 
 I use [Airtable :arrow_upper_right:](https://airtable.com/) to organize data. It's like a spreadsheet but with more features, like adding images. It comes with a mobile app, so you can easily upload photos from your phone and edit texts anywhere. Here are the [steps to set up Airtable](#doc/airtable).
 
