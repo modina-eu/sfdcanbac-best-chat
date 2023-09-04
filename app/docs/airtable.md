@@ -1,7 +1,9 @@
 How to setup Airtable
 --------
 
-First, if you haven't made an account on Airtable, please sign up with your email. (If you want to support this project, you can [sign up with my invite code](https://airtable.com/invite/r/vt3Outyp). Thanks!)
+First, if you haven't made an account on Airtable, please sign up with your email. (If you want to support this project, you can [sign up with my invite code :arrow_upper_right:](https://airtable.com/invite/r/vt3Outyp). Thanks!)
+
+![diagram](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-diagram.png?v=1693822525408)
 
 Airtable has Bases and Workspaces. A Base is like a project: for example, inspirations for a dance performance or memories from a family trip. A Workspace is a space for a team working on various projects, or Bases. It may be a collection of projects from the collective, or a set of family trips. To start, we can keep it simple; we start with a default Workspace and create a new Base.
 
@@ -13,7 +15,7 @@ First, let's add an "attachment" field, where you can upload images (and any kin
 
 ![gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-attachments.png?v=1693751898749)
 
-And I would delete "Assignee" and "Status" as they look too corporate to me lol
+And I would delete "Assignee" and "Status" as they look too corporate to me :rofl:
 
 ![delete](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-delete-field.png?v=1693756236808)
 
@@ -25,3 +27,4 @@ To add a gallery view, find "Create..." menu at the bottom left and click on the
 
 ![gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-gallery.png?v=1693751898749)
 
+Now it's set up! Go [back](#doc/start)

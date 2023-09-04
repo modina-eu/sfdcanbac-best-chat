@@ -23,7 +23,7 @@ flex: 1 1 auto;
 
 // export module
 export default function(state, emit) {
-  const name = "Me Cards";
+  const name = "Heartbreak Cards";
   return html`
     <div class=${ mainCss }>
       <div class="">

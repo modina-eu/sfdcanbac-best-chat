@@ -14,6 +14,14 @@ img.emoji {
    margin: 0 .05em 0 .1em;
    vertical-align: -0.1em;
 }
+a {
+  color: black;
+  font-weight: bold;
+}
+a:hover {
+  color: white;
+  background-color: black;
+}
 `;
 
 // export module
