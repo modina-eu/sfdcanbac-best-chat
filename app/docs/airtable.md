@@ -27,4 +27,4 @@ To add a gallery view, find "Create..." menu at the bottom left and click on the
 
 ![gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-gallery.png?v=1693751898749)
 
-Now it's set up! Go [back](#doc/start)
+Now it's set up! Go [back](#doc/start) and let's continue our journey :surfer:

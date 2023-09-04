@@ -5,7 +5,7 @@
 <p>Let's <a href="#doc/start">start</a> 🚀</p>
 <p><img src="https://img.glitches.me/images/2023/07/26/cards_sq.jpg" alt="cards"></p>
 `,Vn=`<h2>Where to start</h2>
-<p>I use <a href="https://airtable.com/">Airtable ↗️</a> to organize data. It's like a spreadsheet but with more features, like adding images. It comes with a mobile app, so you can easily upload photos from your phone and edit texts anywhere. Here are the <a href="#doc/airtable">steps to set up Airtable (for free!)</a>.</p>
+<p>I use <a href="https://airtable.com/">Airtable ↗️</a> to organize data. It's like a spreadsheet but with more features, like adding images. It comes with a mobile app, so you can easily upload photos from your phone and edit texts anywhere. Here are the <a href="#doc/airtable">steps to set up Airtable</a>.</p>
 <p>We start with setting the main topic. If you don't have one yet, don't worry, you can start with something trivial and change the topic as you design the cards. It can be about what you have on your desk or in your bag or what you are wearing on your skin or under your skin. What is important (to me) is not to miss small clues. The cozy restaurant you found on the road, the movie you watched the night before the rehearsal, ... they are everywhere.</p>
 <p>From here, you can decide to start from photos or from the texts. However, they are just entry points, and you might want to switch back and forth as you create more cards.</p>
 <p><a href="#doc/photos">Starting from photos</a></p>
@@ -24,7 +24,7 @@
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-link.png?v=1693756235452" alt="link"></p>
 <p>To add a gallery view, find &quot;Create...&quot; menu at the bottom left and click on the plus sign next to &quot;Gallery&quot;. Leave the default name and press &quot;Create new view&quot;.</p>
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-add-gallery.png?v=1693751898749" alt="gallery"></p>
-<p>Now it's set up! Go <a href="#doc/start">back</a></p>
+<p>Now it's set up! Go <a href="#doc/start">back</a> and let's continue our journey 🏄</p>
 `,zn=`<h1>Starting from photos</h1>
 <p>You might have an album on the phone or a folder of random images collected from the Internet on your laptop. Whether on the mobile app of Airtable or the web browser, you can start to upload photos in the &quot;attachment&quot; field (on the computer, you can even drag and drop multiple images, but on the phone you have to be a bit more patient to create a new record and upload an image. Another note is that mobile upload often fails when you close the app before the upload is finished, so you have to be, again, patient).</p>
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-photos.png?v=1693756744806" alt="starting"></p>
