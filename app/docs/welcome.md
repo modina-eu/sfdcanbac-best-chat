@@ -11,3 +11,9 @@ This edition, 24-Hour Heartbreak Deck, is made between August 29 and 30, 2023, t
 Let's [start](#doc/start) :rocket:
 
 ![cards](https://img.glitches.me/images/2023/07/26/cards_sq.jpg)
+
+
+Acknowledgement
+--------
+
+This project is realized in the frame of Re-Coding Everyday Technology by the working group for unusual in- and output media / Hochschule Mainz. The original project is initiated as part of #TakeHeart residency, and I'd like to thank everyone who gave me valuable feedback.

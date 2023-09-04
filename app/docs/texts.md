@@ -1,7 +1,6 @@
 Starting from texts
 ========
 
-If you 
 
 
 

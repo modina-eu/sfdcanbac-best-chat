@@ -8,6 +8,6 @@ We start with setting the main topic. If you don't have one yet, don't worry, yo
 
 From here, you can decide to start from photos or from the texts. However, they are just entry points, and you might want to switch back and forth as you create more cards.
 
-[Starting from photos](#doc/photos)
+You might have an album on the phone or a folder of random images collected from the Internet on your laptop. Then let's [start from photos](#doc/photos) :camera:
 
-[Starting from texts](#doc/texts)
+If you have some keywords from your notebook, let's [start from texts](#doc/texts)

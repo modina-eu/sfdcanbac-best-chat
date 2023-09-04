@@ -1,7 +1,7 @@
 Starting from photos
 ========
 
-You might have an album on the phone or a folder of random images collected from the Internet on your laptop. Whether on the mobile app of Airtable or the web browser, you can start to upload photos in the "attachment" field (on the computer, you can even drag and drop multiple images, but on the phone you have to be a bit more patient to create a new record and upload an image. Another note is that mobile upload often fails when you close the app before the upload is finished, so you have to be, again, patient).
+Whether on the mobile app of Airtable or the web browser, you can start to upload photos in the "attachment" field (on the computer, you can even drag and drop multiple images, but on the phone you have to be a bit more patient to create a new record and upload an image. Another note is that mobile upload often fails when you close the app before the upload is finished, so you have to be, again, patient).
 
 ![starting](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-photos.png?v=1693756744806)
 
@@ -13,8 +13,10 @@ Because I order printed cards on meinspiel.de, I aim for 55 cards in the end, wh
 
 Now, we come up with names (titles) and texts. A name can be a word to a few words. It can be a sentence too, but I would keep it short to fit in the frame. It can be a number or in any language (I never experimented with right-to-left languages, though). A text can be a description of the image. In Magic: the Gathering, these texts are called *flavor text* because it doesn't affect the rulebook and is purely for telling the background story (if you want inspirations, searching for flavor text is a great starting point) :ice_cream:
 
-I know, writing texts can be hard. But again, you don't need masterpiece poetry for each card. What were you thinking about, looking at the scenery in the picture? Where and why did you buy that object? 
+I know, writing texts can be hard. But again, you don't need masterpiece poetry for each card. Who were you with and what were you talking about, looking at the scenery in the picture? Where, when and why did you buy that object in the photo? Would you take the photo in the same angle if you were in the same place a decade ago, or a decade later?
 
-You can also check out [starting from texts](#doc/texts)
+You can always leave some fields empty if you find it difficult to write. As you make more cards, you will probably come up with ideas later.
+
+You can also check out [starting from texts](#doc/texts).
 
 Then, lets [link](#doc/links) the records :chains:
