@@ -72,9 +72,6 @@ export default function(state, emit) {
         </div>
         <div class="columns">
           ${ doc(state, emit) }
-          <div class="deck">
-            ${ currentCard }
-          </div>
         </div>
       </div>
     `;

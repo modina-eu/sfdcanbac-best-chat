@@ -7,7 +7,7 @@ Let's start by typing names (or titles) and texts in Airtable. A name can be a w
 
 Writing texts of the cards takes time, but it helps you understand what you really mean by the name especially when the card is about something intangible. For example, if the name of the card is "texture", is it about image, food, or both? If one card has several stories to tell, you can also make two cards with the same name and split the text.
 
-I recommend you to install Airtable app on your phone so whenever you come up with an idea, you can type it in, for example, while you're traveling on a train. But unfortunately not on the plane because the app requires Internet connection. In that case, I would type them in a note app and copy them later :airplane:
+> I recommend you to install Airtable app on your phone so whenever you come up with an idea, you can type it in, for example, while you're traveling on a train. But unfortunately not on the plane because the app requires Internet connection. In that case, I would type them in a note app and copy them later :airplane:
 
 ![text records](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-text-records.png?v=1693831790160)
 
