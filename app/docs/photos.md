@@ -19,4 +19,4 @@ You can always leave some fields empty if you find it difficult to write. As you
 
 You can also check out [starting from texts](#doc/texts).
 
-Then, lets [link](#doc/links) the records :chains:
+When you have, say 10 to 20 cards, lets start [linking](#doc/links) the cards :chains:
