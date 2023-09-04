@@ -8,6 +8,12 @@ h2 {
 img {
   width: 400px;
 }
+img.emoji {
+   height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}
 `;
 
 // export module

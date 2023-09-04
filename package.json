@@ -13,7 +13,8 @@
     "hydra-synth": "hydra-synth/hydra-synth#feature-vite",
     "airtable": "^0.12.2",
     "markdown-it": "^13.0.1",
-    "markdown-it-emoji": "^2.0.2"
+    "markdown-it-emoji": "^2.0.2",
+    "@discordapp/twemoji": "^14.1.2"
   },
   "devDependencies": {
     "vite": "^4.3.8",
