@@ -22,6 +22,12 @@ a:hover {
   color: white;
   background-color: black;
 }
+blockquote {
+  margin: 0;
+  padding-left: 10px;
+  border-left: solid 5px lightgrey;
+  // font-style: italic;
+}
 `;
 
 // export module

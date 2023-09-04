@@ -230,6 +230,12 @@ a:hover {
   color: white;
   background-color: black;
 }
+blockquote {
+  margin: 0;
+  padding-left: 10px;
+  border-left: solid 5px lightgrey;
+  //font-style: italic;
+}
 `;function Hu(e,r){const t=e.docs[e.currentDoc];return ee`
     <div class=${Vu} id="md-${e.currentDoc}">
       ${t}
