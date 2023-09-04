@@ -5,7 +5,12 @@ You might have an album on the phone or a folder of random images collected from
 
 ![starting](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-photos.png?v=1693756744806)
 
-Great!
+Great :sparkles:
 
+By the way, you don't have to curate the "best" photos. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have some blurry photos or screenshot of Google maps; if you find them 
+
+Now we come up with 
 
 You can also check out [starting from texts](#doc/texts)
+
+Then, lets [link](#doc/links) the records :chains:
