@@ -128,6 +128,7 @@ box-shadow: 4px 4px 10px black;
 overflow: hidden;
 width: ${300}px;
 height: 400px;
+
 img {
   width: 100%;
   object-fit: cover;
@@ -137,7 +138,22 @@ img {
   position: absolute;
   bottom: 4px;
 }
+.text {
+  font-size: 0.8em;
+}
 `,Ha=he`
+animation: turnIn 1s;
+@keyframes turnIn {
+  0% {
+    opacity: 0;
+    transform: rotate3d(0, 1, 0, 180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
 font-family: "Roboto", arial, sans-serif;
 position: relative;
 z-index: 10;
@@ -145,7 +161,7 @@ margin: 5px;
 padding: 5px;
 background-color: #bbb;
 border: 2px outset #eee;
-box-shadow: 4px 4px 0 black;
+box-shadow: 8px 4px 0 black;
 overflow: hidden;
 width: ${300}px;
 height: 400px;
@@ -162,7 +178,7 @@ height: 400px;
   position: absolute;
   right: 0;
   background-color: #bbb;
-  color: ${"#000"};
+  color: ${"#fff"};
   margin: 2px;
   width: 1em;
   font-size: 0.6em;
@@ -186,7 +202,7 @@ button {
   border: 2px outset #eee;
   margin: auto 1px;
   display: inline;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 img {
   width: 100%;
@@ -196,6 +212,9 @@ img {
 .links {
   position: absolute;
   bottom: 4px;
+}
+.text {
+  font-size: 0.8em;
 }
 `;function lt(e,r,t){function a(f){const h=Object.keys(e.airtableData).filter(g=>e.airtableData[g].name==f);if(h.length>0){const g=h[Math.floor(Math.random()*h.length)];return e.airtableData[g]}}console.log(t);let i;if(e.currentData===void 0)return ue`<div id="empty"></div>`;if(t===void 0){const{name:f}=e.params;i=a(f)}else typeof t=="string"?i=a(t):i=t;const n=[];if(i.links!==void 0)for(const f of i.links)n.push(d(f));let u="";i.image!=""&&(u=ue`
     <div>
@@ -209,7 +228,7 @@ img {
       </div>
       <div class="content">
         ${u}
-        <div>
+        <div class="text">
           ${i.notes}
         </div>
         <div class="links">

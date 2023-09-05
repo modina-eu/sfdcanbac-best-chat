@@ -12,6 +12,7 @@ box-shadow: 4px 4px 10px black;
 overflow: hidden;
 width: ${ 300 }px;
 height: 400px;
+
 img {
   width: 100%;
   object-fit: cover;
@@ -21,9 +22,24 @@ img {
   position: absolute;
   bottom: 4px;
 }
+.text {
+  font-size: 0.8em;
+}
 `
 const active = false;
 const windowsCss = css`
+animation: turnIn 1s;
+@keyframes turnIn {
+  0% {
+    opacity: 0;
+    transform: rotate3d(0, 1, 0, 180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
 font-family: "Roboto", arial, sans-serif;
 position: relative;
 z-index: 10;
@@ -31,7 +47,7 @@ margin: 5px;
 padding: 5px;
 background-color: #bbb;
 border: 2px outset #eee;
-box-shadow: 4px 4px 0 black;
+box-shadow: 8px 4px 0 black;
 overflow: hidden;
 width: ${ 300 }px;
 height: 400px;
@@ -48,7 +64,7 @@ height: 400px;
   position: absolute;
   right: 0;
   background-color: #bbb;
-  color: ${ active !== true ? "#000" : "#fff" };
+  color: ${ active ? "#000" : "#fff" };
   margin: 2px;
   width: 1em;
   font-size: 0.6em;
@@ -72,7 +88,7 @@ button {
   border: 2px outset #eee;
   margin: auto 1px;
   display: inline;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 img {
   width: 100%;
@@ -82,6 +98,9 @@ img {
 .links {
   position: absolute;
   bottom: 4px;
+}
+.text {
+  font-size: 0.8em;
 }
 `;
 
@@ -137,7 +156,7 @@ export default function(state, emit, cardName) {
       </div>
       <div class="content">
         ${ img }
-        <div>
+        <div class="text">
           ${ item.notes }
         </div>
         <div class="links">
