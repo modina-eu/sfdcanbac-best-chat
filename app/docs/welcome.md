@@ -1,4 +1,4 @@
-How I made 24-Hour Heartbreak Cards
+:fountain_pen: How I made 24-Hour Heartbreak Cards :yarn:
 ========
 
 %%24 Hour Deck%%
@@ -11,6 +11,8 @@ I ([Naoto:arrow_upper_right:](https://naotohieda.com)) started making my own col
 This edition, 24-Hour Heartbreak Deck, is made between August 29 and 30, 2023, this time having a journal in mind rather than a biography. In my example, the focus was about self-reflection, but you can use this process to compile, for example, memories from your vacation :beach_umbrella: or a process of your latest dance performance :dolls:
 
 Let's [start](#doc/start) :rocket:
+
+Or, do you want to further know the [story](#doc/history) behind the project? :books:
 
 ![cards](https://img.glitches.me/images/2023/07/26/cards_sq.jpg)
 

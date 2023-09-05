@@ -12,10 +12,9 @@ align-items: center;
 align-content: stretch;
 
 h2 {
-  background-color: lightblue;
-  width: 100%;
+  text-decoration: underline lightblue 3px;
 }
-p.not(.image) {
+p:not(.image) {
   width: 100%;
 }
 img {

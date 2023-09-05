@@ -19,6 +19,10 @@ flex: 1 1 auto;
 .pointer {
   cursor: pointer;
 }
+a {
+  color: white;
+  text-decoration: none;
+}
 `;
 
 // export module
@@ -27,10 +31,8 @@ export default function(state, emit) {
   return html`
     <div class=${ mainCss }>
       <div class="">
-        🌐${ name }
+        <a href="/">🌐${ name }</a>
       </div>
-      <div class="pointer" onclick="${toggleTheme}">toggle theme</div>
-      <div class="pointer" onclick="${showInfo}">🔰info</div>
     </div>
   `;
   function toggleTheme(e) {

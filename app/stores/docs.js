@@ -33,9 +33,7 @@ export default (state, emitter) => {
     // let first = true;
     state.docs[key] = doms.map(d => {
       if (d.childNodes[0]?.nodeName == "IMG") {
-      console.log(d.childNodes, d.childNodes[0]?.nodeName == "IMG")
         d.classList.add("image");
-        
       }
       return d;
     });
