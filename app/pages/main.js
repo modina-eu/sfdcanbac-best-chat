@@ -55,15 +55,15 @@ export default function(state, emit) {
   }
   
   let content;
-  if (state.currentData === undefined) {
-    content = "loading";
-  }
-  else {
-    let currentCard = "";
-    let i = 0;
-    currentCard = [...state.history, state.currentData].slice(-3).reverse().map(e => html`
-    ${ card(state, emit, e) }
-    `);
+//   if (state.currentData === undefined) {
+//     content = "loading";
+//   }
+//   else {
+//     let currentCard = "";
+//     let i = 0;
+//     currentCard = [...state.history, state.currentData].slice(-3).reverse().map(e => html`
+//     ${ card(state, emit, e) }
+//     `);
     
     content = html`
       <div class="container">
@@ -75,7 +75,7 @@ export default function(state, emit) {
         </div>
       </div>
     `;
-  }
+  // }
   
   return html`
     <div class=${ mainCss }>
