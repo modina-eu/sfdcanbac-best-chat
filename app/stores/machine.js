@@ -14,7 +14,6 @@ export default (state, emitter) => {
   });
   
   function parseParams() {
-    console.log("oi")
     const { name } = state.params;
     if (name !== undefined) {
       const keys = Object.keys(state.airtableData);
@@ -28,9 +27,16 @@ export default (state, emitter) => {
     emitter.emit("render");
   }
 
-  // emitter.on("DOMContentLoaded", parseParams);
   emitter.on("airtable loaded", parseParams);
-  // emitter.on("navigate", parseParams);
+  emitter.on("navigate", () => {
+    // nooooo
+    setTimeout(() => 
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      }), 100);
+  });
   
   state.theme = "windows";//"paper";
   

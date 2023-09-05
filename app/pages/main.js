@@ -42,15 +42,6 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  // should be in the store
-  const { key } = state.params;
-  if (key !== undefined && state.docs[key] !== undefined) {
-    state.currentDoc = key;
-  }
-  else {
-    state.currentDoc = "welcome";
-  }
-  
   return html`
     <div class=${ mainCss }>
       ${ menu(state, emit) }

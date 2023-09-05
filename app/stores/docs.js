@@ -39,4 +39,19 @@ export default (state, emitter) => {
       return d;
     });
   }
+  
+  function findPage() {
+    const { key } = state.params;
+    if (key !== undefined && state.docs[key] !== undefined) {
+      state.currentDoc = key;
+    }
+    else {
+      state.currentDoc = "welcome";
+    }
+  }
+  
+  emitter.on("navigate", () => {
+    findPage();
+  });
+  findPage();
 }
