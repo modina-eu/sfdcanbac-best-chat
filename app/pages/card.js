@@ -85,19 +85,29 @@ img {
 `;
 
 // export module
-export default function(state, emit, item) {
-  if (item === undefined) {
-    if (state.airtableData === undefined) {
-      return html``;
-    }
-    const { name } = state.params;
+export default function(state, emit, cardName) {
+  function findItem(name) {
     const keys = Object.keys(state.airtableData);
     const ids = keys.filter(key => state.airtableData[key].name == name);
     if (ids.length > 0) {
       const id = ids[Math.floor(Math.random() * ids.length)];
-      state.history.push(state.currentData);
-      item = state.airtableData[id];
+      return state.airtableData[id];
     }
+  }
+
+  let item;
+  if (cardName === undefined) {
+    if (state.currentData === undefined) {
+      return html`<div></div>`;
+    }
+    const { name } = state.params;
+    item = findItem(name);
+  }
+  else if (typeof cardName === "string") {
+    item = findItem(cardName);
+  }
+  else {
+    item = cardName;
   }
   const links = [];
   if (item.links !== undefined) {

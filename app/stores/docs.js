@@ -29,18 +29,25 @@ export default (state, emitter) => {
   
   for (const key of keys) {
     const doms = raw(twemoji.parse(docs[key]));
-    // const divs = [];
+    const divs = [];
     // let first = true;
-    // for (const dom of doms) {
-    //   if (first || dom.nodeName == "H2") {
-    //     divs.push(html`<div class="md-block"></div>`);
-    //     first = false;
-    //   }
-    //   divs[divs.length - 1].appendChild(dom);
-    // }
+    for (const dom of doms) {
+      // if (first || dom.nodeName == "H2") {
+      //   divs.push(html`<div class="md-block"></div>`);
+      //   first = false;
+      // }
+      // divs[divs.length - 1].appendChild(dom);
+      console.log(dom)
+      if (dom?.textContent.match(/%%/)) {
+        divs.push(html`${dom}`);
+      }
+      else {
+        divs.push(dom);
+      }
+    }
     // console.log(divs)
-    // state.docs[key] = divs;
-    state.docs[key] = doms;
+    state.docs[key] = divs;
+    // state.docs[key] = doms;
   }
   
   function parseParams() {
