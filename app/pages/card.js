@@ -38,11 +38,11 @@ position: relative;
   backface-visibility: hidden;
   @keyframes turnIn {
     0% {
-      opacity: 0;
+      // opacity: 0;
       transform: rotate3d(0, 1, 0, 180deg);
     }
     100% {
-      opacity: 1;
+      // opacity: 1;
       transform: rotate3d(0, 1, 0, 0deg);
     }
   }
@@ -64,18 +64,22 @@ position: relative;
   backface-visibility: hidden;
   @keyframes turnIn2 {
     0% {
-      opacity: 0;
+      // opacity: 0;
       transform: rotate3d(0, 1, 0, 0deg);
     }
     100% {
-      opacity: 1;
+      // opacity: 1;
       transform: rotate3d(0, 1, 0, 180deg);
     }
   }
   position: absolute;
   top: 0;
   left: 0;
-  transform: rotate3d(0, 1, 0, 90deg);
+  transform: rotate3d(0, 1, 0, 180deg);
+  box-shadow: 8px 4px 0 black;
+}
+.backside.loading {
+  animation: none;
 }
 .content {
   margin: 0 2px;
@@ -140,10 +144,15 @@ export default function(state, emit, cardName) {
     }
   }
 
-  console.log(cardName)
+  let currentCss = state.theme == "windows" ? windowsCss : paperCss;
+
   let item;
   if (state.currentData === undefined) {
-    return html`<div id="empty"></div>`;
+    return html`
+    <div class=${ currentCss }>
+      <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+    </div>
+    `;
   }
   if (cardName === undefined) {
     const { name } = state.params;
@@ -170,8 +179,6 @@ export default function(state, emit, cardName) {
     </div>`;
   }
   
-  let currentCss = state.theme == "windows" ? windowsCss : paperCss;
-
   return html`
     <div id=${ item.name } class=${ currentCss }>
       <div class="frontside">

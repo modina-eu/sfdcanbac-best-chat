@@ -157,11 +157,11 @@ position: relative;
   backface-visibility: hidden;
   @keyframes turnIn {
     0% {
-      opacity: 0;
+      // opacity: 0;
       transform: rotate3d(0, 1, 0, 180deg);
     }
     100% {
-      opacity: 1;
+      // opacity: 1;
       transform: rotate3d(0, 1, 0, 0deg);
     }
   }
@@ -183,18 +183,22 @@ position: relative;
   backface-visibility: hidden;
   @keyframes turnIn2 {
     0% {
-      opacity: 0;
+      // opacity: 0;
       transform: rotate3d(0, 1, 0, 0deg);
     }
     100% {
-      opacity: 1;
+      // opacity: 1;
       transform: rotate3d(0, 1, 0, 180deg);
     }
   }
   position: absolute;
   top: 0;
   left: 0;
-  transform: rotate3d(0, 1, 0, 90deg);
+  transform: rotate3d(0, 1, 0, 180deg);
+  box-shadow: 8px 4px 0 black;
+}
+.backside.loading {
+  animation: none;
 }
 .content {
   margin: 0 2px;
@@ -246,24 +250,28 @@ img {
 .text {
   font-size: 0.8em;
 }
-`;function lt(t,r,e){function a(f){const h=Object.keys(t.airtableData).filter(g=>t.airtableData[g].name==f);if(h.length>0){const g=h[Math.floor(Math.random()*h.length)];return t.airtableData[g]}}console.log(e);let i;if(t.currentData===void 0)return ee`<div id="empty"></div>`;if(e===void 0){const{name:f}=t.params;i=a(f)}else typeof e=="string"?i=a(e):i=e;const n=[];if(i.links!==void 0)for(const f of i.links)n.push(d(f));let u="";i.image!=""&&(u=ee`
+`;function lt(t,r,e){function a(f){const h=Object.keys(t.airtableData).filter(g=>t.airtableData[g].name==f);if(h.length>0){const g=h[Math.floor(Math.random()*h.length)];return t.airtableData[g]}}let i=t.theme=="windows"?za:Ha,n;if(t.currentData===void 0)return ee`
+    <div class=${i}>
+      <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+    </div>
+    `;if(e===void 0){const{name:f}=t.params;n=a(f)}else typeof e=="string"?n=a(e):n=e;const u=[];if(n.links!==void 0)for(const f of n.links)u.push(d(f));let o="";return n.image!=""&&(o=ee`
     <div>
-      <img src=${i.image} />
-    </div>`);let o=t.theme=="windows"?za:Ha;return ee`
-    <div id=${i.name} class=${o}>
+      <img src=${n.image} />
+    </div>`),ee`
+    <div id=${n.name} class=${i}>
       <div class="frontside">
         <div class="header">
           <div class="title">
-            ${i.name}
+            ${n.name}
           </div>
         </div>
         <div class="content">
-          ${u}
+          ${o}
           <div class="text">
-            ${i.notes}
+            ${n.notes}
           </div>
           <div class="links">
-            ${n}
+            ${u}
           </div>
         </div>
       </div>
