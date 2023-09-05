@@ -1,7 +1,7 @@
 How to setup Airtable
 ========
 
-First, if you haven't made an account on Airtable, please sign up with your email. (If you want to support this project, you can [sign up with my invite code :arrow_upper_right:](https://airtable.com/invite/r/vt3Outyp). Thanks!)
+First, if you haven't made an account on Airtable, please sign up with your email. (If you want to support this project, you can [sign up with my invite code:arrow_upper_right:](https://airtable.com/invite/r/vt3Outyp). Thanks!)
 
 ![diagram](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-diagram.png?v=1693822525408)
 
