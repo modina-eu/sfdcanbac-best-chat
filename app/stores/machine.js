@@ -12,23 +12,12 @@ export default (state, emitter) => {
     state.dialog = false;
     emitter.emit("render");
   });
-  
-  function parseParams() {
-    const { name } = state.params;
-    if (name !== undefined) {
-      const keys = Object.keys(state.airtableData);
-      const ids = keys.filter(key => state.airtableData[key].name == name);
-      if (ids.length > 0) {
-        const id = ids[Math.floor(Math.random() * ids.length)];
-        state.history.push(state.currentData);
-        state.currentData = state.airtableData[id];
-      }
-    }
-    emitter.emit("render");
-  }
 
-  emitter.on("airtable loaded", parseParams);
-  emitter.on("navigate", () => {
+  emitter.on("airtable loaded", () => {
+    emitter.emit("render");
+  });
+
+  emitter.on("pushState", () => {
     // nooooo
     setTimeout(() => 
       window.scrollTo({

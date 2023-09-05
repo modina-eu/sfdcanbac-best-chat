@@ -30,7 +30,7 @@ width: 100%;
 .columns {
   display: flex;
   width: 100%;
-  max-width: 1024px;
+  max-width: 768px;
 }
 .hide {
   display: none;
