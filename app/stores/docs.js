@@ -2,6 +2,8 @@ import raw from "choo/html/raw";
 import html from "choo/html";
 import twemoji from "@discordapp/twemoji";
 
+import card from "../pages/card.js";
+
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
 import { html as history } from "../docs/history.md";
@@ -37,9 +39,12 @@ export default (state, emitter) => {
       //   first = false;
       // }
       // divs[divs.length - 1].appendChild(dom);
-      console.log(dom)
       if (dom?.textContent.match(/%%/)) {
-        divs.push(html`${dom}`);
+      console.log(dom)
+        divs.push(html`
+        <div>a
+        ${ card(state, emitter.emit, "24 Hour Card") }
+        </div>`);
       }
       else {
         divs.push(dom);

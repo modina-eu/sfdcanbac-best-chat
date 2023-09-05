@@ -95,11 +95,12 @@ export default function(state, emit, cardName) {
     }
   }
 
+  console.log(cardName)
   let item;
+  if (state.currentData === undefined) {
+    return html`<div id="empty"></div>`;
+  }
   if (cardName === undefined) {
-    if (state.currentData === undefined) {
-      return html`<div></div>`;
-    }
     const { name } = state.params;
     item = findItem(name);
   }
@@ -127,7 +128,7 @@ export default function(state, emit, cardName) {
   let currentCss = state.theme == "windows" ? windowsCss : paperCss;
 
   return html`
-    <div class=${ currentCss }>
+    <div id=${ item.name } class=${ currentCss }>
       <div class="header">
         <div class="title">
           ${ item.name }
