@@ -28,30 +28,55 @@ img {
 `
 const active = false;
 const windowsCss = css`
-animation: turnIn 1s;
-@keyframes turnIn {
-  0% {
-    opacity: 0;
-    transform: rotate3d(0, 1, 0, 180deg);
-  }
-  100% {
-    opacity: 1;
-    transform: rotate3d(0, 1, 0, 0deg);
-  }
-}
-
-font-family: "Roboto", arial, sans-serif;
-position: relative;
-z-index: 10;
-margin: 5px;
-padding: 5px;
-background-color: #bbb;
-border: 2px outset #eee;
-box-shadow: 8px 4px 0 black;
-overflow: hidden;
 width: ${ 300 }px;
 height: 400px;
+position: relative;
+.frontside {
+  width: 100%;
+  height: 100%;
+  animation: turnIn 1s;
+  backface-visibility: hidden;
+  @keyframes turnIn {
+    0% {
+      opacity: 0;
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+  }
 
+  font-family: "Roboto", arial, sans-serif;
+  position: relative;
+  z-index: 10;
+  margin: 5px;
+  padding: 5px;
+  background-color: #bbb;
+  border: 2px outset #eee;
+  box-shadow: 8px 4px 0 black;
+  overflow: hidden;
+}
+.backside {
+  width: 100%;
+  height: 100%;
+  animation: turnIn2 1s;
+  backface-visibility: hidden;
+  @keyframes turnIn2 {
+    0% {
+      opacity: 0;
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate3d(0, 1, 0, 90deg);
+}
 .content {
   margin: 0 2px;
 }
@@ -149,20 +174,23 @@ export default function(state, emit, cardName) {
 
   return html`
     <div id=${ item.name } class=${ currentCss }>
-      <div class="header">
-        <div class="title">
-          ${ item.name }
+      <div class="frontside">
+        <div class="header">
+          <div class="title">
+            ${ item.name }
+          </div>
+        </div>
+        <div class="content">
+          ${ img }
+          <div class="text">
+            ${ item.notes }
+          </div>
+          <div class="links">
+            ${ links }
+          </div>
         </div>
       </div>
-      <div class="content">
-        ${ img }
-        <div class="text">
-          ${ item.notes }
-        </div>
-        <div class="links">
-          ${ links }
-        </div>
-      </div>
+      <img class="backside" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
     </div>
   `;
   
