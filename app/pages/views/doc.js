@@ -7,6 +7,7 @@ h2 {
 }
 img {
   width: 400px;
+  max-width: 100%;
 }
 img.emoji {
    height: 1em;

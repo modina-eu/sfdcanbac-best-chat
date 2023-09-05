@@ -15,6 +15,8 @@
 `,Hn=`<h1>How I started making cards</h1>
 <p>In the frame of #TakeHeart residency, I started a project as a website, a non-linear autobiography where people can find their own narrative by discovering elements of my life. The early prototype can be seen on <a href="https://dances.glitch.me">dances.glitch.me↗️</a>. Initially, I had Instagram in mind as an interface and I wanted to integrate a gamification aspect so that people earn &quot;points&quot; by finding the milestones in my life.</p>
 <p>As I develop the project, I incorporated Windows 98-style interface, which I explored earlier for <a href="https://icade-test.glitch.me/">ICADE↗️</a> exhibition. The result is <a href="https://soup.glitches.me">soup.glitches.me↗️</a> and as you click on the icons, pop-up windows show up, and it reveals more icons. The turning point was when I had an opportunity to show the project in a physical space while studying as an exchange student in Bogotá, Colombia. Because it was in a context of performing arts and embodiment is the key, I did not want to stick a QR code and ask people to browse the webpage on their phones. I decided to print them out, and</p>
+<p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/2022-11-19-print.jpg?v=1693909433313" alt="cutting"></p>
+<p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/2022-11-20-print.jpg?v=1693909433313" alt="displayed"></p>
 `,zn=`<h1>How to setup Airtable</h1>
 <p>First, if you haven't made an account on Airtable, please sign up with your email. (If you want to support this project, you can <a href="https://airtable.com/invite/r/vt3Outyp">sign up with my invite code↗️</a>. Thanks!)</p>
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-diagram.png?v=1693822525408" alt="diagram"></p>
@@ -219,6 +221,7 @@ h2 {
 }
 img {
   width: 400px;
+  max-width: 100%;
 }
 img.emoji {
    height: 1em;
