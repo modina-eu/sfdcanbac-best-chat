@@ -2,7 +2,7 @@
 <p>%%24 Hour Deck%%</p>
 <h2>What is this?</h2>
 <p>I (<a href="#doc/naoto">Naoto</a>) started making my own collectible cards in 2022. Growing up with Pokemon Cards, Magic: the Gathering, Yu-Gi-Oh! and other card games, it was always my dream to make my own card game. Although what I imagined in my childhood was full of dragons and spells, as an artist, I decided to make autobiographical cards, i.e., stories about my life. The project is ongoing and never reaches the end; I keep adding new cards whenever I can work on this project 🏃‍♀️</p>
-<p>This edition, 24-Hour Heartbreak Deck, is made between August 29th and 30th, 2023, this time having a journal in mind rather than a biography. In my example, the focus was about self-reflection, but you can use this tutorial to compile, for example, memories from your vacation 🏖️ or a process of your latest dance performance 🎎</p>
+<p>This edition, 24-Hour Heartbreak Deck, is made between August 29th and 30th, 2023, this time having a journal in mind rather than a biography. In my example, the focus was about self-reflection, but you can use this tutorial to compile, for example, memories from your vacation 🏖️ a process of your latest dance performance 🎎 or about your heartbreak 💔</p>
 <p>Let's <a href="#doc/start">start</a> 🚀</p>
 <p>Or, do you want to first read the <a href="#doc/history">story</a> behind the project? 📚</p>
 <p><img src="https://img.glitches.me/images/2023/07/26/cards_sq.jpg" alt="cards"></p>
