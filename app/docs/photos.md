@@ -9,6 +9,8 @@ Great :sparkles:
 
 By the way, you don't have to curate the "best" photos of your trip or the production. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have a blurry photo or a screenshot of Google Maps; if you find them somehow intriguing, let's add these images, too.
 
+%%(Re)cognition%%
+
 > Because I order printed cards on meinspiel.de, I aim for 55 cards in the end, which is one unit that they offer. But I would start with about 10 cards until I am clear about the theme and the direction of the deck :compass:
 
 Now, we come up with names (titles) and texts. A name can be a word to a few words. It can be a sentence too, but I would keep it short to fit in the frame. It can be a number or in any language (I never experimented with right-to-left languages, though). A text can be a description of the image. In Magic: the Gathering, these texts are called *flavor text* because it doesn't affect the rulebook and is purely for telling the background story (if you want inspirations, searching for flavor text is a great starting point) :ice_cream:

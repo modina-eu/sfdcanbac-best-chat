@@ -5,4 +5,4 @@ There are several ways to organize cards. A conventional way is to make categori
 
 > Of course, you can make categories, too. You can make a category in your Table, or my suggested method is to add a category as a card, for example, "Colors", and link all the cards (such as Red, Pink and Blue) that belong to the category.
 
-
+%%Japanese Curry%%

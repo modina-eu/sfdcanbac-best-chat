@@ -14,6 +14,12 @@ align-content: stretch;
 h2 {
   text-decoration: underline lightblue 3px;
 }
+p {
+  margin: 0.5em 0;
+}
+.card {
+  margin: 0.5em 0;
+}
 p:not(.image) {
   width: 100%;
 }
@@ -50,7 +56,7 @@ export default function(state, emit) {
   for (const dom of rawContent) {
     if (dom?.textContent.match(/%%/)) {
       let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
-      content.push(card(state, emit, cardName));
+      content.push(html`<div class="card">${ card(state, emit, cardName) }</div>`);
     }
     else {
       content.push(dom);
