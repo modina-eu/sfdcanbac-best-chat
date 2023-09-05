@@ -4,6 +4,7 @@ import twemoji from "@discordapp/twemoji";
 
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
+import { html as history } from "../docs/history.md";
 import { html as airtable } from "../docs/airtable.md";
 import { html as photos } from "../docs/photos.md";
 import { html as texts } from "../docs/texts.md";
@@ -14,6 +15,7 @@ export default (state, emitter) => {
   const docs = {
     welcome,
     start,
+    history,
     airtable,
     photos,
     texts,
