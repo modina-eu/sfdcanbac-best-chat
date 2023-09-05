@@ -86,6 +86,19 @@ img {
 
 // export module
 export default function(state, emit, item) {
+  if (item === undefined) {
+    if (state.airtableData === undefined) {
+      return html``;
+    }
+    const { name } = state.params;
+    const keys = Object.keys(state.airtableData);
+    const ids = keys.filter(key => state.airtableData[key].name == name);
+    if (ids.length > 0) {
+      const id = ids[Math.floor(Math.random() * ids.length)];
+      state.history.push(state.currentData);
+      item = state.airtableData[id];
+    }
+  }
   const links = [];
   if (item.links !== undefined) {
     for (const id of item.links) {

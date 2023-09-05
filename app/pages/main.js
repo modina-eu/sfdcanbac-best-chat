@@ -2,7 +2,6 @@ import html from "choo/html";
 import { css } from "@emotion/css";
 
 import menu from "./views/menu.js";
-import card from "./views/card.js";
 import dialog from "./views/dialog.js";
 import doc from "./views/doc.js";
 
