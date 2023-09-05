@@ -4,6 +4,7 @@ import twemoji from "@discordapp/twemoji";
 
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
+import { html as naoto } from "../docs/naoto.md";
 import { html as history } from "../docs/history.md";
 import { html as airtable } from "../docs/airtable.md";
 import { html as photos } from "../docs/photos.md";
@@ -15,6 +16,7 @@ export default (state, emitter) => {
   const docs = {
     welcome,
     start,
+    naoto,
     history,
     airtable,
     photos,
@@ -25,7 +27,6 @@ export default (state, emitter) => {
   const keys = Object.keys(docs);
   
   state.docs = {};
-  state.currentDoc = "welcome";
   
   for (const key of keys) {
     const doms = raw(twemoji.parse(docs[key]));
@@ -38,17 +39,4 @@ export default (state, emitter) => {
       return d;
     });
   }
-  
-  function parseParams() {
-    // console.log(state.params, state.currentDoc)
-    // const { key } = state.params;
-    // if (key !== undefined && state.docs[key] !== undefined) {
-    //   state.currentDoc = key;
-    // }
-    // emitter.emit("render");
-  }
-
-  emitter.on("DOMContentLoaded", parseParams);
-  emitter.on("navigate", parseParams);
-  emitter.on("popState", parseParams);
 }

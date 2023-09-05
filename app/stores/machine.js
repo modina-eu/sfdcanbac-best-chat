@@ -38,19 +38,4 @@ export default (state, emitter) => {
     state.theme = theme;
     emitter.emit("render");
   });
-  
-  state.history = [];
-  
-  emitter.on("jump", (id) => {
-    state.history.push(state.currentData);
-    state.currentData = state.airtableData[id];
-    emitter.emit("render");
-  });
-  emitter.on("back", () => {
-    if (state.history.length > 0) {
-      state.currentData = state.history[state.history.length - 1];
-      state.history.pop();
-      emitter.emit("render");
-    }
-  });
 }

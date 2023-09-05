@@ -38,16 +38,6 @@ width: 100%;
 .pointer {
   cursor: pointer;
 }
-.md-block {
-  // min-height: 100vh;
-}
-.deck {
-  position: relative;
-  // position: fixed;
-  // right: 0;
-  // top: 0;
-  width: 300px;
-}
 `;
 
 // export module
@@ -79,14 +69,4 @@ export default function(state, emit) {
       emit("hide info");
     }
   }
-
-  //           ${ state.history.length > 0 ? html`
-  //             <span onclick=${ () => backClick() }>
-  //               Back
-  //             </span>`
-  //              : html``
-  //           }
-  // function backClick() {
-  //   emit("back");
-  // }
 }

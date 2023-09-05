@@ -1,0 +1,1 @@
+I am [Naoto:arrow_upper_right:](https://naotohieda.com)
