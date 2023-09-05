@@ -1,9 +1,22 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
 
+import card from "../card.js";
+
 const mainCss = css`
+display: flex;
+flex-direction: column;
+flex-wrap: nowrap;
+justify-content: flex-start;
+align-items: center;
+align-content: stretch;
+
 h2 {
   background-color: lightblue;
+  width: 100%;
+}
+p.not(.image) {
+  width: 100%;
 }
 img {
   width: 400px;
@@ -35,25 +48,15 @@ blockquote {
 export default function(state, emit) {
   const rawContent = state.docs[state.currentDoc];
   const content = [];
-    for (const dom of rawContent) {
-    // if (first || dom.nodeName == "H2") {
-    //   divs.push(html`<div class="md-block"></div>`);
-    //   first = false;
-    // }
-    // divs[divs.length - 1].appendChild(dom);
+  for (const dom of rawContent) {
     if (dom?.textContent.match(/%%/)) {
       let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
-      divs.push(html`
-      <div>a
-      ${ card(state, emitter.emit, cardName) }
-      </div>`);
+      content.push(card(state, emit, cardName));
     }
     else {
-      divs.push(dom);
+      content.push(dom);
     }
   }
-  // console.log(divs)
-  state.docs[key] = divs;
 
   return html`
     <div class=${ mainCss } id="md-${ state.currentDoc }">

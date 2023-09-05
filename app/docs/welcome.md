@@ -1,7 +1,7 @@
 How I made 24-Hour Heartbreak Cards
 ========
 
-%%Notifications%%
+%%24 Hour Deck%%
 
 What is this?
 --------

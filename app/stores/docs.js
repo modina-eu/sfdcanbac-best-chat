@@ -2,8 +2,6 @@ import raw from "choo/html/raw";
 import html from "choo/html";
 import twemoji from "@discordapp/twemoji";
 
-import card from "../pages/card.js";
-
 import { html as welcome } from "../docs/welcome.md";
 import { html as start } from "../docs/start.md";
 import { html as history } from "../docs/history.md";
@@ -33,7 +31,14 @@ export default (state, emitter) => {
     const doms = raw(twemoji.parse(docs[key]));
     const divs = [];
     // let first = true;
-    state.docs[key] = doms;
+    state.docs[key] = doms.map(d => {
+      if (d.childNodes[0]?.nodeName == "IMG") {
+      console.log(d.childNodes, d.childNodes[0]?.nodeName == "IMG")
+        d.classList.add("image");
+        
+      }
+      return d;
+    });
   }
   
   function parseParams() {
