@@ -22,8 +22,9 @@ img {
   bottom: 4px;
 }
 `
-
+const active = false;
 const windowsCss = css`
+font-family: "Roboto", arial, sans-serif;
 position: relative;
 z-index: 10;
 margin: 5px;
@@ -47,7 +48,7 @@ height: 400px;
   position: absolute;
   right: 0;
   background-color: #bbb;
-  color: ${ true !== true ? "#000" : "#fff" };
+  color: ${ active !== true ? "#000" : "#fff" };
   margin: 2px;
   width: 1em;
   font-size: 0.6em;
@@ -59,9 +60,9 @@ height: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
+  //cursor: pointer;
   user-select: none;
-  background-color: ${ true ? "#00f" : "#888" };
+  background-color: ${ active ? "#00f" : "#888" };
   color: white;
 }
 .pressed {

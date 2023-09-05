@@ -12,11 +12,11 @@ This edition, 24-Hour Heartbreak Deck, is made between August 29 and 30, 2023, t
 
 Let's [start](#doc/start) :rocket:
 
-Or, do you want to further know the [story](#doc/history) behind the project? :books:
+Or, do you want to first know the [story](#doc/history) behind the project? :books:
 
 ![cards](https://img.glitches.me/images/2023/07/26/cards_sq.jpg)
 
 Acknowledgements
 --------
 
-This project is realized in the frame of Re-Coding Everyday Technology by the working group for unusual in- and output media / Hochschule Mainz. The original project is initiated as part of #TakeHeart residency in 2022, and I'd like to thank everyone who gave me valuable feedback, especially Lili and Valerie from #TakeMoreCare for giving me the initial direction for this particular edition.
+This project is realized in the frame of Re-Coding Everyday Technology by the working group for unusual in- and output media / Hochschule Mainz. The original project is initiated as part of #TakeHeart residency in 2022, and I'd like to thank everyone who gave me valuable feedback, especially Lili and Valerie from #TakeMoreCare for giving me the initial direction for this particular edition. The font used in the project (Apfel Grotezk) is from [Collletttivo:arrow_upper_right:](https://www.collletttivo.it/)

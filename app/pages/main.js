@@ -10,6 +10,12 @@ width: 100%;
 .container {
   width: 100%;
   padding-top: 1.5em;
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: stretch;
 }
 .dialog {
   position: fixed;
@@ -23,6 +29,8 @@ width: 100%;
 }
 .columns {
   display: flex;
+  width: 100%;
+  max-width: 1024px;
 }
 .hide {
   display: none;
@@ -44,7 +52,7 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  console.log("main", state.params)
+  // should be in the store
   const { key } = state.params;
   if (key !== undefined && state.docs[key] !== undefined) {
     state.currentDoc = key;
@@ -53,18 +61,9 @@ export default function(state, emit) {
     state.currentDoc = "welcome";
   }
   
-  let content;
-//   if (state.currentData === undefined) {
-//     content = "loading";
-//   }
-//   else {
-//     let currentCard = "";
-//     let i = 0;
-//     currentCard = [...state.history, state.currentData].slice(-3).reverse().map(e => html`
-//     ${ card(state, emit, e) }
-//     `);
-    
-    content = html`
+  return html`
+    <div class=${ mainCss }>
+      ${ menu(state, emit) }
       <div class="container">
         <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
           ${ dialog(state, emit) }
@@ -73,13 +72,6 @@ export default function(state, emit) {
           ${ doc(state, emit) }
         </div>
       </div>
-    `;
-  // }
-  
-  return html`
-    <div class=${ mainCss }>
-      ${ menu(state, emit) }
-      ${ content }
     </>
   `;
   function dialogBgClick(e) {
