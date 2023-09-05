@@ -33,26 +33,7 @@ export default (state, emitter) => {
     const doms = raw(twemoji.parse(docs[key]));
     const divs = [];
     // let first = true;
-    for (const dom of doms) {
-      // if (first || dom.nodeName == "H2") {
-      //   divs.push(html`<div class="md-block"></div>`);
-      //   first = false;
-      // }
-      // divs[divs.length - 1].appendChild(dom);
-      if (dom?.textContent.match(/%%/)) {
-      console.log(dom)
-        divs.push(html`
-        <div>a
-        ${ card(state, emitter.emit, "24 Hour Card") }
-        </div>`);
-      }
-      else {
-        divs.push(dom);
-      }
-    }
-    // console.log(divs)
-    state.docs[key] = divs;
-    // state.docs[key] = doms;
+    state.docs[key] = doms;
   }
   
   function parseParams() {

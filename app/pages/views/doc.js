@@ -33,7 +33,28 @@ blockquote {
 
 // export module
 export default function(state, emit) {
-  const content = state.docs[state.currentDoc];
+  const rawContent = state.docs[state.currentDoc];
+  const content = [];
+    for (const dom of rawContent) {
+    // if (first || dom.nodeName == "H2") {
+    //   divs.push(html`<div class="md-block"></div>`);
+    //   first = false;
+    // }
+    // divs[divs.length - 1].appendChild(dom);
+    if (dom?.textContent.match(/%%/)) {
+      let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
+      divs.push(html`
+      <div>a
+      ${ card(state, emitter.emit, cardName) }
+      </div>`);
+    }
+    else {
+      divs.push(dom);
+    }
+  }
+  // console.log(divs)
+  state.docs[key] = divs;
+
   return html`
     <div class=${ mainCss } id="md-${ state.currentDoc }">
       ${ content }

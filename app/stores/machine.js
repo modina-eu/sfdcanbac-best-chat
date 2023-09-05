@@ -14,6 +14,7 @@ export default (state, emitter) => {
   });
   
   function parseParams() {
+    console.log("oi")
     const { name } = state.params;
     if (name !== undefined) {
       const keys = Object.keys(state.airtableData);

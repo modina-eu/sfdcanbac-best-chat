@@ -1,7 +1,7 @@
 How I made 24-Hour Heartbreak Cards
 ========
 
-%%24 Hour Cards%%
+%%Notifications%%
 
 What is this?
 --------
