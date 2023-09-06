@@ -1,6 +1,8 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
 
+import CardElement from "../components/card.js";
+
 const paperCss = css`
 position: relative;
 z-index: 10;

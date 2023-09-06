@@ -5,6 +5,31 @@ import { css } from "@emotion/css";
 
 const mainCss = css`
 `;
+const paperCss = css`
+position: relative;
+z-index: 10;
+margin: 5px;
+padding: 5px;
+background-color: ivory;
+border-radius: 3px;
+box-shadow: 4px 4px 10px black;
+overflow: hidden;
+width: ${ 300 }px;
+height: 400px;
+
+img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2; //todo
+}
+.links {
+  position: absolute;
+  bottom: 4px;
+}
+.text {
+  font-size: 0.8em;
+}
+`
 const active = false;
 const windowsCss = css`
 width: ${ 300 }px;
@@ -126,6 +151,14 @@ export default class extends Component {
 
   load(element) {
     console.log(this.element, this.id)
+    var observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting === true) {
+        this.activate();
+      }
+    }, { threshold: [0.5] }
+    );
+
+    observer.observe(this.element);
   }
 
   update({ name = "24 Hour Deck" } = {}) {
