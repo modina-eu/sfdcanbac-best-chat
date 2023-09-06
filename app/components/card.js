@@ -145,9 +145,6 @@ export default class extends Component {
 
     let item;
     if (state.currentData === undefined) {
-      this.emitter.once("airtable loaded", () => {
-        console.log("oi")
-      });
       return html`
       <div class=${ currentCss }>
         <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>

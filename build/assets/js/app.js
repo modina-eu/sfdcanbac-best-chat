@@ -438,7 +438,7 @@ img {
 .text {
   font-size: 0.8em;
 }
-`;class $u extends Lu{constructor(r,t,n){super(r),this.local=t.components[r]={},this.state=t,this.emit=n}load(r){console.log(r)}update({}={}){return!1}createElement({name:r="24 Hour Deck"}={}){const t=this.state;function n(s){const c=Object.keys(t.airtableData).filter(h=>t.airtableData[h].name==s);if(c.length>0){const h=c[Math.floor(Math.random()*c.length)];return t.airtableData[h]}}let i=Pu,a;if(t.currentData===void 0)return this.emitter.once("airtable loaded",()=>{console.log("oi")}),z`
+`;class $u extends Lu{constructor(r,t,n){super(r),this.local=t.components[r]={},this.state=t,this.emit=n}load(r){console.log(r)}update({}={}){return!1}createElement({name:r="24 Hour Deck"}={}){const t=this.state;function n(s){const c=Object.keys(t.airtableData).filter(h=>t.airtableData[h].name==s);if(c.length>0){const h=c[Math.floor(Math.random()*c.length)];return t.airtableData[h]}}let i=Pu,a;if(t.currentData===void 0)return z`
       <div class=${i}>
         <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
       </div>
