@@ -61,7 +61,7 @@ export default function(state, emit) {
     count++;
     if (dom?.textContent.match(/%%/)) {
       let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
-      content.push(html`<div class="card">${ state.cache(CardElement, `card-${ state.currentDoc }-${ count }`).render({ name: cardName }) }</div>`);
+      content.push(html`<div class="card">${ state.cache(CardElement, `card-${ count }`).render({ name: cardName }) }</div>`);
     }
     else {
       content.push(dom);

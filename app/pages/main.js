@@ -44,6 +44,10 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
+  let content = "loading";
+  if (state.currentData !== undefined) {
+    content = doc(state, emit);
+  }
   return html`
     <div class=${ mainCss }>
       ${ menu(state, emit) }
@@ -52,10 +56,9 @@ export default function(state, emit) {
           ${ dialog(state, emit) }
         </div>
         <div class="columns">
-          ${ doc(state, emit) }
+          ${ content }
         </div>
       </div>
-      ${ state.cache(CardElement, 'my-card').render() }
     </>
   `;
   function dialogBgClick(e) {

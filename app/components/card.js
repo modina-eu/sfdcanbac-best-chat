@@ -117,6 +117,7 @@ img {
 export default class extends Component {
   constructor(id, state, emit) {
     super(id)
+    this.id = id;
     this.local = state.components[id] = {};
     this.state = state;
     this.emit = emit;
@@ -124,13 +125,13 @@ export default class extends Component {
   }
 
   load(element) {
-    console.log(element)
+    console.log(element, this.id)
   }
 
   update({ name = "24 Hour Deck" } = {}) {
-    if (this.loaded) {
-      return false;
-    }
+    // if (this.loaded && name == this.name) {
+    //   return false;
+    // }
     return true
   }
 
@@ -167,18 +168,23 @@ export default class extends Component {
       item = cardName;
     }
     
-    const formatLink = (id) => {
+    this.loaded = true;
+    
+    const formatLink = (name) => {
       return html`
-      <button onclick=${ () => linkClick(id) }>
-        ${ state.airtableData[id].name }
+      <button onclick=${ () => {
+        this.update({ name });
+        // this.emit("render")
+      } }>
+        ${ state.airtableData[name].name }
       </button>
       `;
     }
 
     const links = [];
     if (item.links !== undefined) {
-      for (const id of item.links) {
-        links.push(formatLink(id));
+      for (const name of item.links) {
+        links.push(formatLink(name));
       }
     }
 
@@ -189,9 +195,11 @@ export default class extends Component {
         <img src=${ item.image } />
       </div>`;
     }
+    
+    console.log(this.id)
 
     return html`
-      <div id=${ item.name } class=${ currentCss }>
+      <div class=${ currentCss }>
         <div class="frontside">
           <div class="header">
             <div class="title">
