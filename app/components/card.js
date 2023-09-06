@@ -38,7 +38,7 @@ position: relative;
 .frontside {
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
+  // backface-visibility: hidden;
   transform: rotate3d(0, 1, 0, 180deg);
 
   font-family: "Roboto", arial, sans-serif;
@@ -48,7 +48,7 @@ position: relative;
   padding: 5px;
   background-color: #bbb;
   border: 2px outset #eee;
-  box-shadow: 8px 4px 0 black;
+  // box-shadow: 8px 4px 0 black;
   overflow: hidden;
 }
 .frontside.trigger {
@@ -63,15 +63,27 @@ position: relative;
     }
   }
 }
+.frontside.triggerback {
+  animation: turnOut 0.5s;
+  animation-fill-mode: forwards;
+  @keyframes turnOut {
+    0% {
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+    100% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+  }
+}
 .backside {
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  transform: rotate3d(0, 1, 0, 0deg);
+  // backface-visibility: hidden;
+  transform: translate3d(0,0,1px) rotate3d(0, 1, 0, 0deg);
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 8px 4px 0 black;
+  // box-shadow: 8px 4px 0 black;
 }
 .backside.trigger {
   animation: turnIn2 1s;
@@ -82,6 +94,18 @@ position: relative;
     }
     100% {
       transform: rotate3d(0, 1, 0, 180deg);
+    }
+  }
+}
+.backside.triggerback {
+  animation: turnOut2 0.5s;
+  animation-fill-mode: forwards;
+  @keyframes turnOut2 {
+    0% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+    100% {
+      transform: rotate3d(0, 1, 0, 0deg);
     }
   }
 }
@@ -157,6 +181,11 @@ export default class extends Component {
     this.element.querySelector(".backside").classList.add("trigger");
   }
 
+  turnDown() {
+    this.element.querySelector(".frontside").classList.add("triggerback");
+    this.element.querySelector(".backside").classList.add("triggerback");
+  }
+
   load(element) {
     console.log(this.element, this.id)
     var observer = new IntersectionObserver((entries) => {
@@ -164,8 +193,7 @@ export default class extends Component {
         console.log("oi")
         this.turnUp();
       }
-    }, { threshold: [0.5] }
-    );
+    }, { threshold: [0.5] });
 
     observer.observe(this.element);
   }
@@ -174,18 +202,22 @@ export default class extends Component {
     // if (this.loaded && name == this.name) {
     //   return false;
     // }
-    while (this.element.firstChild) {
-      this.element.removeChild(this.element.firstChild);
-    }
+    
+    this.turnDown();
+    setTimeout(() => {
+      while (this.element.firstChild) {
+        this.element.removeChild(this.element.firstChild);
+      }
 
-    this.element.appendChild(this.renderCard({ name }));
-    return true
+      this.element.appendChild(this.renderCard({ name, trigger: true }));
+    }, 500);
+    return false;
   }
 
   createElement({ name = "24 Hour Deck", trigger = false } = {}) {
-    return this.renderCard({ name });
+    return this.renderCard({ name, trigger });
   }
-  renderCard({ name = "24 Hour Deck" } = {}) {
+  renderCard({ name, trigger } = {}) {
     let cardName = name;
     const state = this.state;
     function findItem(name) {
@@ -247,8 +279,6 @@ export default class extends Component {
       </div>`;
     }
     
-    console.log(this.id)
-
     return html`
       <div class=${ currentCss }>
         <div class="frontside ${ trigger ? "trigger" : "" }">
@@ -267,7 +297,7 @@ export default class extends Component {
             </div>
           </div>
         </div>
-        <img class="backside" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+        <img class="backside ${ trigger ? "trigger" : "" }" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
       </div>
     `;
   }
