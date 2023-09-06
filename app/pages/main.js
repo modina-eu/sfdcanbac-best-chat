@@ -5,6 +5,8 @@ import menu from "./views/menu.js";
 import dialog from "./views/dialog.js";
 import doc from "./views/doc.js";
 
+import CardElement from "../components/card.js";
+
 const mainCss = css`
 width: 100%;
 .container {
@@ -53,6 +55,7 @@ export default function(state, emit) {
           ${ doc(state, emit) }
         </div>
       </div>
+      ${ state.cache(CardElement, 'my-card').render() }
     </>
   `;
   function dialogBgClick(e) {
