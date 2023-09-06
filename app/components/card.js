@@ -38,8 +38,8 @@ position: relative;
 .frontside {
   width: 100%;
   height: 100%;
-  // backface-visibility: hidden;
   transform: rotate3d(0, 1, 0, 180deg);
+  opacity: 1;
 
   font-family: "Roboto", arial, sans-serif;
   position: relative;
@@ -48,64 +48,76 @@ position: relative;
   padding: 5px;
   background-color: #bbb;
   border: 2px outset #eee;
-  // box-shadow: 8px 4px 0 black;
+  box-shadow: 8px 4px 0 black;
   overflow: hidden;
 }
 .frontside.trigger {
-  animation: turnIn 1s;
+  animation: turnIn 0.5s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
   @keyframes turnIn {
     0% {
       transform: rotate3d(0, 1, 0, 180deg);
+      opacity: 0;
     }
     100% {
       transform: rotate3d(0, 1, 0, 0deg);
+      opacity: 1;
     }
   }
 }
 .frontside.triggerback {
   animation: turnOut 0.5s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
   @keyframes turnOut {
     0% {
       transform: rotate3d(0, 1, 0, 0deg);
+      opacity: 0;
     }
     100% {
       transform: rotate3d(0, 1, 0, 180deg);
+      opacity: 1;
     }
   }
 }
 .backside {
   width: 100%;
   height: 100%;
-  // backface-visibility: hidden;
-  transform: translate3d(0,0,1px) rotate3d(0, 1, 0, 0deg);
+  transform: rotate3d(0, 1, 0, 0deg);
+  opacity: 0;
   position: absolute;
   top: 0;
   left: 0;
-  // box-shadow: 8px 4px 0 black;
+  box-shadow: 8px 4px 0 black;
 }
 .backside.trigger {
-  animation: turnIn2 1s;
+  animation: turnIn2 0.5s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
   @keyframes turnIn2 {
     0% {
       transform: rotate3d(0, 1, 0, 0deg);
+      opacity: 1;
     }
     100% {
       transform: rotate3d(0, 1, 0, 180deg);
+      opacity: 0;
     }
   }
 }
 .backside.triggerback {
   animation: turnOut2 0.5s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
   @keyframes turnOut2 {
     0% {
       transform: rotate3d(0, 1, 0, 180deg);
+      opacity: 0;
     }
     100% {
       transform: rotate3d(0, 1, 0, 0deg);
+      opacity: 1;
     }
   }
 }
