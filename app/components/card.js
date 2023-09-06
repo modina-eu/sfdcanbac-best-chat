@@ -204,8 +204,15 @@ export default class extends Component {
     console.log(this.element, this.id)
     var observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting === true) {
-        console.log("oi")
-        this.turnUp();
+        const backside = this.element.querySelector(".backside");
+        if (backside?.complete) {
+          this.turnUp();
+        }
+        else {
+          backside.onload = () => {
+            setTimeout(() => this.turnUp(), 500);
+          }
+        }
       }
     }, { threshold: [0.5] });
 
