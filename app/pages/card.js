@@ -3,6 +3,8 @@ import { css } from "@emotion/css";
 
 import CardElement from "../components/card.js";
 
+import backImage from "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png";
+
 const paperCss = css`
 position: relative;
 z-index: 10;
@@ -154,7 +156,7 @@ export default function(state, emit, cardName) {
   if (state.currentData === undefined) {
     return html`
     <div class=${ currentCss }>
-      <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+      <img class="backside loading" src=${ backImage }/>
     </div>
     `;
   }
@@ -201,7 +203,7 @@ export default function(state, emit, cardName) {
           </div>
         </div>
       </div>
-      <img class="backside" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+      <img class="backside" src=${ backImage }/>
     </div>
   `;
   

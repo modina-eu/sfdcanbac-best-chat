@@ -38,8 +38,8 @@ position: relative;
 .frontside {
   width: 100%;
   height: 100%;
+  backface-visibility: hidden;
   transform: rotate3d(0, 1, 0, 180deg);
-  opacity: 1;
 
   font-family: "Roboto", arial, sans-serif;
   position: relative;
@@ -73,19 +73,19 @@ position: relative;
   @keyframes turnOut {
     0% {
       transform: rotate3d(0, 1, 0, 0deg);
-      opacity: 0;
+      opacity: 1;
     }
     100% {
       transform: rotate3d(0, 1, 0, 180deg);
-      opacity: 1;
+      opacity: 0;
     }
   }
 }
 .backside {
   width: 100%;
   height: 100%;
+  backface-visibility: hidden;
   transform: rotate3d(0, 1, 0, 0deg);
-  opacity: 0;
   position: absolute;
   top: 0;
   left: 0;
