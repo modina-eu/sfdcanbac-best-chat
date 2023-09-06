@@ -125,17 +125,25 @@ export default class extends Component {
   }
 
   load(element) {
-    console.log(element, this.id)
+    console.log(this.element, this.id)
   }
 
   update({ name = "24 Hour Deck" } = {}) {
     // if (this.loaded && name == this.name) {
     //   return false;
     // }
+    while (this.element.firstChild) {
+      this.element.removeChild(this.element.firstChild);
+    }
+
+    this.element.appendChild(this.renderCard({ name }));
     return true
   }
 
   createElement({ name = "24 Hour Deck" } = {}) {
+    return this.renderCard({ name });
+  }
+  renderCard({ name = "24 Hour Deck" } = {}) {
     let cardName = name;
     const state = this.state;
     function findItem(name) {
@@ -157,6 +165,7 @@ export default class extends Component {
       </div>
       `;
     }
+    console.log(cardName)
     if (cardName === undefined) {
       const { name } = state.params;
       item = findItem(name);
@@ -176,7 +185,7 @@ export default class extends Component {
         this.update({ name });
         // this.emit("render")
       } }>
-        ${ state.airtableData[name].name }
+        ${ name }
       </button>
       `;
     }
@@ -184,7 +193,7 @@ export default class extends Component {
     const links = [];
     if (item.links !== undefined) {
       for (const name of item.links) {
-        links.push(formatLink(name));
+        links.push(formatLink(state.airtableData[name].name));
       }
     }
 

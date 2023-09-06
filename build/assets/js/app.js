@@ -390,15 +390,15 @@ img {
 .text {
   font-size: 0.8em;
 }
-`;class Lu extends ju{constructor(r,t,n){super(r),this.id=r,this.local=t.components[r]={},this.state=t,this.emit=n,this.loaded=!1}load(r){console.log(r,this.id)}update({name:r="24 Hour Deck"}={}){return!0}createElement({name:r="24 Hour Deck"}={}){let t=r;const n=this.state;function i(f){const h=Object.keys(n.airtableData).filter(m=>n.airtableData[m].name==f);if(h.length>0){const m=h[Math.floor(Math.random()*h.length)];return n.airtableData[m]}}let a=Ru,u;if(n.currentData===void 0)return z`
+`;class Lu extends ju{constructor(r,t,n){super(r),this.id=r,this.local=t.components[r]={},this.state=t,this.emit=n,this.loaded=!1}load(r){console.log(this.element,this.id)}update({name:r="24 Hour Deck"}={}){for(;this.element.firstChild;)this.element.removeChild(this.element.firstChild);return this.element.appendChild(this.renderCard({name:r})),!0}createElement({name:r="24 Hour Deck"}={}){return this.renderCard({name:r})}renderCard({name:r="24 Hour Deck"}={}){let t=r;const n=this.state;function i(f){const h=Object.keys(n.airtableData).filter(m=>n.airtableData[m].name==f);if(h.length>0){const m=h[Math.floor(Math.random()*h.length)];return n.airtableData[m]}}let a=Ru,u;if(n.currentData===void 0)return z`
       <div class=${a}>
         <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
       </div>
-      `;if(t===void 0){const{name:f}=n.params;u=i(f)}else typeof t=="string"?u=i(t):u=t;this.loaded=!0;const o=f=>z`
+      `;if(console.log(t),t===void 0){const{name:f}=n.params;u=i(f)}else typeof t=="string"?u=i(t):u=t;this.loaded=!0;const o=f=>z`
       <button onclick=${()=>{this.update({name:f})}}>
-        ${n.airtableData[f].name}
+        ${f}
       </button>
-      `,d=[];if(u.links!==void 0)for(const f of u.links)d.push(o(f));let s="";return u.image!=""&&(s=z`
+      `,d=[];if(u.links!==void 0)for(const f of u.links)d.push(o(n.airtableData[f].name));let s="";return u.image!=""&&(s=z`
       <div>
         <img src=${u.image} />
       </div>`),console.log(this.id),z`
