@@ -34,7 +34,11 @@ export default function(state, emit) {
         <a href="/">🌐${ name }</a>
       </div>
       <div class="">
-        <span class="pointer" onclick=${ ()=>history.go(-1) }>↩️Back</span>
+        ${ state.navigateCount > 0 ? html`
+        <span class="pointer" onclick=${ () => {
+          history.go(-1);
+        } }>↩️Back</span>
+        ` : "" }
       </div>
     </div>
   `;

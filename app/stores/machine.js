@@ -3,6 +3,7 @@ import html from "choo/html";
 
 export default (state, emitter) => {
   state.dialog = false;
+  state.navigateCount = 0;
 
   emitter.on("show info", () => {
     state.dialog = true;
@@ -18,16 +19,14 @@ export default (state, emitter) => {
   });
 
   emitter.on("pushState", () => {
-    // nooooo
-    // setTimeout(() => 
-    //   window.scrollTo({
-    //     top: 0,
-    //     left: 0,
-    //     behavior: "smooth",
-    //   }), 100);
     window.scrollTo(0, 0);
+    state.navigateCount++;
   });
   
+  emitter.on("popState", () => {
+    state.navigateCount = Math.max(state.navigateCount - 1, 0);
+  });
+
   state.theme = "windows";//"paper";
   
   emitter.on("set theme", ({ theme }) => {

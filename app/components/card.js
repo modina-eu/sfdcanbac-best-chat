@@ -78,7 +78,7 @@ position: relative;
       opacity: 1;
     }
     100% {
-      transform: rotate3d(0, 1, 0, 180deg);
+      transform: rotate3d(0, 1, 0, -179deg);
       opacity: 0;
     }
   }
@@ -103,7 +103,7 @@ position: relative;
       opacity: 1;
     }
     100% {
-      transform: rotate3d(0, 1, 0, 180deg);
+      transform: rotate3d(0, 1, 0, -179deg);
       opacity: 0;
     }
   }
