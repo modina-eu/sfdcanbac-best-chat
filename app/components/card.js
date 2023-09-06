@@ -1,6 +1,8 @@
 import html from "choo/html";
 import Component from "choo/component";
 
+import backImage from "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png";
+
 import { css } from "@emotion/css";
 
 const mainCss = css`
@@ -247,7 +249,7 @@ export default class extends Component {
     if (state.currentData === undefined) {
       return html`
       <div class=${ currentCss }>
-        <img class="backside loading" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+        <img class="backside loading" src=${ backImage }/>
       </div>
       `;
     }
@@ -309,7 +311,7 @@ export default class extends Component {
             </div>
           </div>
         </div>
-        <img class="backside ${ trigger ? "trigger" : "" }" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
+        <img class="backside ${ trigger ? "trigger" : "" }" src=${ backImage }/>
       </div>
     `;
   }
