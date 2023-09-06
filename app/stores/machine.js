@@ -19,12 +19,13 @@ export default (state, emitter) => {
 
   emitter.on("pushState", () => {
     // nooooo
-    setTimeout(() => 
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-      }), 100);
+    // setTimeout(() => 
+    //   window.scrollTo({
+    //     top: 0,
+    //     left: 0,
+    //     behavior: "smooth",
+    //   }), 100);
+    window.scrollTo(0, 0);
   });
   
   state.theme = "windows";//"paper";

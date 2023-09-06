@@ -38,18 +38,8 @@ position: relative;
 .frontside {
   width: 100%;
   height: 100%;
-  animation: turnIn 1s;
   backface-visibility: hidden;
-  @keyframes turnIn {
-    0% {
-      // opacity: 0;
-      transform: rotate3d(0, 1, 0, 180deg);
-    }
-    100% {
-      // opacity: 1;
-      transform: rotate3d(0, 1, 0, 0deg);
-    }
-  }
+  transform: rotate3d(0, 1, 0, 180deg);
 
   font-family: "Roboto", arial, sans-serif;
   position: relative;
@@ -61,26 +51,39 @@ position: relative;
   box-shadow: 8px 4px 0 black;
   overflow: hidden;
 }
+.frontside.trigger {
+  animation: turnIn 1s;
+  animation-fill-mode: forwards;
+  @keyframes turnIn {
+    0% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+    100% {
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+  }
+}
 .backside {
   width: 100%;
   height: 100%;
-  animation: turnIn2 1s;
   backface-visibility: hidden;
-  @keyframes turnIn2 {
-    0% {
-      // opacity: 0;
-      transform: rotate3d(0, 1, 0, 0deg);
-    }
-    100% {
-      // opacity: 1;
-      transform: rotate3d(0, 1, 0, 180deg);
-    }
-  }
+  transform: rotate3d(0, 1, 0, 0deg);
   position: absolute;
   top: 0;
   left: 0;
-  transform: rotate3d(0, 1, 0, 180deg);
   box-shadow: 8px 4px 0 black;
+}
+.backside.trigger {
+  animation: turnIn2 1s;
+  animation-fill-mode: forwards;
+  @keyframes turnIn2 {
+    0% {
+      transform: rotate3d(0, 1, 0, 0deg);
+    }
+    100% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+  }
 }
 .backside.loading {
   animation: none;
@@ -148,12 +151,18 @@ export default class extends Component {
     this.emit = emit;
     this.loaded = false;
   }
+  
+  turnUp() {
+    this.element.querySelector(".frontside").classList.add("trigger");
+    this.element.querySelector(".backside").classList.add("trigger");
+  }
 
   load(element) {
     console.log(this.element, this.id)
     var observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting === true) {
-        this.activate();
+        console.log("oi")
+        this.turnUp();
       }
     }, { threshold: [0.5] }
     );
@@ -173,7 +182,7 @@ export default class extends Component {
     return true
   }
 
-  createElement({ name = "24 Hour Deck" } = {}) {
+  createElement({ name = "24 Hour Deck", trigger = false } = {}) {
     return this.renderCard({ name });
   }
   renderCard({ name = "24 Hour Deck" } = {}) {
@@ -242,7 +251,7 @@ export default class extends Component {
 
     return html`
       <div class=${ currentCss }>
-        <div class="frontside">
+        <div class="frontside ${ trigger ? "trigger" : "" }">
           <div class="header">
             <div class="title">
               ${ item.name }
