@@ -64,8 +64,7 @@
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-text-records.png?v=1693831790160" alt="text records"></p>
 <p>You can also switch to Gallery view by selecting it in the menu on the left. This may be a bit easier to edit the text and already give you an overview as cards 🎴</p>
 <p><img src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-text-gallery.png?v=1693832230370" alt="text gallery"></p>
-<p>When you have, say 10 cards, lets start adding pictures. There are various approaches. You can look into the photos and images on your harddrive, go for a walk and take pictures, draw with a pen on a sheet of paper, use text-to-image AI service to generate an image, ..
-You don't have to finish all the texts and images; if you find some of them difficult, leave them and come back after the next steps.</p>
+<p>When you have, say 10 cards, lets start adding pictures. There are various approaches. You can look into the photos and images on your harddrive, go for a walk and take pictures, draw with a pen on a sheet of paper, use text-to-image AI service to generate an image, ask your family or friends to send you photos, ... I prefer not to use images on the Internet because my approach to cards is very personal. But you may find it useful for your practice, or you may want to modify them (but be careful with the license if you want to publish your cards later!). You don't have to finish all the texts and images; if you find some of them difficult, leave them and come back after the next steps.</p>
 <p>You can also check out <a href="#doc/photos">starting from photos</a> if you need more ideas 👀</p>
 <p>Let's <a href="#doc/links">link</a> the cards ⛓️</p>
 `,va=`<h1>Linking cards</h1>
