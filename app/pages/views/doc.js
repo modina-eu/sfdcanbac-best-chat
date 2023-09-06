@@ -51,21 +51,22 @@ blockquote {
 
 // export module
 export default function(state, emit) {
-  const rawContent = state.docs[state.currentDoc];
-  const content = [];
-  for (const dom of rawContent) {
-    if (dom?.textContent.match(/%%/)) {
-      let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
-      content.push(html`<div class="card">${ card(state, emit, cardName) }</div>`);
-    }
-    else {
-      content.push(dom);
-    }
-  }
+//   const rawContent = state.docs[state.currentDoc];
+//   const content = [];
+  
+//   for (const dom of rawContent) {
+//     if (dom?.textContent.match(/%%/)) {
+//       let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
+//       content.push(html`<div class="card">${ card(state, emit, cardName) }</div>`);
+//     }
+//     else {
+//       content.push(dom);
+//     }
+//   }
 
   return html`
     <div class=${ mainCss } id="md-${ state.currentDoc }">
-      ${ content }
+      ${ state.docs[state.currentDoc] }
     </>
   `;
 }

@@ -12,6 +12,8 @@ import { html as texts } from "../docs/texts.md";
 import { html as links } from "../docs/links.md";
 import { html as time } from "../docs/time.md";
 
+import CardElement from "../components/card.js";
+
 export default (state, emitter) => {
   const docs = {
     welcome,
@@ -32,9 +34,15 @@ export default (state, emitter) => {
     const doms = raw(twemoji.parse(docs[key]));
     const divs = [];
     // let first = true;
+    let count = 0;
     state.docs[key] = doms.map(d => {
+      count++;
       if (d.childNodes[0]?.nodeName == "IMG") {
         d.classList.add("image");
+      }
+      if (d?.textContent.match(/%%/)) {
+        let cardName = d?.textContent.replace(/%%(.*)%%/, "$1");
+        return html`<div class="card">${ state.cache(CardElement, `card-${ key }-${ count }`).render({ name: cardName }) }</div>`;
       }
       return d;
     });

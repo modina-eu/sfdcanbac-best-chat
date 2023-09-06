@@ -117,20 +117,25 @@ img {
 export default class extends Component {
   constructor(id, state, emit) {
     super(id)
-    this.local = state.components[id] = {}
-    this.state = state
-    this.emit = emit
+    this.local = state.components[id] = {};
+    this.state = state;
+    this.emit = emit;
+    this.loaded = false;
   }
 
   load(element) {
     console.log(element)
   }
 
-  update({} = {}) {
-    return false
+  update({ name = "24 Hour Deck" } = {}) {
+    if (this.loaded) {
+      return false;
+    }
+    return true
   }
 
   createElement({ name = "24 Hour Deck" } = {}) {
+    let cardName = name;
     const state = this.state;
     function findItem(name) {
       const keys = Object.keys(state.airtableData);
@@ -161,6 +166,15 @@ export default class extends Component {
     else {
       item = cardName;
     }
+    
+    const formatLink = (id) => {
+      return html`
+      <button onclick=${ () => linkClick(id) }>
+        ${ state.airtableData[id].name }
+      </button>
+      `;
+    }
+
     const links = [];
     if (item.links !== undefined) {
       for (const id of item.links) {
@@ -197,16 +211,5 @@ export default class extends Component {
         <img class="backside" src="https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png?v=1693928196097"/>
       </div>
     `;
-
-    function formatLink(id) {
-      return html`
-      <button onclick=${ () => linkClick(id) }>
-        ${ state.airtableData[id].name }
-      </button>
-      `;
-    }
-    return html`<div class=${ windowsCss }>
-    card
-    </div>`
   }
 }
