@@ -17,6 +17,9 @@ You can also switch to Gallery view by selecting it in the menu on the left. Thi
 
 ![text gallery](https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/airtable-text-gallery.png?v=1693832230370)
 
+When you have, say 10 cards, lets start adding pictures. There are various approaches. You can look into the photos and images on your harddrive, go for a walk and take pictures, draw with a pen on a sheet of paper, use text-to-image AI service to generate an image, ... 
+You don't have to finish all the texts and images; if you find some of them difficult, leave them and come back after the next steps.
+
 You can also check out [starting from photos](#doc/photos) if you need more ideas :eyes:
 
-When you have, say 10 to 20 cards, lets start [linking](#doc/links) the cards :chains:
+Let's [link](#doc/links) the cards :chains:

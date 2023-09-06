@@ -7,7 +7,7 @@ Whether on the mobile app of Airtable or the web browser, you can start to uploa
 
 Great :sparkles:
 
-By the way, you don't have to curate the "best" photos of your trip or the production. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have a blurry photo or a screenshot of Google Maps; if you find them somehow intriguing, let's add these images, too.
+By the way, you don't have to curate the "best" photos of your trip or the production. The beauty of collectible or playing cards is that a deck consists of tens of cards, and every collector finds a different value in each card. You may have a blurry photo or a screenshot of Google Maps; if you find them intriguing in some way, let's add these images, too.
 
 %%(Re)cognition%%
 
