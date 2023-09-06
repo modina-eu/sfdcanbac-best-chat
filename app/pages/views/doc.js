@@ -3,6 +3,8 @@ import { css } from "@emotion/css";
 
 import card from "../card.js";
 
+import CardElement from "../../components/card.js";
+
 const mainCss = css`
 display: flex;
 flex-direction: column;
@@ -51,22 +53,24 @@ blockquote {
 
 // export module
 export default function(state, emit) {
-//   const rawContent = state.docs[state.currentDoc];
-//   const content = [];
+  const rawContent = state.docs[state.currentDoc];
+  const content = [];
   
-//   for (const dom of rawContent) {
-//     if (dom?.textContent.match(/%%/)) {
-//       let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
-//       content.push(html`<div class="card">${ card(state, emit, cardName) }</div>`);
-//     }
-//     else {
-//       content.push(dom);
-//     }
-//   }
+  let count = 0;
+  for (const dom of rawContent) {
+    count++;
+    if (dom?.textContent.match(/%%/)) {
+      let cardName = dom?.textContent.replace(/%%(.*)%%/, "$1");
+      content.push(html`<div class="card">${ state.cache(CardElement, `card-${ state.currentDoc }-${ count }`).render({ name: cardName }) }</div>`);
+    }
+    else {
+      content.push(dom);
+    }
+  }
 
   return html`
     <div class=${ mainCss } id="md-${ state.currentDoc }">
-      ${ state.docs[state.currentDoc] }
+      ${ content }
     </>
   `;
 }
