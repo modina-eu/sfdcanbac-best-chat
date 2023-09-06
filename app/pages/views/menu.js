@@ -33,6 +33,9 @@ export default function(state, emit) {
       <div class="">
         <a href="/">🌐${ name }</a>
       </div>
+      <div class="">
+        <span class="pointer" onclick=${ ()=>history.go(-1) }>↩️Back</span>
+      </div>
     </div>
   `;
   function toggleTheme(e) {

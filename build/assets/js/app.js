@@ -99,6 +99,9 @@ a {
       <div class="">
         <a href="/">🌐${"Heartbreak Cards"}</a>
       </div>
+      <div class="">
+        <span class="pointer" onclick=${()=>history.go(-1)}>↩️Back</span>
+      </div>
     </div>
   `}const hi=fe`
 background-color: rgba(255, 255, 255, 0.9);
