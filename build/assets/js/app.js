@@ -237,6 +237,8 @@ button {
   margin: auto 1px;
   display: inline;
   font-size: 0.9em;
+  font-family: "Roboto", arial, sans-serif;
+  color: black;
 }
 img {
   width: 100%;
