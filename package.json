@@ -4,7 +4,8 @@
   "description": "What am I about?",
   "main": "index.html",
   "scripts": {
-    "start": "vite build --watch & vite dev",
+    "start": "nodemon server.js",
+    "start2": "vite build --watch & vite dev",
     "build": "vite build"
   },
   "dependencies": {
@@ -13,7 +14,10 @@
     "airtable": "^0.12.2",
     "markdown-it": "^13.0.1",
     "markdown-it-emoji": "^2.0.2",
-    "@discordapp/twemoji": "^14.1.2"
+    "@discordapp/twemoji": "^14.1.2",
+    "axios": "^0.27.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
   },
   "devDependencies": {
     "vite": "^4.3.8",
