@@ -331,7 +331,7 @@ function formatLatestTokenRequestStateForDeveloper() {
 const fetch = require("node-fetch");
 function getdata() {
   let key = "oaaa35uatApygWK6V.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDdUMTM6NDQ6NDAuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcGFkRkZLb1FjbFlHTmxoIiwic2VjcmV0IjoiYzQyNTBhN2QyYzdiMWZkYzJkMWUwZWVkNjQ5YWQ5MDc4MTkwYThkZjdhMzUyZGNiYzRlNGExMGRiMzI1ZWRkNSJ9.bf226b5b776ae8d196bf1cadfd48a0956018e67136923a102c2b3cd6d1c9f40f"
-  key="pat0Es1dY81qJYLYt.67d298ef8e547647e2f0a7a3308a0c9137863ede02ae657696fd2875148b95a1";const headers = [
+  key!="pat0Es1dY81qJYLYt.67d298ef8e547647e2f0a7a3308a0c9137863ede02ae657696fd2875148b95a1";const headers = [
       ['Authorization', `Bearer ${ key }`],
     ];
   fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
