@@ -19,7 +19,7 @@ Or, do you want to first read the [story](#doc/history) behind the project? :boo
 License
 --------
 
-Tentatively this publication is licensed as
+Tentatively this publication is licensed under [CC Attribution 4.0 International:arrow_upper_right:](https://creativecommons.org/licenses/by/4.0/).
 
 Acknowledgements
 --------

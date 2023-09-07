@@ -13,4 +13,4 @@ You might have an album on the phone or a folder of random images collected from
 
 If you have some keywords in your notebook, or if you want to follow a certain naming convention (e.g., tarot), let's [start from texts](#doc/texts) :pen:
 
-By the way, [how much time do I need to make my own cards](#doc/time)?
+By the way, if you are too busy for this; [how much time do I need to make my own cards](#doc/time)?
