@@ -28,6 +28,7 @@ const authorizationHeader = `Basic ${encodedCredentials}`;
 setLatestTokenRequestState('NONE');
 
 app.get('/', (req, res) => {
+  getdata()
     const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
     res.send(`
   <div>
@@ -325,4 +326,25 @@ function formatLatestTokenRequestStateForDeveloper() {
     }
 
     return formatRequestState;
+}
+
+const fetch = require("node-fetch");
+function getdata() {
+  const key = "oaacVz8eUd5imZxLP.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDdUMTM6Mjg6MzUuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcGFkRkZLb1FjbFlHTmxoIiwic2VjcmV0IjoiN2UzNDVhN2VlODI1NzEyYzY1OWEwODgyZTQxYjRiZTA5OGIyYzFkNWViNmMzMDlkN2U4YWZlMzhlMTc0OWMxYiJ9.b793eabc4e89e7c73e9ff5a9289769e77924e1bd407cf73e9dfafede8b54c79a"
+  const headers = [
+      ['Authorization', `Bearer ${ key }`],
+    ];
+    fetch(`https://api.airtable.com/v0/meta/whoami`, { headers })
+      .then((response) => response.json())
+      .then((data) => {
+      console.log(data)
+        
+    });
+
+  fetch(`https://api.airtable.com/v0/${ "appK2bATlqwgkrfhT" }/Table%201`, { headers })
+      .then((response) => response.json())
+      .then((data) => {
+      console.log(data)
+        
+    });
 }
