@@ -16,6 +16,11 @@ Or, do you want to first read the [story](#doc/history) behind the project? :boo
 
 ![cards](https://img.glitches.me/images/2023/07/26/cards_sq.jpg)
 
+License
+--------
+
+Tentatively this publication is licensed as
+
 Acknowledgements
 --------
 
