@@ -334,7 +334,7 @@ function getdata() {
   const headers = [
       ['Authorization', `Bearer ${ key }`],
     ];
-  fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
+  fetch(`https://api.airtable.com/v0/meta/whoami`, { headers, method:"GET" })
     .then((response) => response.json())
     .then((data) => {
     console.log(data)
