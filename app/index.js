@@ -37,7 +37,8 @@ const redirectUri = config.redirectUri.trim();
 const scope = config.scope.trim();
 const airtableUrl = config.airtableUrl.trim();
 
-const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+const encodedCredentials = btoa(`${clientId}:${clientSecret}`)
+// const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 const authorizationHeader = `Basic ${encodedCredentials}`;
 
 let latestTokenRequestState;
