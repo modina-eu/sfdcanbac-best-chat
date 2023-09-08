@@ -37,7 +37,7 @@ export default defineConfig(async ({ command, mode }) => {
       }
     },
     define: {
-      // global: "globalThis"
+      global: "globalThis"
     },
     server: {
       host:"0.0.0.0",

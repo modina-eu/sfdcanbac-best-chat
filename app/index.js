@@ -15,9 +15,10 @@ function notFound() {
   `;
 }
 
-
+import 
 
 // import crypto from 'crypto';
+import randomBytes from "randombytes";
 // import {URL} from 'url';
 import axios from 'axios';
 import qs from 'qs';
@@ -72,10 +73,10 @@ app.route("/", (state, emit) => {
 const authorizationCache = {};
 app.route("/redirect-testing", (choostate, emit) => {
     // prevents others from impersonating Airtable
-    const state = crypto.getRandomBytes().toString('base64url');
+    const state = btoa(unescape(encodeURIComponent(randomBytes(100).toString())));
 
     // prevents others from impersonating you
-    const codeVerifier = crypto.getRandomBytes().toString('base64url'); // 128 characters
+    const codeVerifier = btoa(unescape(encodeURIComponent(randomBytes(96).toString()))); // 128 characters
     const codeChallengeMethod = 'S256';
     const codeChallenge = crypto
         .createHash('sha256')
