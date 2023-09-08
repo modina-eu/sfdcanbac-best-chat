@@ -15,7 +15,7 @@ function notFound() {
   `;
 }
 
-import 
+import createHash from "create-hash";
 
 // import crypto from 'crypto';
 import randomBytes from "randombytes";
@@ -78,8 +78,7 @@ app.route("/redirect-testing", (choostate, emit) => {
     // prevents others from impersonating you
     const codeVerifier = btoa(unescape(encodeURIComponent(randomBytes(96).toString()))); // 128 characters
     const codeChallengeMethod = 'S256';
-    const codeChallenge = crypto
-        .createHash('sha256')
+    const codeChallenge = createHash('sha256')
         .update(codeVerifier) // hash the code verifier with the sha256 algorithm
         .digest('base64') // base64 encode, needs to be transformed to base64url
         .replace(/=/g, '') // remove =
