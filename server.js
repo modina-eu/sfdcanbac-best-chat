@@ -343,13 +343,15 @@ function getdata() {
       fetch(`https://api.airtable.com/v0/meta/bases/${ id }/tables`, { headers })
         .then((response) => response.json())
         .then((data) => {
-        console.log(data)
-//         fetch(`https://api.airtable.com/v0/${ id }/Table%201`, { headers })
-//           .then((response) => response.json())
-//           .then((data) => {
-//           // console.log(data)
+        // console.log(data)
+        if (data.tables.length > 0) {
+          fetch(`https://api.airtable.com/v0/${ id }/${ data.tables[0].id }`, { headers })
+            .then((response) => response.json())
+            .then((data) => {
+            console.log(data)
 
-//         });
+          });
+        }
 
       });
     }
