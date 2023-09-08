@@ -15,7 +15,7 @@ function notFound() {
   `;
 }
 
-import createHash from "create-hash";
+import createHash from "create-hash/browser";
 
 // import crypto from 'crypto';
 import randomBytes from "randombytes";

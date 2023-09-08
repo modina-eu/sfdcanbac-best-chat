@@ -22,7 +22,8 @@
     "node-fetch": "^2.7.0",
     "buffer": "^6.0.3",
     "randombytes": "^2.1.0",
-    "create-hash": "^1.2.0"
+    "create-hash": "^1.2.0",
+    "readable-stream": "^4.4.2"
   },
   "devDependencies": {
     "vite": "^4.3.8",
