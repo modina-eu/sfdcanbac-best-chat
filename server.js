@@ -28,9 +28,9 @@ const authorizationHeader = `Basic ${encodedCredentials}`;
 setLatestTokenRequestState('NONE');
 
 app.get('/', (req, res) => {
+  const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   getdata()
-    const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
-    res.send(`
+  res.send(`
   <div>
     <h3> New Token</h3>
     <a href="redirect-testing">Click to authorize and create a new access token</a>
@@ -337,15 +337,20 @@ function getdata() {
   fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
     .then((response) => response.json())
     .then((data) => {
-    console.log(data)
+    // console.log(data)
     if (data.bases.length > 0) {
-      const id = data.bases[0].id;
-      fetch(`https://api.airtable.com/v0/meta/bases/${ id }/tables`, { headers })
+      const baseId = data.bases[0].id;
+      const baseName = data.bases[0].name;
+      console.log(`Base name: ${ baseName }`)
+      fetch(`https://api.airtable.com/v0/meta/bases/${ baseId }/tables`, { headers })
         .then((response) => response.json())
         .then((data) => {
         // console.log(data)
+        const tableId = data.tables[0].id;
+        const tableName = data.tables[0].name;
+        console.log(`Table name: ${ tableName }`)
         if (data.tables.length > 0) {
-          fetch(`https://api.airtable.com/v0/${ id }/${ data.tables[0].id }`, { headers })
+          fetch(`https://api.airtable.com/v0/${ baseId }/${ tableId }`, { headers })
             .then((response) => response.json())
             .then((data) => {
             console.log(data)
