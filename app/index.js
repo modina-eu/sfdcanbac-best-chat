@@ -64,6 +64,7 @@ app.route("/", (state, emit) => {
         .replace(/\//g, '_'); // replace / with _ now base64url encoded
 
     // ideally, entries in this cache expires after ~10-15 minutes
+    const authorizationCache = {};
     authorizationCache[state] = {
         // we'll use this in the redirect url route
         codeVerifier,
@@ -84,10 +85,93 @@ app.route("/", (state, emit) => {
     // redirect the user and request authorization
     const proxy = window.open(authorizationUrl.toString());
     function polling() {
-      console.log("oi")
-      if (proxy.window !== undefined) {
-        console.log(proxy.window)
+      if (proxy.window.location.origin == window.location.origin) {
+        console.log(proxy.window.location)
+        const params = new URLSearchParams(proxy.window.location);
+        console.log(params)
+        proxy.window.close();
         clearInterval(handler)
+        
+        console.log(params.get("state"))
+        // const state = choostate.query.state;
+        // const cached = authorizationCache[params.get("state")];
+        // // validate request, you can include other custom checks here as well
+        // if (cached === undefined) {
+        //     console.log('This request was not from Airtable!');
+        //     return;
+        // }
+        // // clear the cache
+        // delete authorizationCache[state];
+
+        // Check if the redirect includes an error code.
+        // Note that if your client_id and redirect_uri do not match the user will never be re-directed
+        // Note also that if you did not include "state" in the request, then this redirect would also not include "state"
+        if (params.get("error")) {
+            const error = params.get("error");
+            const errorDescription = params.get("error_description");
+            return html`
+                There was an error authorizing this request.
+                <br/>Error: "${error}"
+                <br/>Error Description: "${errorDescription}"
+            `;
+        }
+
+        // since the authorization didn't error, we know there's a grant code in the query
+        // we also retrieve the stashed code_verifier for this request
+        const code = params.get("code");
+        // const codeVerifier = cached.codeVerifier;
+
+        const headers = {
+            // Content-Type is always required
+            'Content-Type': 'application/x-www-form-urlencoded',
+        };
+        if (clientSecret !== '') {
+            // Authorization is required if your integration has a client secret
+            // omit it otherwise
+            headers.Authorization = authorizationHeader;
+        }
+
+        // more book-keeping, you don't need this
+        setLatestTokenRequestState('LOADING');
+        // make the POST request
+        axios({
+            method: 'POST',
+            url: `${airtableUrl}/oauth2/v1/token`,
+            headers,
+            // stringify the request body like a URL query string
+            data: qs.stringify({
+                // client_id is optional if authorization header provided
+                // required otherwise.
+                client_id: clientId,
+                code_verifier: codeVerifier,
+                redirect_uri: redirectUri,
+                code,
+                grant_type: 'authorization_code',
+            }),
+        })
+            .then((response) => {
+          console.log(response)
+                // book-keeping so we can show you the response
+                setLatestTokenRequestState('AUTHORIZATION_SUCCESS', response.data);
+                // redirect to the form where we show you the response
+                // you don't need this in your own implementation
+                window.location.href = "/";
+            })
+            .catch((e) => {
+                // 400 and 401 errors mean some problem in our configuration, the user waited too
+                // long to authorize, or there were multiple requests using this auth code.
+                // We expect these but not other error codes during normal operations
+                if (e.response && [400, 401].includes(e.response.status)) {
+                    setLatestTokenRequestState('AUTHORIZATION_ERROR', e.response.data);
+                } else if (e.response) {
+                    console.log('uh oh, something went wrong', e.response.data);
+                    setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
+                } else {
+                    console.log('uh oh, something went wrong', e);
+                    setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
+                }
+                window.location.href = "/";
+            });
       }
     }
     let handler = setInterval(polling, 1000)
@@ -112,7 +196,6 @@ app.route("/", (state, emit) => {
   `;
 });
 
-const authorizationCache = {};
 // app.route("/redirect-testing", (choostate, emit) => {
 //     // prevents others from impersonating Airtable
 
@@ -122,88 +205,6 @@ const authorizationCache = {};
 // Note that one exemption is that if your client_id is invalid or the provided
 // redirect_uri does exactly match what Airtable has stored, the user will not
 // be redirected to this route, even with an error.
-
-app.route("/airtable-oauth", (choostate, emit) => {
-  console.log(choostate.query)
-    const state = choostate.query.state;
-    const cached = authorizationCache[state];
-    // validate request, you can include other custom checks here as well
-    if (cached === undefined) {
-        console.log('This request was not from Airtable!');
-        return;
-    }
-    // clear the cache
-    delete authorizationCache[state];
-
-    // Check if the redirect includes an error code.
-    // Note that if your client_id and redirect_uri do not match the user will never be re-directed
-    // Note also that if you did not include "state" in the request, then this redirect would also not include "state"
-    if (choostate.query.error) {
-        const error = choostate.query.error;
-        const errorDescription = choostate.query.error_description;
-        return html`
-            There was an error authorizing this request.
-            <br/>Error: "${error}"
-            <br/>Error Description: "${errorDescription}"
-        `;
-    }
-
-    // since the authorization didn't error, we know there's a grant code in the query
-    // we also retrieve the stashed code_verifier for this request
-    const code = choostate.query.code;
-    const codeVerifier = cached.codeVerifier;
-
-    const headers = {
-        // Content-Type is always required
-        'Content-Type': 'application/x-www-form-urlencoded',
-    };
-    if (clientSecret !== '') {
-        // Authorization is required if your integration has a client secret
-        // omit it otherwise
-        headers.Authorization = authorizationHeader;
-    }
-
-    // more book-keeping, you don't need this
-    setLatestTokenRequestState('LOADING');
-    // make the POST request
-    axios({
-        method: 'POST',
-        url: `${airtableUrl}/oauth2/v1/token`,
-        headers,
-        // stringify the request body like a URL query string
-        data: qs.stringify({
-            // client_id is optional if authorization header provided
-            // required otherwise.
-            client_id: clientId,
-            code_verifier: codeVerifier,
-            redirect_uri: redirectUri,
-            code,
-            grant_type: 'authorization_code',
-        }),
-    })
-        .then((response) => {
-            // book-keeping so we can show you the response
-            setLatestTokenRequestState('AUTHORIZATION_SUCCESS', response.data);
-            // redirect to the form where we show you the response
-            // you don't need this in your own implementation
-            window.location.href = "/";
-        })
-        .catch((e) => {
-            // 400 and 401 errors mean some problem in our configuration, the user waited too
-            // long to authorize, or there were multiple requests using this auth code.
-            // We expect these but not other error codes during normal operations
-            if (e.response && [400, 401].includes(e.response.status)) {
-                setLatestTokenRequestState('AUTHORIZATION_ERROR', e.response.data);
-            } else if (e.response) {
-                console.log('uh oh, something went wrong', e.response.data);
-                setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
-            } else {
-                console.log('uh oh, something went wrong', e);
-                setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
-            }
-            window.location.href = "/";
-        });
-});
 
 // this route exists only for your convenience in testing Airtable OAuth
 app.route("/refresh_token_form", (state, emit) => {
