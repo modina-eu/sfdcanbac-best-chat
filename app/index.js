@@ -82,7 +82,15 @@ app.route("/", (state, emit) => {
     authorizationUrl.searchParams.set('scope', scope);
 
     // redirect the user and request authorization
-    window.open(authorizationUrl.toString());
+    const proxy = window.open(authorizationUrl.toString());
+    function polling() {
+      console.log("oi")
+      if (proxy.window !== undefined) {
+        console.log(proxy.window)
+        clearInterval(handler)
+      }
+    }
+    let handler = setInterval(polling, 1000)
   }
   return html`
   <div>
