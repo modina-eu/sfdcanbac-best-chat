@@ -9,4 +9,4 @@ const config = {
     // space delimited list of Airtable scopes, update to the list of scopes you want for your integration
     scope: 'data.records:read schema.bases:read',
 };
-module.exports = config;
+export default config;

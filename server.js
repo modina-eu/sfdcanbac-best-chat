@@ -1,16 +1,16 @@
-const crypto = require('crypto');
-const {URL} = require('url');
-const axios = require('axios');
-const qs = require('qs');
-const express = require('express');
-const bodyParser = require('body-parser');
+import crypto from 'crypto';
+import {URL} from 'url';
+import axios from 'axios';
+import qs from 'qs';
+import express from 'express';
+import bodyParser from 'body-parser';
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 // set up environment variables
 // if you have not created a .env file by following the README instructions this will not work
-const config = require('./config.js');
+import config from './config.js';
 
 const clientId = config.clientId.trim();
 const clientSecret = config.clientSecret.trim();
@@ -23,6 +23,8 @@ const airtableUrl = config.airtableUrl.trim();
 
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 const authorizationHeader = `Basic ${encodedCredentials}`;
+
+let latestTokenRequestState;
 
 // book keeping to make using this easier, not needed in a real implementation
 setLatestTokenRequestState('NONE');
@@ -328,7 +330,7 @@ function formatLatestTokenRequestStateForDeveloper() {
     return formatRequestState;
 }
 
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 function getdata() {
   let key = "oaaqdQaICWPMpNHZH.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDhUMDk6MTI6NDYuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcHJKRkJBU2VUZm1HU0wyIiwic2VjcmV0IjoiZWFjZTE1ZDFlYmM4NmJmYzY4MDMwODRhNWEyMzg5ZWYyYTg3ZmYxN2YxYzZlNWVlMzkxODI0NWIwOTQ3YzBhZCJ9.37e91d1446c32d9da20ff5d43a5c144f7ccb94cfb8358e4f95f2d533ad15b8df";
   const headers = [
@@ -337,8 +339,7 @@ function getdata() {
   fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
     .then((response) => response.json())
     .then((data) => {
-    // console.log(data)
-    if (data.bases.length > 0) {
+    if (data?.bases?.length > 0) {
       const baseId = data.bases[0].id;
       const baseName = data.bases[0].name;
       console.log(`Base name: ${ baseName }`)

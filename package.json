@@ -8,6 +8,7 @@
     "start2": "vite build --watch & vite dev",
     "build": "vite build"
   },
+  "type": "module",
   "dependencies": {
     "choo": "^7.1.0",
     "@emotion/css": "^11.11.2",
