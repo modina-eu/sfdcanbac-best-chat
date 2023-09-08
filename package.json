@@ -4,8 +4,8 @@
   "description": "What am I about?",
   "main": "index.html",
   "scripts": {
-    "start": "nodemon server.js",
-    "start2": "vite build --watch & vite dev",
+    "start2": "nodemon server.js",
+    "start": "vite build --watch & vite dev",
     "build": "vite build"
   },
   "type": "module",

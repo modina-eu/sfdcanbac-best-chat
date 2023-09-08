@@ -1,11 +1,5 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
-import mdPlugin from "vite-plugin-markdown";
-import RemoteAssets from "vite-plugin-remote-assets";
-import webfontDownload from "vite-plugin-webfont-dl";
-
-import md from "markdown-it";
-import emoji from "markdown-it-emoji";
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command, mode }) => {
@@ -13,21 +7,6 @@ export default defineConfig(async ({ command, mode }) => {
     root: 'app',
     // assetsInclude: ['**/*.md'],
     plugins: [
-      webfontDownload(),
-      RemoteAssets(),
-      mdPlugin({
-        mode:"html",
-        markdownIt: md({
-          html:         true,
-          xhtmlOut:     false,
-          breaks:       false,
-          langPrefix:   'language-',
-          linkify:      false,
-          typographer:  false,
-          quotes: '“”‘’',
-          highlight: function (/*str, lang*/) { return ''; }
-        }).use(emoji)
-      })
     ],
     build: {
       cssCodeSplit: false,

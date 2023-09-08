@@ -45,10 +45,10 @@ let latestTokenRequestState;
 // book keeping to make using this easier, not needed in a real implementation
 setLatestTokenRequestState('NONE');
 
-app.get('/', (req, res) => {
+app.route("/", (state, emit) => {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   getdata()
-  res.send(`
+  return html`
   <div>
     <h3> New Token</h3>
     <a href="redirect-testing">Click to authorize and create a new access token</a>
@@ -65,11 +65,11 @@ app.get('/', (req, res) => {
         <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
         <input type="submit">
     </form>
-  `);
+  `;
 });
 
 const authorizationCache = {};
-app.get('/redirect-testing', (req, res) => {
+app.route("/redirect-testing", (state, emit) => {
     // prevents others from impersonating Airtable
     const state = crypto.randomBytes(100).toString('base64url');
 
@@ -111,9 +111,7 @@ app.get('/redirect-testing', (req, res) => {
 // redirect_uri does exactly match what Airtable has stored, the user will not
 // be redirected to this route, even with an error.
 
-app.route("/", (state));
-
-app.get('/airtable-oauth', (req, res) => {
+app.route("/airtable-oauth", (state, emit) => {
     const state = req.query.state;
     const cached = authorizationCache[state];
     // validate request, you can include other custom checks here as well
@@ -196,7 +194,7 @@ app.get('/airtable-oauth', (req, res) => {
 });
 
 // this route exists only for your convenience in testing Airtable OAuth
-app.get('/refresh_token_form', (req, res) => {
+app.route("/refresh_token_form", (state, emit) => {
     const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
 
     // double clicking submit may cause a token revocation
@@ -210,73 +208,6 @@ app.get('/refresh_token_form', (req, res) => {
         </form>
         <a href="/">Back to home</a>
     </div>`);
-});
-
-// this route demonstrates how to make refresh a token, though normally
-// this should not occur inside a route handler (we do so here to make this
-// tool easier to use).
-app.post('/refresh_token', (req, res) => {
-    let refreshToken = req.body ? req.body.refresh_token : undefined;
-    if (!refreshToken) {
-        console.log(req.body);
-        res.send('no refresh token in data');
-        return;
-    }
-
-    if (typeof refreshToken !== 'string') {
-        console.log(req.body);
-        res.send('refresh token was not a string');
-        return;
-    }
-
-    refreshToken = refreshToken.trim();
-
-    const headers = {
-        // Content-Type is always required
-        'Content-Type': 'application/x-www-form-urlencoded',
-    };
-    if (clientSecret !== '') {
-        // Authorization is required if your integration has a client secret
-        // omit it otherwise
-        headers.Authorization = authorizationHeader;
-    }
-    axios({
-        method: 'POST',
-        url: `${airtableUrl}/oauth2/v1/token`,
-        headers,
-        // stringify the request body like a URL query string
-        data: qs.stringify({
-            // client_id is optional if authorization header provided
-            // required otherwise.
-            client_id: clientId,
-            grant_type: 'refresh_token',
-            refresh_token: refreshToken,
-        }),
-    })
-        .then((response) => {
-            console.log(response);
-            setLatestTokenRequestState('REFRESH_SUCCESS', response.data);
-            res.redirect('/');
-        })
-        .catch((e) => {
-            // 400 and 401 errors mean some problem in our configuration, the refresh token has
-            // already been used, or the refresh token has expired.
-            // We expect these but not other error codes during normal operations
-            if (e.response && [400, 401].includes(e.response.status)) {
-                setLatestTokenRequestState('REFRESH_ERROR', e.response.data);
-            } else if (e.response) {
-                console.log('uh oh, something went wrong', e.response.data);
-                setLatestTokenRequestState('UNKNOWN_REFRESH_ERROR');
-            } else {
-                console.log('uh oh, something went wrong', e);
-                setLatestTokenRequestState('UNKNOWN_REFRESH_ERROR');
-            }
-            res.redirect('/');
-        });
-});
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
 });
 
 function setLatestTokenRequestState(state, dataToFormatIfExists) {
@@ -349,7 +280,6 @@ function formatLatestTokenRequestStateForDeveloper() {
     return formatRequestState;
 }
 
-import fetch from "node-fetch";
 function getdata() {
   let key = "oaaqdQaICWPMpNHZH.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDhUMDk6MTI6NDYuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcHJKRkJBU2VUZm1HU0wyIiwic2VjcmV0IjoiZWFjZTE1ZDFlYmM4NmJmYzY4MDMwODRhNWEyMzg5ZWYyYTg3ZmYxN2YxYzZlNWVlMzkxODI0NWIwOTQ3YzBhZCJ9.37e91d1446c32d9da20ff5d43a5c144f7ccb94cfb8358e4f95f2d533ad15b8df";
   const headers = [
