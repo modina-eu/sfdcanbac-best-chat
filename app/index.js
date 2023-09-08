@@ -15,7 +15,7 @@ function notFound() {
   `;
 }
 
-import createHash from "create-hash/browser";
+import createHash from "./create-hash.js";
 
 // import crypto from 'crypto';
 import randomBytes from "randombytes";
@@ -104,7 +104,7 @@ app.route("/redirect-testing", (choostate, emit) => {
     authorizationUrl.searchParams.set('scope', scope);
 
     // redirect the user and request authorization
-    res.redirect(authorizationUrl.toString());
+    window.location.href = authorizationUrl.toString();
 });
 
 // route that user is redirected to after successful or failed authorization
@@ -113,11 +113,12 @@ app.route("/redirect-testing", (choostate, emit) => {
 // be redirected to this route, even with an error.
 
 app.route("/airtable-oauth", (choostate, emit) => {
-    const state = req.query.state;
+  console.log(choostate.query)
+    const state = choostate.query.state;
     const cached = authorizationCache[state];
     // validate request, you can include other custom checks here as well
     if (cached === undefined) {
-        res.send('This request was not from Airtable!');
+        console.log('This request was not from Airtable!');
         return;
     }
     // clear the cache
@@ -126,20 +127,19 @@ app.route("/airtable-oauth", (choostate, emit) => {
     // Check if the redirect includes an error code.
     // Note that if your client_id and redirect_uri do not match the user will never be re-directed
     // Note also that if you did not include "state" in the request, then this redirect would also not include "state"
-    if (req.query.error) {
-        const error = req.query.error;
-        const errorDescription = req.query.error_description;
-        res.send(`
+    if (choostate.query.error) {
+        const error = choostate.query.error;
+        const errorDescription = choostate.query.error_description;
+        return html`
             There was an error authorizing this request.
             <br/>Error: "${error}"
             <br/>Error Description: "${errorDescription}"
-        `);
-        return;
+        `;
     }
 
     // since the authorization didn't error, we know there's a grant code in the query
     // we also retrieve the stashed code_verifier for this request
-    const code = req.query.code;
+    const code = choostate.query.code;
     const codeVerifier = cached.codeVerifier;
 
     const headers = {
@@ -175,7 +175,7 @@ app.route("/airtable-oauth", (choostate, emit) => {
             setLatestTokenRequestState('AUTHORIZATION_SUCCESS', response.data);
             // redirect to the form where we show you the response
             // you don't need this in your own implementation
-            res.redirect('/');
+            window.location.href = "/";
         })
         .catch((e) => {
             // 400 and 401 errors mean some problem in our configuration, the user waited too
@@ -190,7 +190,7 @@ app.route("/airtable-oauth", (choostate, emit) => {
                 console.log('uh oh, something went wrong', e);
                 setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
             }
-            res.redirect('/');
+            window.location.href = "/";
         });
 });
 

@@ -38,7 +38,6 @@ export default defineConfig(async ({ command, mode }) => {
     },
     define: {
       global: "globalThis",
-      "'stream'": "'readable-stream'",
     },
     server: {
       host:"0.0.0.0",
