@@ -50,30 +50,8 @@ setLatestTokenRequestState('NONE');
 app.route("/", (state, emit) => {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   getdata()
-  return html`
-  <div>
-    <h3> New Token</h3>
-    <a href="redirect-testing">Click to authorize and create a new access token</a>
-    <br/>
-    <h3>Refresh a token</h3>
-    ${latestRequestStateDisplayData}
-    <p>
-        To test refreshing a token, enter it into the input and press "submit"
-        <br/>
-        In your own code, refreshing should occur as a background process.
-    </p>
-    <form action="/refresh_token" method="post" >
-        <label for="refresh">Refresh token:
-        <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
-        <input type="submit">
-    </form>
-  `;
-});
-
-const authorizationCache = {};
-app.route("/redirect-testing", (choostate, emit) => {
-    // prevents others from impersonating Airtable
-    const state = btoa(unescape(encodeURIComponent(randomBytes(100).toString())));
+  function authpopup() {
+        const state = btoa(unescape(encodeURIComponent(randomBytes(100).toString())));
 
     // prevents others from impersonating you
     const codeVerifier = btoa(unescape(encodeURIComponent(randomBytes(96).toString()))); // 128 characters
@@ -104,8 +82,33 @@ app.route("/redirect-testing", (choostate, emit) => {
     authorizationUrl.searchParams.set('scope', scope);
 
     // redirect the user and request authorization
-    window.location.href = authorizationUrl.toString();
+    window.open(authorizationUrl.toString());
+  }
+  return html`
+  <div>
+    <h3> New Token</h3>
+    <a href="#" onclick=${authpopup}>Click to authorize and create a new access token</a>
+    <br/>
+    <h3>Refresh a token</h3>
+    ${latestRequestStateDisplayData}
+    <p>
+        To test refreshing a token, enter it into the input and press "submit"
+        <br/>
+        In your own code, refreshing should occur as a background process.
+    </p>
+    <form action="/refresh_token" method="post" >
+        <label for="refresh">Refresh token:
+        <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
+        <input type="submit">
+    </form>
+  `;
 });
+
+const authorizationCache = {};
+// app.route("/redirect-testing", (choostate, emit) => {
+//     // prevents others from impersonating Airtable
+
+// });
 
 // route that user is redirected to after successful or failed authorization
 // Note that one exemption is that if your client_id is invalid or the provided
