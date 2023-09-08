@@ -18,10 +18,10 @@ function notFound() {
 
 
 import crypto from 'crypto';
-import {URL} from 'url';
+// import {URL} from 'url';
 import axios from 'axios';
 import qs from 'qs';
-import express from 'express';
+// import express from 'express';
 import bodyParser from 'body-parser';
 
 // set up environment variables
@@ -69,7 +69,7 @@ app.route("/", (state, emit) => {
 });
 
 const authorizationCache = {};
-app.route("/redirect-testing", (state, emit) => {
+app.route("/redirect-testing", (choostate, emit) => {
     // prevents others from impersonating Airtable
     const state = crypto.randomBytes(100).toString('base64url');
 
@@ -111,7 +111,7 @@ app.route("/redirect-testing", (state, emit) => {
 // redirect_uri does exactly match what Airtable has stored, the user will not
 // be redirected to this route, even with an error.
 
-app.route("/airtable-oauth", (state, emit) => {
+app.route("/airtable-oauth", (choostate, emit) => {
     const state = req.query.state;
     const cached = authorizationCache[state];
     // validate request, you can include other custom checks here as well
