@@ -4,10 +4,14 @@ import axios from 'axios';
 import qs from 'qs';
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.set('views', 'views');
+app.set('view engine', 'ejs');
+
 // set up environment variables
 // if you have not created a .env file by following the README instructions this will not work
 import config from './config.js';

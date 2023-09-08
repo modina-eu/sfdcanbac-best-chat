@@ -134,12 +134,11 @@ app.route("/", (state, emit) => {
         // more book-keeping, you don't need this
         setLatestTokenRequestState('LOADING');
         // make the POST request
-        axios({
+        fetch(`${airtableUrl}/oauth2/v1/token`, {
             method: 'POST',
-            url: `${airtableUrl}/oauth2/v1/token`,
             headers,
             // stringify the request body like a URL query string
-            data: qs.stringify({
+            body: qs.stringify({
                 // client_id is optional if authorization header provided
                 // required otherwise.
                 client_id: clientId,
