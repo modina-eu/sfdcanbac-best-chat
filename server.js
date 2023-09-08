@@ -330,8 +330,8 @@ function formatLatestTokenRequestStateForDeveloper() {
 
 const fetch = require("node-fetch");
 function getdata() {
-  let key = "oaae7cc29AtU5FIWL.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDdUMTU6NTA6MTkuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcGFkRkZLb1FjbFlHTmxoIiwic2VjcmV0IjoiOWU1MzVmYjBiOGU5N2U5NTRiYWNiZTgxNGZjNGVlODRmODVkY2M1ZGMxZTdiZmZlOGFjNGQyNzc2OWFlOGFjZiJ9.5c81e127674ee1cb61662dba1c6ee9329eee664d8fc5b9fcae2e5b49e3698ace"
-  key="oaaf3R9rGDEsq8EVZ.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDdUMTU6NTI6NDcuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcGFkRkZLb1FjbFlHTmxoIiwic2VjcmV0IjoiN2NiZjRmODU5NGE2Y2Y3ZjY5N2Y1OWVhNmY5YWFkMzc3ZDQ5Zjk3Mjc4MGFmYWE0YWYxNjQ2MjczMDVkZmEzYiJ9.5e9e2a14a61669c718cacc1ad5e3a9b6ec878c315144ebca72599c60cf5ea6d3";const headers = [
+  let key = "oaasiHPRm2IVgMFhN.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDhUMDg6NTE6MjMuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcGFkRkZLb1FjbFlHTmxoIiwic2VjcmV0IjoiYzg2MTY3MzFjMTYyZjM5Y2IxMjM4NzAyMzA2ZWQ0ZGQ3ZTAxNzM4MDE0NmZiZmNhOWQzNmViYjBiNDJiZjk4YyJ9.c57c93608e866d7a0d8ca91824daebb2712014d8e2e9b1be0c01d0fb5c8003ba";
+  const headers = [
       ['Authorization', `Bearer ${ key }`],
     ];
   fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
