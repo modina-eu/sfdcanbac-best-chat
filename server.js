@@ -29,7 +29,10 @@ setLatestTokenRequestState('NONE');
 
 app.get('/', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
-  getdata()
+  console.log(latestTokenRequestState.state)
+  if (latestTokenRequestState.state == "AUTHORIZATION_SUCCESS") {
+    getTableData({ key: latestTokenRequestState.access_token });
+  }
   res.render('index', { latestRequestStateDisplayData, cardData: "" });
 });
 
@@ -139,23 +142,24 @@ app.listen(port, () => {
 });
 
 function setLatestTokenRequestState(state, dataToFormatIfExists) {
-    latestTokenRequestState = {
-        state,
-    };
+  latestTokenRequestState = {
+    state,
+  };
 
-    if (dataToFormatIfExists) {
-        const json = JSON.stringify(dataToFormatIfExists, null, 2);
-        // access and refresh tokens are difficult to copy paste in normal JSON formatting,
-        // to make it easier we put them on a newline without the quotes
-        const formattedData = json
-            .split('\n')
-            .map((line) =>
-                line.replace(/^(\s+"(access_token|refresh_token)":)\s+"(.*)",$/g, '$1\n$3'),
-            )
-            .join('\n');
-        latestTokenRequestState.formattedData = formattedData;
-        console.log(state, latestTokenRequestState);
-    }
+  if (dataToFormatIfExists) {
+    latestTokenRequestState.json = dataToFormatIfExists;
+    const json = JSON.stringify(dataToFormatIfExists, null, 2);
+    // access and refresh tokens are difficult to copy paste in normal JSON formatting,
+    // to make it easier we put them on a newline without the quotes
+    const formattedData = json
+      .split('\n')
+      .map((line) =>
+          line.replace(/^(\s+"(access_token|refresh_token)":)\s+"(.*)",$/g, '$1\n$3'),
+      )
+      .join('\n');
+    latestTokenRequestState.formattedData = formattedData;
+    console.log(state, latestTokenRequestState);
+  }
 }
 
 function formatLatestTokenRequestStateForDeveloper() {
@@ -208,14 +212,14 @@ function formatLatestTokenRequestStateForDeveloper() {
     return formatRequestState;
 }
 
-function getdata() {
-  let key = "oaaqdQaICWPMpNHZH.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDhUMDk6MTI6NDYuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcHJKRkJBU2VUZm1HU0wyIiwic2VjcmV0IjoiZWFjZTE1ZDFlYmM4NmJmYzY4MDMwODRhNWEyMzg5ZWYyYTg3ZmYxN2YxYzZlNWVlMzkxODI0NWIwOTQ3YzBhZCJ9.37e91d1446c32d9da20ff5d43a5c144f7ccb94cfb8358e4f95f2d533ad15b8df";
+function getTableData({ key }) {
   const headers = [
       ['Authorization', `Bearer ${ key }`],
     ];
   fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
     .then((response) => response.json())
     .then((data) => {
+    console.log(data)
     if (data?.bases?.length > 0) {
       const baseId = data.bases[0].id;
       const baseName = data.bases[0].name;
