@@ -30,7 +30,7 @@ setLatestTokenRequestState('NONE');
 app.get('/', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   getdata()
-  res.render('index', { latestRequestStateDisplayData });
+  res.render('index', { latestRequestStateDisplayData, cardData: "" });
 });
 
 
@@ -129,85 +129,6 @@ app.get('/airtable-oauth', (req, res) => {
             } else {
                 console.log('uh oh, something went wrong', e);
                 setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
-            }
-            res.redirect('/');
-        });
-});
-
-// this route exists only for your convenience in testing Airtable OAuth
-app.get('/refresh_token_form', (req, res) => {
-    const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
-
-    // double clicking submit may cause a token revocation
-    res.send(`<div>
-        ${latestRequestStateDisplayData}
-        <p>To Refresh a token, enter it into the input and press "submit"</p>
-        <form action="/refresh_token" method="post" >
-            <label for="refresh">Refresh token:
-            <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
-            <input type="submit">
-        </form>
-        <a href="/">Back to home</a>
-    </div>`);
-});
-
-// this route demonstrates how to make refresh a token, though normally
-// this should not occur inside a route handler (we do so here to make this
-// tool easier to use).
-app.post('/refresh_token', (req, res) => {
-    let refreshToken = req.body ? req.body.refresh_token : undefined;
-    if (!refreshToken) {
-        console.log(req.body);
-        res.send('no refresh token in data');
-        return;
-    }
-
-    if (typeof refreshToken !== 'string') {
-        console.log(req.body);
-        res.send('refresh token was not a string');
-        return;
-    }
-
-    refreshToken = refreshToken.trim();
-
-    const headers = {
-        // Content-Type is always required
-        'Content-Type': 'application/x-www-form-urlencoded',
-    };
-    if (clientSecret !== '') {
-        // Authorization is required if your integration has a client secret
-        // omit it otherwise
-        headers.Authorization = authorizationHeader;
-    }
-    fetch(`${airtableUrl}/oauth2/v1/token`, {
-        method: 'POST',
-        headers,
-        // stringify the request body like a URL query string
-        body: qs.stringify({
-            // client_id is optional if authorization header provided
-            // required otherwise.
-            client_id: clientId,
-            grant_type: 'refresh_token',
-            refresh_token: refreshToken,
-        }),
-    })
-        .then((response) => {
-            console.log(response);
-            setLatestTokenRequestState('REFRESH_SUCCESS', response.data);
-            res.redirect('/');
-        })
-        .catch((e) => {
-            // 400 and 401 errors mean some problem in our configuration, the refresh token has
-            // already been used, or the refresh token has expired.
-            // We expect these but not other error codes during normal operations
-            if (e.response && [400, 401].includes(e.response.status)) {
-                setLatestTokenRequestState('REFRESH_ERROR', e.response.data);
-            } else if (e.response) {
-                console.log('uh oh, something went wrong', e.response.data);
-                setLatestTokenRequestState('UNKNOWN_REFRESH_ERROR');
-            } else {
-                console.log('uh oh, something went wrong', e);
-                setLatestTokenRequestState('UNKNOWN_REFRESH_ERROR');
             }
             res.redirect('/');
         });

@@ -13,18 +13,8 @@
       <h3> New Token</h3>
       <a href="redirect-testing">Click to authorize and create a new access token</a>
       <br/>
-      <h3>Refresh a token</h3>
       <%= latestRequestStateDisplayData %>
-      <p>
-        To test refreshing a token, enter it into the input and press "submit"
-        <br/>
-        In your own code, refreshing should occur as a background process.
-      </p>
-      <form action="/refresh_token" method="post" >
-        <label for="refresh">Refresh token:
-        <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
-        <input type="submit">
-      </form>
+      <%= cardData %>
     </div>
 	</body>
 </html>
