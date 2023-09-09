@@ -30,10 +30,11 @@ setLatestTokenRequestState('NONE');
 app.get('/', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   console.log(latestTokenRequestState.state)
+  let cardData = ""
   if (latestTokenRequestState.state == "AUTHORIZATION_SUCCESS") {
-    getTableData({ key: latestTokenRequestState.access_token });
+    cardData = await getTableData({ key: latestTokenRequestState.json.access_token });
   }
-  res.render('index', { latestRequestStateDisplayData, cardData: "" });
+  res.render('index', { latestRequestStateDisplayData, cardData });
 });
 
 
@@ -212,37 +213,28 @@ function formatLatestTokenRequestStateForDeveloper() {
     return formatRequestState;
 }
 
-function getTableData({ key }) {
+async function getTableData({ key }) {
   const headers = [
       ['Authorization', `Bearer ${ key }`],
     ];
-  fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" })
-    .then((response) => response.json())
-    .then((data) => {
-    console.log(data)
-    if (data?.bases?.length > 0) {
-      const baseId = data.bases[0].id;
-      const baseName = data.bases[0].name;
-      console.log(`Base name: ${ baseName }`)
-      fetch(`https://api.airtable.com/v0/meta/bases/${ baseId }/tables`, { headers })
-        .then((response) => response.json())
-        .then((data) => {
-        // console.log(data)
-        const tableId = data.tables[0].id;
-        const tableName = data.tables[0].name;
-        console.log(`Table name: ${ tableName }`)
-        if (data.tables.length > 0) {
-          fetch(`https://api.airtable.com/v0/${ baseId }/${ tableId }`, { headers })
-            .then((response) => response.json())
-            .then((data) => {
-            console.log(data)
-
-          });
-        }
-
-      });
+  let response, data, tableData;
+  response = await fetch(`https://api.airtable.com/v0/meta/bases`, { headers, method:"GET" });
+  data = await response.json();
+  if (data?.bases?.length > 0) {
+    const baseId = data.bases[0].id;
+    const baseName = data.bases[0].name;
+    console.log(`Base name: ${ baseName }`)
+    response = await fetch(`https://api.airtable.com/v0/meta/bases/${ baseId }/tables`, { headers });
+    data = await response.json();
+    const tableId = data.tables[0].id;
+    const tableName = data.tables[0].name;
+    console.log(`Table name: ${ tableName }`)
+    if (data.tables.length > 0) {
+      response = await fetch(`https://api.airtable.com/v0/${ baseId }/${ tableId }`, { headers });
+      data = await response.json();
+      console.log(data)
+      tableData = data;
     }
-
-  });
-
+  }
+  return tableData;
 }

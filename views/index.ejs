@@ -4,9 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Airtable Cards</title>
-		<link rel="stylesheet" href="/css/base.css">
+<!-- 		<link rel="stylesheet" href="/css/base.css">
 		<link rel="stylesheet" href="/css/index.css">
-		<link rel="stylesheet" href="/css/home.css">
+		<link rel="stylesheet" href="/css/home.css"> -->
 	</head>
 	<body>
     <div>
@@ -14,7 +14,7 @@
       <a href="redirect-testing">Click to authorize and create a new access token</a>
       <br/>
       <%= latestRequestStateDisplayData %>
-      <%= cardData %>
+      <%= JSON.stringify(cardData) %>
     </div>
 	</body>
 </html>
