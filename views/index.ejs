@@ -15,9 +15,9 @@
       <div>
         records: <%= cardData?.records?.length %>
       </div>
-      <div>
+      <div class="cards">
         <% if (cardData) { for (const record of cardData?.records) { %>
-          
+
           <page>
             <div class="page-content" id="<%= record?.id %>">
               <div class="header">
