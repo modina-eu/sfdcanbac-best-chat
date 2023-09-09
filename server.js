@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.set('views', 'views');
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;

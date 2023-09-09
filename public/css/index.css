@@ -1,0 +1,62 @@
+page {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 9.40cm;
+  width: 6.9cm;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+  border: 0.5cm outset #eeeeee;
+  background-color: #bbbbbb;
+}
+.page-content {
+  height: 100%;
+}
+box-sizing: border-box;
+font-family: "arial", sans-serif;
+z-index: 10;
+margin: 0px;
+padding: 0px;
+width: 100%;
+height: 100%;
+overflow: hidden;
+font-size: 7pt;
+
+.content {
+  margin: 0 2px;
+  height: 100%;
+}
+.title {
+  margin: 0 2px;
+  padding-left: 0.2em;
+  font-size: 1.3em;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background-color: "#00f";
+  color: white;
+}
+.button {
+  border: 0.1cm outset #eeeeee;
+  background-color: #bbbbbb;
+  color: #000000;
+  margin: 2px;
+  width: 1em;
+  text-align: center;
+}
+.sign {
+  position: absolute;
+  font-size: .8em;
+  bottom: .1em;
+  left: .1em;
+}

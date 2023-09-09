@@ -4,9 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Airtable Cards</title>
-<!-- 		<link rel="stylesheet" href="/css/base.css">
 		<link rel="stylesheet" href="/css/index.css">
-		<link rel="stylesheet" href="/css/home.css"> -->
 	</head>
 	<body>
     <div>
@@ -18,12 +16,24 @@
         records: <%= cardData?.records?.length %>
       </div>
       <div>
-        <% for (const record of cardData?.records) { %>
-            <h3><%= record?.id %></h3>
-            <h3><%= record?.fields?.Name %></h3>
-            <img src="<%= record?.fields?.Attachments?.at(0)?.thumbnails?.large?.url %>" />
-            <h3><%= record?.fields?.Notes %></h3>
-        <% } %>
+        <% if (cardData) { for (const record of cardData?.records) { %>
+          
+          <page>
+            <div class="page-content" id="<%= record?.id %>">
+              <div class="header">
+                <div class="title"><%= record?.fields?.Name %></div>
+                <div class="button">x</>
+              </div>
+              <div class="content">
+                <img src="<%= record?.fields?.Attachments?.at(0)?.thumbnails?.large?.url %>" />
+                 <%= record?.fields?.Notes %>
+                 <div class="sign">
+                  2023 you
+                </div>
+              </div>
+            </div>
+          </page>
+        <% } } %>
       </div>
     </div>
 	</body>
