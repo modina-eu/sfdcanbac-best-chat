@@ -5,6 +5,7 @@ import qs from 'qs';
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
+import fetch from "node-fetch";
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -130,7 +131,7 @@ app.get('/airtable-oauth', (req, res) => {
         url: `${airtableUrl}/oauth2/v1/token`,
         headers,
         // stringify the request body like a URL query string
-        data: qs.stringify({
+        data: JSON.stringify({
             // client_id is optional if authorization header provided
             // required otherwise.
             client_id: clientId,
@@ -318,7 +319,6 @@ function formatLatestTokenRequestStateForDeveloper() {
     return formatRequestState;
 }
 
-import fetch from "node-fetch";
 function getdata() {
   let key = "oaaqdQaICWPMpNHZH.v1.eyJ1c2VySWQiOiJ1c3JzeUVUZkFzWUc0STcyWCIsImV4cGlyZXNBdCI6IjIwMjMtMDktMDhUMDk6MTI6NDYuMDAwWiIsIm9hdXRoQXBwbGljYXRpb25JZCI6Im9hcHJKRkJBU2VUZm1HU0wyIiwic2VjcmV0IjoiZWFjZTE1ZDFlYmM4NmJmYzY4MDMwODRhNWEyMzg5ZWYyYTg3ZmYxN2YxYzZlNWVlMzkxODI0NWIwOTQ3YzBhZCJ9.37e91d1446c32d9da20ff5d43a5c144f7ccb94cfb8358e4f95f2d533ad15b8df";
   const headers = [
