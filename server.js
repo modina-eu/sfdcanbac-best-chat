@@ -1,6 +1,6 @@
+import "dotenv";
 import crypto from 'crypto';
 import {URL} from 'url';
-import axios from 'axios';
 import qs from 'qs';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -13,25 +13,18 @@ app.use(bodyParser.json());
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
-// set up environment variables
-// if you have not created a .env file by following the README instructions this will not work
-import config from './config.js';
-
-const clientId = config.clientId.trim();
-const clientSecret = config.clientSecret.trim();
-// if you edit the port you will need to edit the redirectUri
-const port = config.port;
-// if you edit the path of this URL will you will need to edit the /airtable-oauth route to match your changes
-const redirectUri = config.redirectUri.trim();
-const scope = config.scope.trim();
-const airtableUrl = config.airtableUrl.trim();
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+const port = process.env.PORT;
+const redirectUri = process.env.REDIRECT_URI;
+const scope = process.env.SCOPE;
+const airtableUrl = process.env.AIRTABLE_URL;
 
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 const authorizationHeader = `Basic ${encodedCredentials}`;
 
 let latestTokenRequestState;
 
-// book keeping to make using this easier, not needed in a real implementation
 setLatestTokenRequestState('NONE');
 
 app.get('/', async function(req, res, next) {
@@ -51,11 +44,11 @@ app.get('/redirect-testing', (req, res) => {
     const codeChallengeMethod = 'S256';
     const codeChallenge = crypto
         .createHash('sha256')
-        .update(codeVerifier) // hash the code verifier with the sha256 algorithm
-        .digest('base64') // base64 encode, needs to be transformed to base64url
-        .replace(/=/g, '') // remove =
-        .replace(/\+/g, '-') // replace + with -
-        .replace(/\//g, '_'); // replace / with _ now base64url encoded
+        .update(codeVerifier)
+        .digest('base64')
+        .replace(/=/g, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_');
 
     // ideally, entries in this cache expires after ~10-15 minutes
     authorizationCache[state] = {
@@ -64,7 +57,6 @@ app.get('/redirect-testing', (req, res) => {
         // any other data you want to store, like the user's ID
     };
 
-    // build the authorization URL
     const authorizationUrl = new URL(`${airtableUrl}/oauth2/v1/authorize`);
     authorizationUrl.searchParams.set('code_challenge', codeChallenge);
     authorizationUrl.searchParams.set('code_challenge_method', codeChallengeMethod);
@@ -72,10 +64,8 @@ app.get('/redirect-testing', (req, res) => {
     authorizationUrl.searchParams.set('client_id', clientId);
     authorizationUrl.searchParams.set('redirect_uri', redirectUri);
     authorizationUrl.searchParams.set('response_type', 'code');
-    // your OAuth integration register with these scopes in the management page
     authorizationUrl.searchParams.set('scope', scope);
 
-    // redirect the user and request authorization
     res.redirect(authorizationUrl.toString());
 });
 
@@ -86,17 +76,12 @@ app.get('/redirect-testing', (req, res) => {
 app.get('/airtable-oauth', (req, res) => {
     const state = req.query.state;
     const cached = authorizationCache[state];
-    // validate request, you can include other custom checks here as well
     if (cached === undefined) {
         res.send('This request was not from Airtable!');
         return;
     }
-    // clear the cache
     delete authorizationCache[state];
 
-    // Check if the redirect includes an error code.
-    // Note that if your client_id and redirect_uri do not match the user will never be re-directed
-    // Note also that if you did not include "state" in the request, then this redirect would also not include "state"
     if (req.query.error) {
         const error = req.query.error;
         const errorDescription = req.query.error_description;
@@ -108,32 +93,21 @@ app.get('/airtable-oauth', (req, res) => {
         return;
     }
 
-    // since the authorization didn't error, we know there's a grant code in the query
-    // we also retrieve the stashed code_verifier for this request
     const code = req.query.code;
     const codeVerifier = cached.codeVerifier;
 
     const headers = {
-        // Content-Type is always required
         'Content-Type': 'application/x-www-form-urlencoded',
     };
     if (clientSecret !== '') {
-        // Authorization is required if your integration has a client secret
-        // omit it otherwise
         headers.Authorization = authorizationHeader;
     }
 
-    // more book-keeping, you don't need this
     setLatestTokenRequestState('LOADING');
-    // make the POST request
-    axios({
+    fetch(`${airtableUrl}/oauth2/v1/token`, {
         method: 'POST',
-        url: `${airtableUrl}/oauth2/v1/token`,
         headers,
-        // stringify the request body like a URL query string
-        data: JSON.stringify({
-            // client_id is optional if authorization header provided
-            // required otherwise.
+        body: qs.stringify({
             client_id: clientId,
             code_verifier: codeVerifier,
             redirect_uri: redirectUri,
@@ -141,17 +115,12 @@ app.get('/airtable-oauth', (req, res) => {
             grant_type: 'authorization_code',
         }),
     })
-        .then((response) => {
-            // book-keeping so we can show you the response
-            setLatestTokenRequestState('AUTHORIZATION_SUCCESS', response.data);
-            // redirect to the form where we show you the response
-            // you don't need this in your own implementation
+    .then((response) => response.json())
+        .then((data) => {
+            setLatestTokenRequestState('AUTHORIZATION_SUCCESS', data);
             res.redirect('/');
         })
         .catch((e) => {
-            // 400 and 401 errors mean some problem in our configuration, the user waited too
-            // long to authorize, or there were multiple requests using this auth code.
-            // We expect these but not other error codes during normal operations
             if (e.response && [400, 401].includes(e.response.status)) {
                 setLatestTokenRequestState('AUTHORIZATION_ERROR', e.response.data);
             } else if (e.response) {
@@ -210,12 +179,11 @@ app.post('/refresh_token', (req, res) => {
         // omit it otherwise
         headers.Authorization = authorizationHeader;
     }
-    axios({
+    fetch(`${airtableUrl}/oauth2/v1/token`, {
         method: 'POST',
-        url: `${airtableUrl}/oauth2/v1/token`,
         headers,
         // stringify the request body like a URL query string
-        data: qs.stringify({
+        body: qs.stringify({
             // client_id is optional if authorization header provided
             // required otherwise.
             client_id: clientId,

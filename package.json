@@ -13,24 +13,14 @@
     "choo": "^7.1.0",
     "@emotion/css": "^11.11.2",
     "airtable": "^0.12.2",
-    "markdown-it": "^13.0.1",
-    "markdown-it-emoji": "^2.0.2",
-    "@discordapp/twemoji": "^14.1.2",
-    "axios": "^0.27.2",
-    "express": "^4.18.1",
-    "nodemon": "^2.0.16",
+    "express": "^4.18.2",
     "node-fetch": "^2.7.0",
-    "buffer": "^6.0.3",
-    "randombytes": "^2.1.0",
-    "create-hash": "^1.2.0",
-    "readable-stream": "^4.4.2",
-    "ejs": "^3.1.9"
+    "ejs": "^3.1.9",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "vite": "^4.3.8",
-    "vite-plugin-markdown": "^v2.2.0-2",
-    "vite-plugin-remote-assets": "^0.3.2",
-    "vite-plugin-webfont-dl": "^3.7.4"
+    "nodemon": "^2.0.16",
+    "vite": "^4.3.8"
   },
   "browserslist": [
     ">0.2%",
@@ -43,7 +33,7 @@
     "url": "https://glitch.com/~choo-hydra-vite"
   },
   "glitch": {
-    "projectType": "generated_static"
+    "projectType": ""
   },
   "license": "MIT",
   "keywords": [
