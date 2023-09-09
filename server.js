@@ -33,28 +33,12 @@ let latestTokenRequestState;
 // book keeping to make using this easier, not needed in a real implementation
 setLatestTokenRequestState('NONE');
 
-app.get('/', (req, res) => {
+app.get('/', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   getdata()
-  res.send(`
-  <div>
-    <h3> New Token</h3>
-    <a href="redirect-testing">Click to authorize and create a new access token</a>
-    <br/>
-    <h3>Refresh a token</h3>
-    ${latestRequestStateDisplayData}
-    <p>
-        To test refreshing a token, enter it into the input and press "submit"
-        <br/>
-        In your own code, refreshing should occur as a background process.
-    </p>
-    <form action="/refresh_token" method="post" >
-        <label for="refresh">Refresh token:
-        <input type="text" id="refresh" name="refresh_token" autocomplete="off" minLength="64"/>
-        <input type="submit">
-    </form>
-  `);
+  res.render('index', { latestRequestStateDisplayData });
 });
+
 
 const authorizationCache = {};
 app.get('/redirect-testing', (req, res) => {
