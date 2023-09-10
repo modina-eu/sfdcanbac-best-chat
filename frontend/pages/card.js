@@ -28,9 +28,29 @@ img {
 `
 const active = true;
 const windowsCss = css`
-width: ${ 300 }px;
-height: 400px;
+//width: ${ 300 }px;
+//height: 400px;
 position: relative;
+
+font-size: 2em;
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  // height: 29.7cm;
+  // width: 21cm;
+  height: ${9.40*2}cm;
+  width: ${6.9*2}cm;
+  break-after: always;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+  border: 0.5cm outset #eee;
+  background-color: #bbb;
+
 .frontside {
   width: 100%;
   height: 100%;
@@ -41,7 +61,7 @@ position: relative;
   margin: 5px;
   padding: 5px;
   background-color: #bbb;
-  border: 2px outset #eee;
+  // border: 2px outset #eee;
   overflow: hidden;
 }
 .content {
@@ -100,25 +120,11 @@ img {
 `;
 
 const mainCss = css`
-
-    page {
-      box-sizing: border-box;
-      position: relative;
-      margin: 0;
-      padding: 0;
-      height: 9.40cm;
-      width: 6.9cm;
-      page-break-after: always;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      align-content: stretch;
-      border: 0.5cm outset #eee;
-      background-color: #bbb;
-    }
-    `;
+page {
+  width: 100%;
+  height: 100%;
+}
+`;
 
 // export module
 export default function(state, emit, item) {
@@ -144,7 +150,7 @@ export default function(state, emit, item) {
   }
   
   return html`
-    <div id=${ item.id } class=${ windowsCss }>
+    <div id=${ item.id } class="${ mainCss } ${ windowsCss }">
       <page>
         <div class="frontside">
           <div class="header">
