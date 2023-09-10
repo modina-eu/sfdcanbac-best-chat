@@ -41,6 +41,16 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
+  fetch("/api/getdata", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      },
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+  
+  
   return html`
   <div>
   <h3>choo New Token</h3>
