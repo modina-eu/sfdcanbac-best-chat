@@ -38,6 +38,11 @@ width: 100%;
 .pointer {
   cursor: pointer;
 }
+.no-print {
+  @media print {
+    display: none;
+  }
+}
 `;
 
 // export module
@@ -45,34 +50,13 @@ export default function(state, emit) {
   console.log(state.cardData)
   
   return html`
-  <div>
-  <h3>choo New Token</h3>
+  <div class=${ mainCss }>
+    <div class="no-print">
+      <h3>New Token</h3>
       <a href="api/redirect-testing">Click to authorize and create a new access token</a>
-      <br/>
-      ${ state.cardData?.records?.map(e => card(state, emit, e)) }
+    </div>
+    ${ state.cardData?.records?.map(e => card(state, emit, e)) }
   </div>`;
-  // let content = "loading";
-  // if (state.currentData !== undefined) {
-  //   content = doc(state, emit);
-  // }
-  // return html`
-  //   <div class=${ mainCss }>
-  //     ${ menu(state, emit) }
-  //     <div class="container">
-  //       <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
-  //         ${ dialog(state, emit) }
-  //       </div>
-  //       <div class="columns">
-  //         ${ content }
-  //       </div>
-  //     </div>
-  //   </>
-  // `;
-  // function dialogBgClick(e) {
-  //   if (e.target.id == "dialogback") {
-  //     emit("hide info");
-  //   }
-  // }
   function oauthRedirect(e) {
     
   }

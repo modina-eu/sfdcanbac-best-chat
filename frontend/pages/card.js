@@ -99,6 +99,27 @@ img {
 }
 `;
 
+const mainCss = css`
+
+    page {
+      box-sizing: border-box;
+      position: relative;
+      margin: 0;
+      padding: 0;
+      height: 9.40cm;
+      width: 6.9cm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      align-content: stretch;
+      border: 0.5cm outset #eee;
+      background-color: #bbb;
+    }
+    `;
+
 // export module
 export default function(state, emit, item) {
   const links = [];
@@ -124,22 +145,24 @@ export default function(state, emit, item) {
   
   return html`
     <div id=${ item.id } class=${ windowsCss }>
-      <div class="frontside">
-        <div class="header">
-          <div class="title">
-            ${ item.fields?.Name }
+      <page>
+        <div class="frontside">
+          <div class="header">
+            <div class="title">
+              ${ item.fields?.Name }
+            </div>
+          </div>
+          <div class="content">
+            ${ img }
+            <div class="text">
+              ${ item.fields?.Notes }
+            </div>
+            <div class="links">
+              ${ links }
+            </div>
           </div>
         </div>
-        <div class="content">
-          ${ img }
-          <div class="text">
-            ${ item.fields?.Notes }
-          </div>
-          <div class="links">
-            ${ links }
-          </div>
-        </div>
-      </div>
+      </page>
     </div>
   `;
   
