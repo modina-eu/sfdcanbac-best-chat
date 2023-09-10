@@ -1,6 +1,5 @@
-Hydra DIY Editor
-========
+# vite-node-template
 
-pick a [theme](https://codemirror.net/demo/theme.html#paraiso-dark) and edit css link in index.html and script.js
+vite for frontend / node (express) for backend API
 
-pick a [font](https://fonts.google.com/?preview.text_type=custom&category=Monospace)
+npm install needs to be run in the terminal manually

@@ -18,5 +18,9 @@ function notFound() {
 import mainView from "./pages/main.js";
 app.route("/", mainView);
 
+app.use((state, emitter) => {
+  state.data = { data: "no data yet"}
+});
+
 // start app
 app.mount("#choomount");
