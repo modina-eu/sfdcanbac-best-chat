@@ -1,4 +1,6 @@
-import "dotenv";
+import {config} from "dotenv";
+config({ path: '../.env' })
+
 import crypto from 'crypto';
 import {URL} from 'url';
 import qs from 'qs';
