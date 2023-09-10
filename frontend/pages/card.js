@@ -102,8 +102,8 @@ img {
 // export module
 export default function(state, emit, item) {
   const links = [];
-  if (item.links !== undefined) {
-    for (const id of item.links) {
+  if (item.fields["Table 1"] !== undefined) {
+    for (const id of item.fields["Table 1"]) {
       links.push(formatLink(id));
     }
   }
@@ -146,7 +146,7 @@ export default function(state, emit, item) {
   function formatLink(id) {
     return html`
     <button>
-      ${ state.airtableData[id].name }
+      ${ state.cardData.records.find(e => e.id == id).fields.Name }
     </button>
     `;
   }
