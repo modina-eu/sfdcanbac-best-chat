@@ -41,7 +41,12 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  return html`<div>oi</div>`;
+  return html`
+  <div>
+  <h3> New Token</h3>
+      <a href="#" onclick=${ oauthRedirect }>Click to authorize and create a new access token</a>
+      <br/>
+  </div>`;
   // let content = "loading";
   // if (state.currentData !== undefined) {
   //   content = doc(state, emit);
@@ -64,4 +69,7 @@ export default function(state, emit) {
   //     emit("hide info");
   //   }
   // }
+  function oauthRedirect(e) {
+    
+  }
 }

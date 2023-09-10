@@ -17,6 +17,15 @@ import proxy from "express-http-proxy";
 // const bodyParser = require('body-parser');
 
 const app = express();
+app.use("/", proxy("http://localhost:4000", {
+  filter: function(req, res) {
+    console.log(req)
+    if (req.path == "aaaaa") {
+      return true;
+    }
+    return false;
+  }
+}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.set('views', 'views');
@@ -36,8 +45,6 @@ const authorizationHeader = `Basic ${encodedCredentials}`;
 let latestTokenRequestState;
 
 setLatestTokenRequestState('NONE');
-
-app.use("/", proxy("http://localhost:4000"));
 
 app.get('/a', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
