@@ -3,7 +3,6 @@ import { css } from "@emotion/css";
 
 import menu from "./views/menu.js";
 import dialog from "./views/dialog.js";
-import doc from "./views/doc.js";
 
 const mainCss = css`
 width: 100%;
@@ -42,26 +41,27 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-  let content = "loading";
-  if (state.currentData !== undefined) {
-    content = doc(state, emit);
-  }
-  return html`
-    <div class=${ mainCss }>
-      ${ menu(state, emit) }
-      <div class="container">
-        <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
-          ${ dialog(state, emit) }
-        </div>
-        <div class="columns">
-          ${ content }
-        </div>
-      </div>
-    </>
-  `;
-  function dialogBgClick(e) {
-    if (e.target.id == "dialogback") {
-      emit("hide info");
-    }
-  }
+  return html`<div>oi</div>`;
+  // let content = "loading";
+  // if (state.currentData !== undefined) {
+  //   content = doc(state, emit);
+  // }
+  // return html`
+  //   <div class=${ mainCss }>
+  //     ${ menu(state, emit) }
+  //     <div class="container">
+  //       <div id="dialogback" class="dialog ${ state.dialog ? "" : "hide" }" onclick="${ dialogBgClick }">
+  //         ${ dialog(state, emit) }
+  //       </div>
+  //       <div class="columns">
+  //         ${ content }
+  //       </div>
+  //     </div>
+  //   </>
+  // `;
+  // function dialogBgClick(e) {
+  //   if (e.target.id == "dialogback") {
+  //     emit("hide info");
+  //   }
+  // }
 }

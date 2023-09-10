@@ -8,6 +8,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import fetch from "node-fetch";
+import proxy from "express-http-proxy";
 // const crypto = require('crypto');
 // const {URL} = require('url');
 // const fetch = require('node-fetch');
@@ -36,7 +37,9 @@ let latestTokenRequestState;
 
 setLatestTokenRequestState('NONE');
 
-app.get('/', async function(req, res, next) {
+app.use("/", proxy("http://localhost:4000"));
+
+app.get('/a', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   console.log(latestTokenRequestState.state)
   let cardData = ""

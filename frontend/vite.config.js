@@ -4,18 +4,18 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command, mode }) => {
   return {
-    root: 'app',
+    root: '.',
     // assetsInclude: ['**/*.md'],
     plugins: [
     ],
     build: {
       cssCodeSplit: false,
-      outDir: "../build",
+      outDir: "./build",
       rollupOptions: {
         context: 'globalThis',
         input: {
           // the default entry point
-          app: './app/index.html',
+          app: './index.html',
 
           // 1️⃣
           // 'service-worker': './app/service-worker.js',
@@ -41,7 +41,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     server: {
       host:"0.0.0.0",
-      port:3000,
+      port:4000,
       strictPort: true,
       hmr: {
         clientPort: 443
@@ -49,7 +49,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     preview: {
       host:"0.0.0.0",
-      port:3000,
+      port:4000,
       strictPort: true,
       hmr: {
         clientPort: 443

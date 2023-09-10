@@ -7,7 +7,7 @@
     "dev:backend": "npm --prefix backend run dev",
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
     "build": "npm --prefix frontend run build",
-    "start": "npm run dev:backend"
+    "start": "concurrently 'npm:dev:frontend' 'npm:dev:backend'"
   },
   "type": "module",
   "devDependencies": {

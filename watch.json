@@ -7,12 +7,11 @@
   },
   "restart": {
     "include": [
-      "^\\.env$",
-      "^backend/"
+      "^\\.env$"
     ],
     "exclude": [
-      "app/",
-      "public/"
+      "^frontend/",
+      "^backend/"
     ]
   },
   "noSavedEvents": true
