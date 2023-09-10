@@ -3,6 +3,8 @@ import { css } from "@emotion/css";
 
 const mainCss = css`
 width: 100%;
+padding: 10px;
+font-size: 2em;
 `;
 
 // export module
