@@ -1,19 +1,15 @@
 {
-  "name": "choo-hydra-vite",
+  "name": "vite-node-template-backend",
   "version": "0.0.1",
   "description": "What am I about?",
   "main": "index.html",
   "scripts": {
-    "dev": "nodemon server.js",
-    "build": "vite build"
+    "dev": "nodemon server.js"
   },
   "type": "module",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-http-proxy": "^2.0.0",
-    "express-session": "^1.17.3",
-    "node-fetch": "^2.7.0"
+    "express": "^4.18.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
@@ -26,7 +22,7 @@
     "node": "16.x"
   },
   "repository": {
-    "url": "https://glitch.com/~choo-hydra-vite"
+    "url": "https://glitch.com/~vite-node-template"
   },
   "glitch": {
     "projectType": ""

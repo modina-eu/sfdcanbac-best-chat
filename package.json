@@ -1,5 +1,5 @@
 {
-  "name": "frei",
+  "name": "vite-node-template",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -14,6 +14,9 @@
   "type": "module",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "repository": {
+    "url": "https://glitch.com/~vite-node-template"
   },
   "engines": {
     "node": "16.x"

@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
@@ -5,7 +6,6 @@ import { defineConfig } from "vite";
 export default defineConfig(async ({ command, mode }) => {
   return {
     root: '.',
-    // assetsInclude: ['**/*.md'],
     plugins: [
     ],
     build: {
@@ -14,19 +14,11 @@ export default defineConfig(async ({ command, mode }) => {
       rollupOptions: {
         context: 'globalThis',
         input: {
-          // the default entry point
           app: './index.html',
-
-          // 1️⃣
-          // 'service-worker': './app/service-worker.js',
         },
         output: {
           // 2️⃣
-          entryFileNames: assetInfo => {
-            return assetInfo.name === 'service-worker'
-               ? '[name].js'                  // put service worker in root
-               : 'assets/js/[name].js' // others in `assets/js/`
-          },
+          entryFileNames: 'assets/js/[name].js',
           chunkFileNames: `assets/[name].js`,
           assetFileNames: `assets/[name].[ext]`
         },
@@ -48,18 +40,10 @@ export default defineConfig(async ({ command, mode }) => {
       },
       proxy: {
         '/api': {
-          target: 'http://localhost:40000',
+          target: `http://localhost:${ process.env.BACKEND_PORT }`,
           changeOrigin: true,
           secure: false,
         }
-      }
-    },
-    preview: {
-      host: "0.0.0.0",
-      port: 3000,
-      strictPort: true,
-      hmr: {
-        clientPort: 443
       }
     },
   };
