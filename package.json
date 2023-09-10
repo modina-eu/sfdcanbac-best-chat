@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev:frontend": "npm --prefix frontend run dev",
-    "dev:backend": "npm --prefix backend run dev",
+    "dev:backend": "sleep 3; npm --prefix backend run dev",
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
     "build": "npm --prefix frontend run build",
     "start": "concurrently 'npm:dev:backend' 'npm:dev:frontend'"

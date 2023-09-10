@@ -3,7 +3,7 @@ import choo from "choo";
 import html from "choo/html";
 
 // initialize choo
-const app = choo({ hash: true });
+const app = choo({ hash: true, href: false });
 
 app.route("/*", notFound);
 

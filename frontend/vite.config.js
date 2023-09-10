@@ -40,7 +40,7 @@ export default defineConfig(async ({ command, mode }) => {
       global: "globalThis",
     },
     server: {
-      host:"0.0.0.0",
+      host: "0.0.0.0",
       port: 3000,
       strictPort: true,
       hmr: {
@@ -48,15 +48,15 @@ export default defineConfig(async ({ command, mode }) => {
       },
       proxy: {
         '/api': {
-          target: 'http://localhost:4000',
+          target: 'http://localhost:40000',
           changeOrigin: true,
           secure: false,
         }
       }
     },
     preview: {
-      host:"0.0.0.0",
-      port:40000,
+      host: "0.0.0.0",
+      port: 3000,
       strictPort: true,
       hmr: {
         clientPort: 443

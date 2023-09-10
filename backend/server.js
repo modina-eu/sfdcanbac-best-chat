@@ -38,7 +38,7 @@ let latestTokenRequestState;
 
 setLatestTokenRequestState('NONE');
 
-app.get('/', async function(req, res, next) {
+app.get('/api', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   console.log(latestTokenRequestState.state)
   let cardData = ""
@@ -54,7 +54,7 @@ app.get('/', async function(req, res, next) {
 
 
 const authorizationCache = {};
-app.get('/redirect-testing', (req, res) => {
+app.get('/api/redirect-testing', (req, res) => {
     // prevents others from impersonating Airtable
     const state = crypto.randomBytes(100).toString('base64url');
 
@@ -92,7 +92,7 @@ app.get('/redirect-testing', (req, res) => {
 // Note that one exemption is that if your client_id is invalid or the provided
 // redirect_uri does exactly match what Airtable has stored, the user will not
 // be redirected to this route, even with an error.
-app.get('/airtable-oauth', (req, res) => {
+app.get('/api/airtable-oauth', (req, res) => {
     const state = req.query.state;
     const cached = authorizationCache[state];
     if (cached === undefined) {

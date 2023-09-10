@@ -44,7 +44,7 @@ export default function(state, emit) {
   return html`
   <div>
   <h3>choo New Token</h3>
-      <a href="#" onclick=${ oauthRedirect }>Click to authorize and create a new access token</a>
+      <a href="api/redirect-testing">Click to authorize and create a new access token</a>
       <br/>
   </div>`;
   // let content = "loading";
