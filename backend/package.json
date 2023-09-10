@@ -5,7 +5,6 @@
   "main": "index.html",
   "scripts": {
     "dev": "nodemon server.js",
-    "start2": "vite build --watch & vite dev",
     "build": "vite build"
   },
   "type": "module",
@@ -13,6 +12,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-http-proxy": "^2.0.0",
+    "express-session": "^1.17.3",
     "node-fetch": "^2.7.0"
   },
   "devDependencies": {

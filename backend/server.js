@@ -10,12 +10,6 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import fetch from "node-fetch";
 import proxy from "express-http-proxy";
-// const crypto = require('crypto');
-// const {URL} = require('url');
-// const fetch = require('node-fetch');
-// const qs = require('qs');
-// const express = require('express');
-// const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -165,16 +159,15 @@ async function getTableData({ key }) {
   if (data?.bases?.length > 0) {
     const baseId = data.bases[0].id;
     const baseName = data.bases[0].name;
-    console.log(`Base name: ${ baseName }`)
+    // console.log(`Base name: ${ baseName }`)
     response = await fetch(`https://api.airtable.com/v0/meta/bases/${ baseId }/tables`, { headers });
     data = await response.json();
     const tableId = data.tables[0].id;
     const tableName = data.tables[0].name;
-    console.log(`Table name: ${ tableName }`)
+    // console.log(`Table name: ${ tableName }`)
     if (data.tables.length > 0) {
       response = await fetch(`https://api.airtable.com/v0/${ baseId }/${ tableId }`, { headers });
       data = await response.json();
-      console.log(data)
       tableData = data;
     }
   }

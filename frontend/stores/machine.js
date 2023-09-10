@@ -14,8 +14,8 @@ export default (state, emitter) => {
         },
     })
     .then(response => response.json())
-    .then(data => {
-      state.data = data;
+    .then(({ cardData }) => {
+      state.cardData = cardData;
       emitter.emit("render");
     });
   }

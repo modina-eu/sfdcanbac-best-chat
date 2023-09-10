@@ -2,6 +2,7 @@ import html from "choo/html";
 import { css } from "@emotion/css";
 
 import menu from "./views/menu.js";
+import card from "./card.js";
 import dialog from "./views/dialog.js";
 
 const mainCss = css`
@@ -41,14 +42,14 @@ width: 100%;
 
 // export module
 export default function(state, emit) {
-
+  console.log(state.cardData)
   
   return html`
   <div>
   <h3>choo New Token</h3>
       <a href="api/redirect-testing">Click to authorize and create a new access token</a>
       <br/>
-      ${ JSON.stringify(state.data) }
+      ${ state.cardData?.records?.map(e => card(state, emit, e)) }
   </div>`;
   // let content = "loading";
   // if (state.currentData !== undefined) {

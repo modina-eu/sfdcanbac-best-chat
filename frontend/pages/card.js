@@ -34,18 +34,6 @@ position: relative;
 .frontside {
   width: 100%;
   height: 100%;
-  animation: turnIn 1s;
-  backface-visibility: hidden;
-  @keyframes turnIn {
-    0% {
-      // opacity: 0;
-      transform: rotate3d(0, 1, 0, 180deg);
-    }
-    100% {
-      // opacity: 1;
-      transform: rotate3d(0, 1, 0, 0deg);
-    }
-  }
 
   font-family: "Roboto", arial, sans-serif;
   position: relative;
@@ -54,38 +42,14 @@ position: relative;
   padding: 5px;
   background-color: #bbb;
   border: 2px outset #eee;
-  box-shadow: 8px 4px 0 black;
   overflow: hidden;
-}
-.backside {
-  width: 100%;
-  height: 100%;
-  animation: turnIn2 1s;
-  backface-visibility: hidden;
-  @keyframes turnIn2 {
-    0% {
-      // opacity: 0;
-      transform: rotate3d(0, 1, 0, 0deg);
-    }
-    100% {
-      // opacity: 1;
-      transform: rotate3d(0, 1, 0, 180deg);
-    }
-  }
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: rotate3d(0, 1, 0, 180deg);
-  box-shadow: 8px 4px 0 black;
-}
-.backside.loading {
-  animation: none;
 }
 .content {
   margin: 0 2px;
 }
 .title {
   margin: 0 2px;
+  min-height: 1em;
 }
 .title::after {
   content: "x";
@@ -145,25 +109,31 @@ export default function(state, emit, item) {
   }
   
   let img = "";
-  if (item.image != "") {
+  if (item.fields?.Attachments?.at(0)?.thumbnails?.large?.url) {
     img = html`
     <div>
-      <img src=${ item.image } />
+      <img src=${ item.fields?.Attachments?.at(0)?.thumbnails?.large?.url } />
+    </div>`;
+  }
+  else {
+    img = html`
+    <div>
+      <img src=${ item.fields?.Attachments?.at(0)?.thumbnails?.large?.url } />
     </div>`;
   }
   
   return html`
-    <div id=${ item.name } class=${ windowsCss }>
+    <div id=${ item.id } class=${ windowsCss }>
       <div class="frontside">
         <div class="header">
           <div class="title">
-            ${ item.name }
+            ${ item.fields?.Name }
           </div>
         </div>
         <div class="content">
           ${ img }
           <div class="text">
-            ${ item.notes }
+            ${ item.fields?.Notes }
           </div>
           <div class="links">
             ${ links }
