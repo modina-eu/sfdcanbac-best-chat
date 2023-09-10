@@ -43,7 +43,7 @@ width: 100%;
 export default function(state, emit) {
   return html`
   <div>
-  <h3> New Token</h3>
+  <h3>choo New Token</h3>
       <a href="#" onclick=${ oauthRedirect }>Click to authorize and create a new access token</a>
       <br/>
   </div>`;
