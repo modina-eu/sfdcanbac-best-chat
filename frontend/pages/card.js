@@ -32,15 +32,19 @@ const windowsCss = css`
 //height: 400px;
 position: relative;
 
-font-size: 2em;
   box-sizing: border-box;
   position: relative;
   margin: 0;
   padding: 0;
   // height: 29.7cm;
   // width: 21cm;
-  height: ${9.40*2}cm;
-  width: ${6.9*2}cm;
+  @media print {
+    font-size: 2.5em;
+    width: ${ 6.9*2.5 }cm;
+    height: ${ 9.40*2.5 }cm;
+  }
+  width: ${ 6.9*1 }cm;
+  height: ${ 9.40*1 }cm;
   break-after: always;
   display: flex;
   flex-direction: column;
