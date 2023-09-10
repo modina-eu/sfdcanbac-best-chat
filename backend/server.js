@@ -1,5 +1,5 @@
-import {config} from "dotenv";
-config({ path: '../.env' })
+import dotenv from "dotenv";
+// require("dotenv").config({ path: '../.env' })
 
 import crypto from 'crypto';
 import {URL} from 'url';
@@ -8,6 +8,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import fetch from "node-fetch";
+// const crypto = require('crypto');
+// const {URL} = require('url');
+// const fetch = require('node-fetch');
+// const qs = require('qs');
+// const express = require('express');
+// const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false}));

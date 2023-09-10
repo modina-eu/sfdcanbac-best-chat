@@ -9,7 +9,11 @@
     "build": "npm --prefix frontend run build",
     "start": "npm run dev:backend"
   },
+  "type": "module",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
