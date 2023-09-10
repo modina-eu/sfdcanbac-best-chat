@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import {URL} from 'url';
 import qs from 'qs';
 import express from 'express';
+import session from 'express-session';
 import bodyParser from 'body-parser';
 import path from 'path';
 import fetch from "node-fetch";
@@ -21,6 +22,11 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(session({
+  secret: "kitty cat",
+  resave: false,
+  saveUninitialized: false,
+}))
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -35,17 +41,11 @@ const airtableUrl = process.env.AIRTABLE_URL;
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 const authorizationHeader = `Basic ${encodedCredentials}`;
 
-let latestTokenRequestState;
-
-setLatestTokenRequestState('NONE');
-
 app.post('/api/getdata', async function(req, res, next) {
-  const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
   console.log(req.body)
   let cardData = ""
-  if (latestTokenRequestState.state == "AUTHORIZATION_SUCCESS") {
-    cardData = await getTableData({ key: latestTokenRequestState.json.access_token });
-    
+  if (req.session.connected) {
+    cardData = await getTableData({ key: req.session.data.access_token });
   }
   res.json({ cardData });
 });
@@ -134,18 +134,20 @@ app.get('/api/airtable-oauth', (req, res) => {
   })
   .then((response) => response.json())
     .then((data) => {
-      setLatestTokenRequestState('AUTHORIZATION_SUCCESS', data);
+      // setLatestTokenRequestState('AUTHORIZATION_SUCCESS', data);
+      req.session.data = data;
+      req.session.connected = true;
       res.redirect('/');
     })
     .catch((e) => {
       if (e.response && [400, 401].includes(e.response.status)) {
-          setLatestTokenRequestState('AUTHORIZATION_ERROR', e.response.data);
+          // setLatestTokenRequestState('AUTHORIZATION_ERROR', e.response.data);
       } else if (e.response) {
           console.log('uh oh, something went wrong', e.response.data);
-          setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
+          // setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
       } else {
           console.log('uh oh, something went wrong', e);
-          setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
+          // setLatestTokenRequestState('UNKNOWN_AUTHORIZATION_ERROR');
       }
       res.redirect('/');
     });
