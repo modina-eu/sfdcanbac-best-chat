@@ -41,16 +41,13 @@ setLatestTokenRequestState('NONE');
 
 app.post('/api/getdata', async function(req, res, next) {
   const latestRequestStateDisplayData = formatLatestTokenRequestStateForDeveloper();
-  console.log(latestTokenRequestState.state)
+  console.log(req.body)
   let cardData = ""
   if (latestTokenRequestState.state == "AUTHORIZATION_SUCCESS") {
     cardData = await getTableData({ key: latestTokenRequestState.json.access_token });
-    res.json({ cardData });
     
   }
-  else {
-    res.json({ latestRequestStateDisplayData, cardData });
-  }
+  res.json({ cardData });
 });
 
 

@@ -7,6 +7,10 @@ const app = choo({ hash: true, href: false });
 
 app.route("/*", notFound);
 
+import machine from "./stores/machine.js";
+app.use(machine);
+
+
 function notFound() {
   return html`
     <div>
