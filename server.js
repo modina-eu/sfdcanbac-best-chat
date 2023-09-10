@@ -34,8 +34,12 @@ app.get('/', async function(req, res, next) {
   let cardData = ""
   if (latestTokenRequestState.state == "AUTHORIZATION_SUCCESS") {
     cardData = await getTableData({ key: latestTokenRequestState.json.access_token });
+    res.render('cards', { cardData });
+    
   }
-  res.render('index', { latestRequestStateDisplayData, cardData });
+  else {
+    res.render('index', { latestRequestStateDisplayData, cardData });
+  }
 });
 
 
