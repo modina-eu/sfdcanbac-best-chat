@@ -7,11 +7,14 @@
   },
   "restart": {
     "include": [
+      "^frontend/package\\.json$",
+      "^backend/package\\.json$",
       "^\\.env$"
     ],
     "exclude": [
       "^frontend/",
-      "^backend/"
+      "^backend/",
+      "^README\\.md$"
     ]
   },
   "noSavedEvents": true

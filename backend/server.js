@@ -42,7 +42,6 @@ const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('
 const authorizationHeader = `Basic ${encodedCredentials}`;
 
 app.post('/api/getdata', async function(req, res, next) {
-  console.log(req.body)
   let cardData = ""
   if (req.session.connected) {
     cardData = await getTableData({ key: req.session.data.access_token });
@@ -120,7 +119,6 @@ app.get('/api/airtable-oauth', (req, res) => {
     headers.Authorization = authorizationHeader;
   }
 
-  setLatestTokenRequestState('LOADING');
   fetch(`${airtableUrl}/oauth2/v1/token`, {
     method: 'POST',
     headers,
@@ -156,77 +154,6 @@ app.get('/api/airtable-oauth', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-function setLatestTokenRequestState(state, dataToFormatIfExists) {
-  latestTokenRequestState = {
-    state,
-  };
-
-  if (dataToFormatIfExists) {
-    latestTokenRequestState.json = dataToFormatIfExists;
-    const json = JSON.stringify(dataToFormatIfExists, null, 2);
-    // access and refresh tokens are difficult to copy paste in normal JSON formatting,
-    // to make it easier we put them on a newline without the quotes
-    const formattedData = json
-      .split('\n')
-      .map((line) =>
-        line.replace(/^(\s+"(access_token|refresh_token)":)\s+"(.*)",$/g, '$1\n$3'),
-      )
-      .join('\n');
-    latestTokenRequestState.formattedData = formattedData;
-    console.log(state, latestTokenRequestState);
-  }
-}
-
-function formatLatestTokenRequestStateForDeveloper() {
-  let formatRequestState = '';
-
-  switch (latestTokenRequestState.state) {
-    case 'NONE':
-      break;
-    case 'LOADING':
-      formatRequestState =
-        'The request for the access token from your latest authorization is still outstanding, check the terminal or refresh';
-      break;
-    case 'AUTHORIZATION_ERROR':
-      formatRequestState = 'Your latest authorization request failed, the error was:';
-      break;
-    case 'UNKNOWN_AUTHORIZATION_ERROR':
-      formatRequestState =
-        'The request for the access token from your latest authorization failed, check the terminal for details';
-      break;
-    case 'REFRESH_ERROR':
-      formatRequestState = 'Your latest refresh request failed, the error was:';
-      break;
-    case 'UNKNOWN_REFRESH_ERROR':
-      formatRequestState =
-        'Your latest request to refresh your access token failed, see the terminal for details';
-      break;
-    case 'AUTHORIZATION_SUCCESS':
-      formatRequestState = 'Your authorization succeeded, the response was:';
-      break;
-    case 'REFRESH_SUCCESS':
-      formatRequestState = 'Your refresh request succeeded, the response was:';
-      break;
-    default:
-      throw Error(
-        `unexpected latestTokenRequestState loading state: ${latestTokenRequestState.state}`,
-      );
-  }
-
-  if (latestTokenRequestState.formattedData) {
-    formatRequestState += `<br/>
-  <code>
-    <pre>${latestTokenRequestState.formattedData}</pre>
-  </code>`;
-  }
-
-  if (formatRequestState) {
-    formatRequestState = `<p>${formatRequestState}</p>`;
-  }
-
-  return formatRequestState;
-}
 
 async function getTableData({ key }) {
   const headers = [

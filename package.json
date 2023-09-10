@@ -6,6 +6,8 @@
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "sleep 3; npm --prefix backend run dev",
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
+    "install:frontend": "npm --prefix frontend install",
+    "install:backend": "npm --prefix backend install",
     "build": "npm --prefix frontend run build",
     "start": "concurrently 'npm:dev:backend' 'npm:dev:frontend'"
   },

@@ -1,10 +1,6 @@
 import html from "choo/html";
 import { css } from "@emotion/css";
 
-import CardElement from "../components/card.js";
-
-import backImage from "https://cdn.glitch.global/61984d65-52b6-418b-b420-2547b4acca3d/back.png";
-
 const paperCss = css`
 position: relative;
 z-index: 10;
@@ -30,7 +26,7 @@ img {
   font-size: 0.8em;
 }
 `
-const active = false;
+const active = true;
 const windowsCss = css`
 width: ${ 300 }px;
 height: 400px;
@@ -140,36 +136,7 @@ img {
 `;
 
 // export module
-export default function(state, emit, cardName) {
-  function findItem(name) {
-    const keys = Object.keys(state.airtableData);
-    const ids = keys.filter(key => state.airtableData[key].name == name);
-    if (ids.length > 0) {
-      const id = ids[Math.floor(Math.random() * ids.length)];
-      return state.airtableData[id];
-    }
-  }
-
-  let currentCss = state.theme == "windows" ? windowsCss : paperCss;
-
-  let item;
-  if (state.currentData === undefined) {
-    return html`
-    <div class=${ currentCss }>
-      <img class="backside loading" src=${ backImage }/>
-    </div>
-    `;
-  }
-  if (cardName === undefined) {
-    const { name } = state.params;
-    item = findItem(name);
-  }
-  else if (typeof cardName === "string") {
-    item = findItem(cardName);
-  }
-  else {
-    item = cardName;
-  }
+export default function(state, emit, item) {
   const links = [];
   if (item.links !== undefined) {
     for (const id of item.links) {
@@ -186,7 +153,7 @@ export default function(state, emit, cardName) {
   }
   
   return html`
-    <div id=${ item.name } class=${ currentCss }>
+    <div id=${ item.name } class=${ windowsCss }>
       <div class="frontside">
         <div class="header">
           <div class="title">
@@ -203,20 +170,14 @@ export default function(state, emit, cardName) {
           </div>
         </div>
       </div>
-      <img class="backside" src=${ backImage }/>
     </div>
   `;
   
   function formatLink(id) {
     return html`
-    <button onclick=${ () => linkClick(id) }>
+    <button>
       ${ state.airtableData[id].name }
     </button>
     `;
   }
-  
-  function linkClick(id) {
-    emit("jump", id);
-  }
-
 }
