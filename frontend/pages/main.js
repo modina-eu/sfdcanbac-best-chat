@@ -13,15 +13,15 @@ export default function(state, emit) {
       hello world!
     </div>
     <div>
-      data: ${ state.data }
+      data: ${ JSON.stringify(state.data) }
     </div>
     <button onclick=${ getData }>
-      fetch /api/getdata
+      fetch /api/getrandomhello
     </button>
   </div>`;
   
   function getData() {
-    fetch("/api/getdata")
+    fetch("/api/getrandomhello")
     .then(response => response.json())
     .then(data => {
       state.data = data;

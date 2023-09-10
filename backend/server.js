@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-// require("dotenv").config({ path: '../.env' })
 
 import express from 'express';
 const app = express();
@@ -8,8 +7,8 @@ app.use(express.json());
 
 const port = process.env.BACKEND_PORT;
 
-app.get('/api/getdata', async function(req, res, next) {
-  res.json({ data: "hello" });
+app.get('/api/getrandomhello', async function(req, res, next) {
+  res.json({ data: ["hello!", "hola!", "salut", "hallo"][Math.floor(Math.random()*4)] });
 });
 
 app.listen(port, () => {
