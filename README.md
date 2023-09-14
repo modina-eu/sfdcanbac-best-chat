@@ -2,4 +2,9 @@
 
 vite for frontend / node (express) for backend API
 
-npm install needs to be run in the terminal manually
+please set
+
+    FRONTEND_PORT=3000
+    BACKEND_PORT=40000
+
+in .env first

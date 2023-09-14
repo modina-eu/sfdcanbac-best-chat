@@ -12,8 +12,17 @@
     "start": "concurrently 'npm:dev:backend' 'npm:dev:frontend'"
   },
   "type": "module",
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "choo": "^7.1.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "dotenv": "^16.3.1",
+    "nodemon": "^2.0.16",
+    "vite": "^4.3.8"
   },
   "repository": {
     "url": "https://glitch.com/~vite-node-template"

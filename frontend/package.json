@@ -8,14 +8,6 @@
     "build": "vite build"
   },
   "type": "module",
-  "dependencies": {
-    "@emotion/css": "^11.11.2",
-    "choo": "^7.1.0"
-  },
-  "devDependencies": {
-    "dotenv": "^16.3.1",
-    "vite": "^4.3.8"
-  },
   "browserslist": [
     ">0.2%",
     "not dead"
