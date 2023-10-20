@@ -11,8 +11,6 @@ app.use(express.json());
 
 const port = !!process.env.BACKEND_PORT ? process.env.BACKEND_PORT : 40000;
 
-let i = 0;
-
 app.get('/api/getrandomhello', async function(req, res, next) {
   res.json({ data: ["hello!", "hola!", "salut", "hallo"][Math.floor(Math.random()*4)] });
 });
@@ -24,11 +22,12 @@ app.post('/api/clicked', async function(req, res, next) {
 app.post('/api/counter', async function(req, res, next) {
   const snapshot = await db.ref('counter').get();
   let data = snapshot.val();
-  let i = data.count;
-  const ref = await db.ref('counter').set({
-    count: i++,
-  });
+  let i = data?.count !== undefined ? data.count : 0;
   res.send(`<h1>${ i }</h1>`);
+  console.log(data)
+  const ref = await db.ref('counter').set({
+    count: i + 1,
+  });
 });
 
 app.listen(port, () => {
