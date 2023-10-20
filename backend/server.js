@@ -15,6 +15,10 @@ app.get('/api/getrandomhello', async function(req, res, next) {
   res.json({ data: ["hello!", "hola!", "salut", "hallo"][Math.floor(Math.random()*4)] });
 });
 
+app.post('/api/clicked', async function(req, res, next) {
+  res.send(`<h1>hi</h1>`);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

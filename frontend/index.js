@@ -1,6 +1,7 @@
 // import choo
 import choo from "choo";
 import html from "choo/html";
+import htmx from "htmx.org";
 
 // initialize choo
 const app = choo({ hash: true, href: false });
@@ -24,3 +25,4 @@ app.use((state, emitter) => {
 
 // start app
 app.mount("#choomount");
+
