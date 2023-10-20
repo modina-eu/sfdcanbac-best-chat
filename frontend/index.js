@@ -19,20 +19,20 @@ function notFound() {
 
 import mainView from "./pages/main.js";
 app.route("/", function () {
+      // <div id="parent-div"></div>
+      // <button hx-post="/api/clicked"
+      //   hx-trigger="click"
+      //   hx-target="#parent-div"
+      //   hx-swap="outerHTML"
+      // >
+      //   Click Me!
+      // </button>
   return html`
     <div>
       you are the
         <span hx-post="/api/counter" hx-trigger="load">
           loading
         </span>th visitor
-      <div id="parent-div"></div>
-      <button hx-post="/api/clicked"
-        hx-trigger="click"
-        hx-target="#parent-div"
-        hx-swap="outerHTML"
-      >
-        Click Me!
-      </button>
       <div hx-post="/api/content" hx-trigger="load">
         loading
       </div>
