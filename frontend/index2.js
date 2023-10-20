@@ -1,5 +1,6 @@
-import htmx from "htmx.org";
-
+// import htmx from "htmx.org";
+import 'htmx.org/dist/ext/preload.js';
+import 'htmx.org/dist/ext/debug.js';
 // htmx.onLoad(function(elt){
 //   console.log(elt)
 // })
@@ -25,7 +26,15 @@ import mainView from "./pages/main.js";
 app.route("/", function () {
   return html`
     <div>
-      lol
+          <div id="parent-div"></div>
+    <button hx-post="/api/clicked"
+      hx-trigger="click"
+      hx-target="#parent-div"
+      hx-swap="outerHTML"
+    >
+      Click Me!
+    </button>
+
           <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
 
     </div>
