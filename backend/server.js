@@ -23,6 +23,7 @@ app.post('/api/counter', async function(req, res, next) {
   const snapshot = await db.ref('counter').get();
   let data = snapshot.val();
   let i = data?.count !== undefined ? data.count : 0;
+  console.log(i)
   res.send(`<span class="font-bold">${ i }</span>`);
   const ref = await db.ref('counter').set({
     count: i + 1,

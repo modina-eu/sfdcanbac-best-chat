@@ -1,10 +1,4 @@
 // import htmx from "htmx.org";
-import 'htmx.org/dist/ext/preload.js';
-import 'htmx.org/dist/ext/debug.js';
-// htmx.onLoad(function(elt){
-//   console.log(elt)
-// })
-
 // import choo
 import choo from "choo";
 import html from "choo/html";
@@ -48,3 +42,6 @@ app.use((state, emitter) => {
 // start app
 app.mount("#choomount");
 
+app.emitter.on("DOMContentLoaded", () => {
+import 'htmx.org/dist/ext/preload.js';
+})
