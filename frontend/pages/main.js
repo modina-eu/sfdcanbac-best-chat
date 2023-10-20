@@ -76,7 +76,7 @@ h1 {
 export default function(state, emit) {
   return html`
   <div class=${ mainCss }>
-    <h1>
+    <h1 class="text-4xl font-bold bg-white/80">
       hello world from choo!
     </h1>
     <div class="content">

@@ -33,14 +33,14 @@ export default defineConfig(async ({ command, mode }) => {
     },
     server: {
       host: "0.0.0.0",
-      port: process.env.FRONTEND_PORT,
+      port: !!process.env.FRONTEND_PORT ? process.env.FRONTEND_PORT : 3000,
       strictPort: true,
       hmr: {
         clientPort: 443
       },
       proxy: {
         '/api': {
-          target: `http://localhost:${ process.env.BACKEND_PORT }`,
+          target: `http://localhost:${ !!process.env.BACKEND_PORT ? process.env.BACKEND_PORT : 40000 }`,
           changeOrigin: true,
           secure: false,
         }
