@@ -12,6 +12,7 @@ export default class AirtableLoader {
     this.viewName = viewName;
   }
   async load(loadCallback, doneCallback) {
+    this.elements = [];
     await this.base(this.tableName)
     .select({
       pageSize: 100,

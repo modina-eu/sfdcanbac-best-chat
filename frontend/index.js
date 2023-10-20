@@ -29,6 +29,7 @@ app.route("/", function () {
       // </button>
   return html`
     <div>
+      <h1 class="text-xl">ひえだのページ</h1>
       you are the
         <span hx-post="/api/counter" hx-trigger="load">
           loading

@@ -20,7 +20,8 @@
     "acebase": "^1.29.5",
     "htmx.org": "^1.9.6",
     "@rollup/plugin-inject": "^5.0.5",
-    "airtable": "^0.12.2"
+    "airtable": "^0.12.2",
+    "javascript-time-ago": "^2.5.9"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
