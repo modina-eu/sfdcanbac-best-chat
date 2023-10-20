@@ -7,6 +7,7 @@ module.exports = {
   content: [
     "./index.html",
     "./app/**/*.{js,ts,jsx,tsx}",
+    "../backend/server.js"
   ],
   plugins: [],
 }

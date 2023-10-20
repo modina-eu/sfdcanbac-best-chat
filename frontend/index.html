@@ -24,13 +24,12 @@
     <meta name="twitter:card" content="summary" />
 
     <title>vite-node-template</title>
-
     <link rel="stylesheet" href="/style.css" />
+<!--     <script src="https://cdn.tailwindcss.com"></script> -->
     <script src="/index2.js" type="module" defer></script>
   </head>
   <body>
     <div id="choomount"></div>
-    <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
     <div id="parent-div">oi</div>
     <button hx-post="/api/clicked"
       hx-trigger="click"
@@ -39,8 +38,8 @@
     >
       Click Me!
     </button>
-    <div hx-post="/api/counter" hx-trigger="load">
+    you are the <span hx-post="/api/counter" hx-trigger="load">
       loading
-    </div>
+    </span>th visitor
   </body>
 </html>
