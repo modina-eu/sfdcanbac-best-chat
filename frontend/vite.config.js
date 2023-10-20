@@ -1,12 +1,16 @@
 import dotenv from "dotenv";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+// import inject from '@rollup/plugin-inject'
 
 // https://vitejs.dev/config/
 export default defineConfig(async ({ command, mode }) => {
   return {
     root: '.',
     plugins: [
+      // inject({
+      //    htmx: 'htmx.org'
+      // }),
     ],
     build: {
       cssCodeSplit: false,
