@@ -7,6 +7,8 @@ import { AceBase } from "acebase";
 const options = { logLevel: 'warn', storage: { path: '.' } }; // optional settings
 const db = await new AceBase('mydb', options);  // Creates or opens a database with name "mydb"
 
+import AirtableLoader from "./libs/airtable-loader.js";
+
 app.use(express.json());
 
 const port = !!process.env.BACKEND_PORT ? process.env.BACKEND_PORT : 40000;
@@ -27,6 +29,30 @@ app.post('/api/counter', async function(req, res, next) {
   const ref = await db.ref('counter').set({
     count: i + 1,
   });
+});
+
+app.post('/api/content', async function(req, res, next) {
+  let airtableData = {};
+  const airtableLoader = new AirtableLoader(
+    process.env.AIRTABLE_KEY,
+    process.env.AIRTABLE_ID,
+    "Table 1",
+    "Grid view"
+  );
+  await airtableLoader.load(
+    // every
+    (r) => {
+      for (const el of r) {
+        if (el.enabled) {
+          airtableData[el.id] = el;
+        }
+      }
+    },
+    // done
+    () => {
+      console.log(airtableData);
+    }
+  );
 });
 
 app.listen(port, () => {

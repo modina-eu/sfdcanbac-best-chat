@@ -7,9 +7,6 @@ import html from "choo/html";
 // initialize choo
 const app = choo({ hash: true, href: false });
 
-import airtable from "./stores/airtable.js";
-app.use(airtable);
-
 app.route("/*", notFound);
 
 function notFound() {
@@ -36,7 +33,9 @@ app.route("/", function () {
       >
         Click Me!
       </button>
-
+      <div hx-post="/api/content" hx-trigger="load">
+        loading
+      </div>
       <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
       <script src="https://unpkg.com/htmx.org@1.9.6" />
     </div>
