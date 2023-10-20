@@ -19,7 +19,8 @@
     "express": "^4.18.2",
     "acebase": "^1.29.5",
     "htmx.org": "^1.9.6",
-    "@rollup/plugin-inject": "^5.0.5"
+    "@rollup/plugin-inject": "^5.0.5",
+    "airtable": "^0.12.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

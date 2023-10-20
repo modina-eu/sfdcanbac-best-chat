@@ -7,6 +7,9 @@ import html from "choo/html";
 // initialize choo
 const app = choo({ hash: true, href: false });
 
+import airtable from "./stores/airtable.js";
+app.use(airtable);
+
 app.route("/*", notFound);
 
 function notFound() {
