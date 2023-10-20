@@ -31,7 +31,7 @@
   <body>
     <div id="choomount"></div>
     <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
-    <div id="parent-div"></div>
+    <div id="parent-div">oi</div>
     <button hx-post="/api/clicked"
       hx-trigger="click"
       hx-target="#parent-div"
@@ -39,5 +39,8 @@
     >
       Click Me!
     </button>
+    <div hx-post="/api/counter" hx-trigger="load">
+      loading
+    </div>
   </body>
 </html>
