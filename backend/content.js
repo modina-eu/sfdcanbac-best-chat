@@ -16,9 +16,9 @@ const airtableLoader = new AirtableLoader(
   "Table 1",
   "Grid view"
 );
+airtableLoader.poll();
 
 router.post('/api/content', async function(req, res, next) {
-  await airtableLoader.load();
   console.log();
   res.send(airtableLoader.elements.map(e => `
     <div>

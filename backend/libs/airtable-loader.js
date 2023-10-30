@@ -1,4 +1,5 @@
 import Airtable from "airtable";
+import sharp from "sharp";
 
 export default class AirtableLoader {
   constructor(key, baseName, tableName, viewName) {
@@ -11,7 +12,13 @@ export default class AirtableLoader {
     this.tableName = tableName;
     this.viewName = viewName;
   }
-  async load(loadCallback, doneCallback) {
+  poll() {
+    setInterval(() => {
+      this.load();
+    }, 60 * 1000)
+    this.load();
+  }
+  async load() {
     this.elements = [];
     await this.base(this.tableName)
     .select({
@@ -28,12 +35,18 @@ export default class AirtableLoader {
               el[key.toLocaleLowerCase()] = e.fields[key] === undefined ? "" : e.fields[key];
             }
             el.image = "";
+            el.images = [];
             if (e.fields.Attachments) {
               for (let i = 0; i < e.fields.Attachments.length; i++) {
                 el.image = e.fields.Attachments[i].url;
                 if (e.fields.Attachments[i].thumbnails !== undefined) {
                   if (e.fields.Attachments[i].thumbnails.large) {
                     el.image = e.fields.Attachments[i].thumbnails.large.url;
+                    sharp(e.fields.Attachments[i].thumbnails.large.url)
+                    .resize(600, 600)
+                    .toFile(`/images/${el.id}-${i}`, (err, info) => {
+                      console.log(err, info)
+                    });
                     break;
                   }
                 }
@@ -45,9 +58,6 @@ export default class AirtableLoader {
           }
         });
         this.elements.push(...r);
-        if (loadCallback !== undefined) {
-          await loadCallback(r);
-        }
 
         try { // HERE
           await fetchNextPage();
@@ -55,6 +65,6 @@ export default class AirtableLoader {
       }
     )
 
-    this.elements.reverse()
+    this.elements.reverse();
   }
 }
