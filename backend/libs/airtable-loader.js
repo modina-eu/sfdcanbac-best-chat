@@ -1,9 +1,11 @@
 import sharp from "sharp";
 import axios from "axios";
 import fs from "fs";
+import { EventEmitter } from "events";
 
 export default class AirtableLoader {
   constructor(key, baseName, tableName, viewName) {
+    this.eventEmitter = new EventEmitter;
     this.elements = [];
     this.key = key;
     this.baseName = baseName;
@@ -14,12 +16,15 @@ export default class AirtableLoader {
   poll() {
     setInterval(() => {
       this.load();
-    }, 60 * 1000)
+    }, 10 * 1000)
     this.load();
   }
   async load() {
     const headers = { 'Authorization': `Bearer ${ this.key }` }; // auth header with bearer token
     const response = await axios.get(`https://api.airtable.com/v0/${ this.baseName }/${ this.tableName }`, { headers })
+    if (JSON.stringify(this.lastJson) === JSON.stringify(response.data)) {
+      return;
+    }
     this.lastJson = response.data;
     this.elements = response.data.records.map(async (e) => {
       try {
@@ -50,5 +55,7 @@ export default class AirtableLoader {
     });
     this.elements = await Promise.all(this.elements);
     this.elements.sort((a, b) => new Date(b.created) - new Date(a.created));
+    this.eventEmitter.emit("airtable updated");
+    console.log("emitting")
   }
 }

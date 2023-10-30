@@ -35,15 +35,20 @@ router.get('/api/content', async function(req, res) {
     running = false;
   });
 
-  // Emit an SSE that contains the current 'count' as a string
-res.write("data: <div> " + airtableLoader.elements.map(e => `
-  <div>
-    <div>
-      <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
-    </div>
-    ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
-  </div>
-`).join("").replace(/\n/g, "") + "</div>\n\n");
+  function writeData() {
+    console.log("writeData")
+    
+    res.write("data: <div> " + airtableLoader.elements.map(e => `
+      <div>
+        <div>
+          <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
+        </div>
+        ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
+      </div>
+    `).join("").replace(/\n/g, "") + "</div>\n\n");
+  }
+  writeData();
+  airtableLoader.eventEmitter.on("airtable updated", writeData);
 });
 
 // router.post('/api/content', async function(req, res, next) {
