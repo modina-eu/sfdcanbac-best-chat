@@ -23,9 +23,9 @@ router.post('/api/content', async function(req, res, next) {
   res.send(airtableLoader.elements.map(e => `
     <div>
       <div>
-        <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes }</span>
+        <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
       </div>
-      ${ e.images.map(e => `<img class="w-full max-w-screen-sm" src=${ e } />`).join("") }
+      ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
     </div>
   `).join(""));
 });
