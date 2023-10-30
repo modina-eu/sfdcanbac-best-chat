@@ -19,7 +19,6 @@ const airtableLoader = new AirtableLoader(
 airtableLoader.poll();
 
 router.post('/api/content', async function(req, res, next) {
-  console.log(airtableLoader.elements);
   res.send(airtableLoader.elements.map(e => `
     <div>
       <div>
