@@ -38,6 +38,8 @@ app.route("/", function () {
         loading
       </div>
       <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
+      <div hx-ext="sse" sse-connect="/api/incl-events" sse-swap="message">?
+      </div>
       <script src="https://unpkg.com/htmx.org@1.9.6" />
     </div>
   `;
