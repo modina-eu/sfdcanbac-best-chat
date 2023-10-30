@@ -52,8 +52,9 @@ app.get('/api/incl-events', async function(req, res) {
   while (running) {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
+    ++count;
     // Emit an SSE that contains the current 'count' as a string
-    res.write(`data: ${count}\n\n`);
+    res.write(`data: <span class="text-gray-500">${count}</span>\n\n`);
   }
 });
 

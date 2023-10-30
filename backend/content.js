@@ -18,16 +18,42 @@ const airtableLoader = new AirtableLoader(
 );
 airtableLoader.poll();
 
-router.post('/api/content', async function(req, res, next) {
-  res.send(airtableLoader.elements.map(e => `
-    <div>
-      <div>
-        <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
-      </div>
-      ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
-    </div>
-  `).join(""));
+router.get('/api/content', async function(req, res) {
+  res.set({
+    'Cache-Control': 'no-cache',
+    'Content-Type': 'text/event-stream',
+    'Connection': 'keep-alive'
+  });
+  res.flushHeaders();
+
+  // Tell the client to retry every 10 seconds if connectivity is lost
+  res.write('retry: 10000\n\n');
+  let count = 0;
+  
+  let running = true;
+  req.on('close', () => {
+    running = false;
+  });
+
+  while (running) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    ++count;
+    // Emit an SSE that contains the current 'count' as a string
+    res.write(`data: <span class="text-gray-500">${count}</span>\n\n`);
+  }
 });
+
+// router.post('/api/content', async function(req, res, next) {
+//   res.send(airtableLoader.elements.map(e => `
+//     <div>
+//       <div>
+//         <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
+//       </div>
+//       ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
+//     </div>
+//   `).join(""));
+// });
 
 router.use('/api/images', express.static('images'))
 

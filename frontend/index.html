@@ -37,9 +37,12 @@
         <span hx-post="/api/counter" hx-trigger="load">
           loading
         </span>th visitor
-      <div hx-post="/api/content" hx-trigger="load">
+      <div hx-sse="connect:/api/content swap:message">
         loading
       </div>
+<!--       <div hx-post="/api/content" hx-trigger="load">
+        loading
+      </div> -->
       <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
       <div hx-sse="connect:/api/incl-events swap:message">
         ?
