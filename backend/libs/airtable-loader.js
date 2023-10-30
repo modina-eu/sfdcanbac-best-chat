@@ -10,6 +10,7 @@ export default class AirtableLoader {
       apiKey: key
     });
     this.key = key;
+    this.baseName = baseName;
     this.base = Airtable.base(baseName);
     this.tableName = tableName;
     this.viewName = viewName;
@@ -22,67 +23,39 @@ export default class AirtableLoader {
   }
   async load() {
     const headers = { 'Authorization': `Bearer ${ this.key }` }; // auth header with bearer token
-    const response = await axios.post(`https://api.airtable.com/v0/${ this.viewName }/Table%201`, {}, { headers })
-    // console.log(response.data);
-    // fetch(`https://api.airtable.com/v0/${ this.baseName }/Table%201`, { headers })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     const r = data.records.map((e) => {
-    //       console.log(e)
-    //     })
-    //     })
-  
-    
-    
-    
-    this.elements = [];
-    await this.base(this.tableName)
-    .select({
-      pageSize: 100,
-      view: this.viewName,
-    })
-    .eachPage(
-      async (records, fetchNextPage) => {
-        const r = records.map(async (e) => {
-          try {
-            const el = {};
-            el.id = e.id;
-            for (const key of Object.keys(e.fields)) {
-              el[key.toLocaleLowerCase()] = e.fields[key] === undefined ? "" : e.fields[key];
-            }
-            el.image = "";
-            el.images = [];
-            if (e.fields.Attachments) {
-              for (let i = 0; i < e.fields.Attachments.length; i++) {
-                el.image = e.fields.Attachments[i].url;
-                if (e.fields.Attachments[i].thumbnails !== undefined) {
-                  if (e.fields.Attachments[i].thumbnails.large) {
-                    el.image = e.fields.Attachments[i].thumbnails.large.url;
-                    let url = e.fields.Attachments[i].thumbnails.large.url;
-                    const input = (await axios({ url, responseType: "arraybuffer" })).data;
-                    await sharp(input)
-                    .resize(600, 600)
-                    .toFile(`images/${el.id}-${i}`);
-                    el.images.push(`/api/images/${el.id}-${i}`)
-                    break;
-                  }
-                }
+    const response = await axios.get(`https://api.airtable.com/v0/${ this.baseName }/${ this.tableName }`, { headers })
+    this.elements = response.data.records.map((e) => {
+      try {
+        const el = {};
+        el.id = e.id;
+        for (const key of Object.keys(e.fields)) {
+          el[key.toLocaleLowerCase()] = e.fields[key] === undefined ? "" : e.fields[key];
+        }
+        el.image = "";
+        el.images = [];
+        if (e.fields.Attachments) {
+          for (let i = 0; i < e.fields.Attachments.length; i++) {
+            el.image = e.fields.Attachments[i].url;
+            if (e.fields.Attachments[i].thumbnails !== undefined) {
+              if (e.fields.Attachments[i].thumbnails.large) {
+                el.image = e.fields.Attachments[i].thumbnails.large.url;
+                let url = e.fields.Attachments[i].thumbnails.large.url;
+                const input = (await axios({ url, responseType: "arraybuffer" })).data;
+                // await sharp(input)
+                // .resize(600, 600)
+                // .toFile(`images/${el.id}-${i}`);
+                // el.images.push(`/api/images/${el.id}-${i}`)
+                break;
               }
             }
-            return el;
-          } catch (err) {
-            console.error(err);
           }
-        });
-        console.log(r)
-        this.elements.push(...r);
-
-        try { // HERE
-          await fetchNextPage();
-        } catch { return; }
+        }
+        return el;
+      } catch (err) {
+        console.error(err);
       }
-    )
-
+    });
     this.elements.reverse();
+    console.log(this.elements)
   }
 }
