@@ -30,14 +30,11 @@ router.get('/api/content', async function(req, res) {
   res.write('retry: 10000\n\n');
   let count = 0;
   
-  let running = true;
   req.on('close', () => {
-    running = false;
+    airtableLoader.eventEmitter.removeListener("airtable updated", writeData);
   });
 
-  function writeData() {
-    console.log("writeData")
-    
+  function writeData() {    
     res.write("data: <div> " + airtableLoader.elements.map(e => `
       <div>
         <div>

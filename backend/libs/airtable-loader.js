@@ -56,6 +56,5 @@ export default class AirtableLoader {
     this.elements = await Promise.all(this.elements);
     this.elements.sort((a, b) => new Date(b.created) - new Date(a.created));
     this.eventEmitter.emit("airtable updated");
-    console.log("emitting")
   }
 }
