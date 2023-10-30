@@ -35,13 +35,15 @@ router.get('/api/content', async function(req, res) {
     running = false;
   });
 
-  while (running) {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    ++count;
-    // Emit an SSE that contains the current 'count' as a string
-    res.write(`data: <span class="text-gray-500">${count}</span>\n\n`);
-  }
+  // Emit an SSE that contains the current 'count' as a string
+res.write("data: <div> " + airtableLoader.elements.map(e => `
+  <div>
+    <div>
+      <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes ? e.notes : "" }</span>
+    </div>
+    ${ e.images.map(e => `<img class="w-full max-w-xs" src=${ e } />`).join("") }
+  </div>
+`).join("").replace(/\n/g, "") + "</div>\n\n");
 });
 
 // router.post('/api/content', async function(req, res, next) {
