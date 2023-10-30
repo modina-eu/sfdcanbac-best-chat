@@ -22,7 +22,8 @@
     "@rollup/plugin-inject": "^5.0.5",
     "airtable": "^0.12.2",
     "javascript-time-ago": "^2.5.9",
-    "sharp": "^0.32.6"
+    "sharp": "^0.32.6",
+    "axios": "^1.5.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

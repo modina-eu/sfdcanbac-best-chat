@@ -19,15 +19,17 @@ const airtableLoader = new AirtableLoader(
 airtableLoader.poll();
 
 router.post('/api/content', async function(req, res, next) {
-  console.log();
+  console.log(airtableLoader.elements);
   res.send(airtableLoader.elements.map(e => `
     <div>
       <div>
         <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes }</span>
       </div>
-      ${ e.image ? `<img class="w-full max-w-screen-sm" src=${ e.image } />` : "" }
+      ${ e.images?.at(0) ? `<img class="w-full max-w-screen-sm" src=${ e.images[0] } />` : "" }
     </div>
   `).join(""));
 });
+
+router.use('/api/images', express.static('images'))
 
 export default router;

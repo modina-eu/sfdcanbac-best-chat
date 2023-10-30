@@ -1,5 +1,6 @@
 import Airtable from "airtable";
 import sharp from "sharp";
+import axios from "axios";
 
 export default class AirtableLoader {
   constructor(key, baseName, tableName, viewName) {
@@ -27,7 +28,7 @@ export default class AirtableLoader {
     })
     .eachPage(
       async (records, fetchNextPage) => {
-        const r = records.map((e) => {
+        const r = records.map(async (e) => {
           try {
             const el = {};
             el.id = e.id;
@@ -42,11 +43,12 @@ export default class AirtableLoader {
                 if (e.fields.Attachments[i].thumbnails !== undefined) {
                   if (e.fields.Attachments[i].thumbnails.large) {
                     el.image = e.fields.Attachments[i].thumbnails.large.url;
-                    sharp(e.fields.Attachments[i].thumbnails.large.url)
+                    let url = e.fields.Attachments[i].thumbnails.large.url;
+                    const input = (await axios({ url, responseType: "arraybuffer" })).data;
+                    await sharp(input)
                     .resize(600, 600)
-                    .toFile(`/images/${el.id}-${i}`, (err, info) => {
-                      console.log(err, info)
-                    });
+                    .toFile(`images/${el.id}-${i}`);
+                    el.images.push(`/api/images/${el.id}-${i}`)
                     break;
                   }
                 }
