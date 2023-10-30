@@ -9,6 +9,7 @@ export default class AirtableLoader {
       endpointUrl: 'https://api.airtable.com',
       apiKey: key
     });
+    this.key = key;
     this.base = Airtable.base(baseName);
     this.tableName = tableName;
     this.viewName = viewName;
@@ -20,6 +21,20 @@ export default class AirtableLoader {
     this.load();
   }
   async load() {
+    const headers = { 'Authorization': `Bearer ${ this.key }` }; // auth header with bearer token
+    const response = await axios.post(`https://api.airtable.com/v0/${ this.viewName }/Table%201`, {}, { headers })
+    // console.log(response.data);
+    // fetch(`https://api.airtable.com/v0/${ this.baseName }/Table%201`, { headers })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     const r = data.records.map((e) => {
+    //       console.log(e)
+    //     })
+    //     })
+  
+    
+    
+    
     this.elements = [];
     await this.base(this.tableName)
     .select({
@@ -59,6 +74,7 @@ export default class AirtableLoader {
             console.error(err);
           }
         });
+        console.log(r)
         this.elements.push(...r);
 
         try { // HERE
