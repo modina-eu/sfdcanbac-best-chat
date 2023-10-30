@@ -55,8 +55,6 @@ export default class AirtableLoader {
       }
     )
 
-    if (doneCallback !== undefined) {
-      await doneCallback();
-    }
+    this.elements.reverse()
   }
 }

@@ -20,7 +20,7 @@ const airtableLoader = new AirtableLoader(
 router.post('/api/content', async function(req, res, next) {
   await airtableLoader.load();
   console.log();
-  res.send(airtableLoader.elements.reverse().map(e => `
+  res.send(airtableLoader.elements.map(e => `
     <div>
       <div>
         <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes }</span>
