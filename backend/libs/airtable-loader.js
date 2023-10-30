@@ -24,7 +24,7 @@ export default class AirtableLoader {
   async load() {
     const headers = { 'Authorization': `Bearer ${ this.key }` }; // auth header with bearer token
     const response = await axios.get(`https://api.airtable.com/v0/${ this.baseName }/${ this.tableName }`, { headers })
-    this.elements = response.data.records.map((e) => {
+    this.elements = response.data.records.map(async (e) => {
       try {
         const el = {};
         el.id = e.id;
@@ -41,11 +41,10 @@ export default class AirtableLoader {
                 el.image = e.fields.Attachments[i].thumbnails.large.url;
                 let url = e.fields.Attachments[i].thumbnails.large.url;
                 const input = (await axios({ url, responseType: "arraybuffer" })).data;
-                // await sharp(input)
-                // .resize(600, 600)
-                // .toFile(`images/${el.id}-${i}`);
-                // el.images.push(`/api/images/${el.id}-${i}`)
-                break;
+                await sharp(input)
+                .resize(600, 600)
+                .toFile(`images/${el.id}-${i}`);
+                el.images.push(`/api/images/${el.id}-${i}`)
               }
             }
           }
@@ -55,7 +54,7 @@ export default class AirtableLoader {
         console.error(err);
       }
     });
-    this.elements.reverse();
-    console.log(this.elements)
+    this.elements = await Promise.all(this.elements);
+    this.elements.sort((a, b) => new Date(b.created) - new Date(a.created));
   }
 }

@@ -25,7 +25,7 @@ router.post('/api/content', async function(req, res, next) {
       <div>
         <span class="text-gray-600">${ timeAgo.format(new Date(e.created)) }</span> <span>${ e.notes }</span>
       </div>
-      ${ e.images?.at(0) ? `<img class="w-full max-w-screen-sm" src=${ e.images[0] } />` : "" }
+      ${ e.images.map(e => `<img class="w-full max-w-screen-sm" src=${ e } />`).join("") }
     </div>
   `).join(""));
 });
