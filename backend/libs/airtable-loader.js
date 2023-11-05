@@ -16,7 +16,7 @@ export default class AirtableLoader {
   poll() {
     setInterval(() => {
       this.load();
-    }, 10 * 1000)
+    }, 60 * 1000)
     this.load();
   }
   async load() {
