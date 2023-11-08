@@ -41,7 +41,11 @@
 <!--       <div hx-sse="connect:https://naoto-status-production.up.railway.app/api/content swap:message">
         loading
       </div> -->
-<!--       <div hx-post="https://naoto-status-production.up.railway.app/api/content" hx-trigger="load">
+    <div class="elastic container" hx-ws="connect:/echo">
+
+      <div id="idMessage">loading</div>
+    </div>
+      <!--       <div hx-post="https://naoto-status-production.up.railway.app/api/content" hx-trigger="load">
         loading
       </div> -->
       <div hx-post="https://naoto-status-production.up.railway.app/api/clicked" hx-trigger="click">Click Me</div>
