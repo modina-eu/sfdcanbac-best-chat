@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="refresh" content="0; url=https://naoto-status-production.up.railway.app/" />
+<!--     <meta http-equiv="refresh" content="0; url=https://naoto-status-production.up.railway.app/" /> -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,16 +35,16 @@
     <div>
       <h1 class="text-xl">ひえだのページ</h1>
       you are the
-        <span hx-post="/api/counter" hx-trigger="load">
+        <span hx-post="https://naoto-status-production.up.railway.app/api/counter" hx-trigger="load">
           loading
         </span>th visitor
-      <div hx-sse="connect:/api/content swap:message">
+      <div hx-sse="connect:https://naoto-status-production.up.railway.app/api/content swap:message">
         loading
       </div>
 <!--       <div hx-post="/api/content" hx-trigger="load">
         loading
       </div> -->
-      <div hx-post="/api/clicked" hx-trigger="click">Click Me</div>
+      <div hx-post="https://naoto-status-production.up.railway.app/api/clicked" hx-trigger="click">Click Me</div>
 <!--       <div hx-sse="connect:/api/incl-events swap:message">
         ?
       </div> -->
