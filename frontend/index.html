@@ -34,11 +34,9 @@
       <div class="h-full overflow-y-scroll" hx-sse="connect:/api/content swap:message">
         loading
       </div>
-      <form class="p-1" hx-post="/api/prompt" hx-swap="none">
-        <div class="inline">
-          <label class="hidden">Prompt</label>
-          <input class="border-2 border-sky-500" type="text" name="prompt" placeholder="...">
-        </div>
+      <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-swap="none" hx-on::after-request="this.reset()">
+        <label class="hidden">Prompt</label>
+        <input class="border-2 border-sky-500 w-full" type="text" name="prompt" placeholder="...">
         <button class="border-2 border-black">Submit</button>
       </form>
     </div>
