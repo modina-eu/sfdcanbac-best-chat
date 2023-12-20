@@ -31,6 +31,15 @@
         <span hx-post="/api/counter" hx-trigger="load">
           loading
         </span>th visitor
+      <form hx-post="/api/prompt">
+        <div>
+          <label>Prompt</label>
+          <input class="border-2 border-sky-500" type="text" name="prompt" placeholder="...">
+        </div>
+        <button class="border-2 border-black">Submit</button>
+      </form>
+
+
       <div hx-sse="connect:/api/content swap:message">
         loading
       </div>
