@@ -43,20 +43,13 @@ async function generateText(promptText) {
       const formattedText = generatedText.startsWith(promptText)
         ? generatedText.substring(promptText.length)
         : generatedText;
-
-
-      // Store the formatted generated text and its scroll position separately for each line
-      // let lines = formattedText.split("\n");
-      // for (let i = 0; i < lines.length; i++) {
-      //   textLines.push({ text: lines[i], textY: 0, isInput: false });
-      // }
+      
+      return formattedText;
     }
   } catch (error) {
     console.error("Error:", error);
   }
 }
-
-generateText("what is the future of dance")
 
 router.get('/api/content', async function(req, res) {
   res.set({
@@ -73,10 +66,13 @@ router.get('/api/content', async function(req, res) {
   req.on('close', () => {
   });
 
-  function writeData() {    
-    res.write("data: <div>a</div>\n\n");
-  }
-  writeData();
+  // function writeData() {
+  //   res.write("data: <div>a</div>\n\n");
+  // }
+  // writeData();
+  const text = await generateText("what is the future of dance");
+  res.write(`data: <div>${ text }</div>\n\n`);
+  
 });
 
 export default router;

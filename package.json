@@ -18,12 +18,12 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "acebase": "^1.29.5",
-    "htmx.org": "^1.9.6",
+    "htmx.org": "^1.9.9",
     "@rollup/plugin-inject": "^5.0.5",
     "airtable": "^0.12.2",
     "javascript-time-ago": "^2.5.9",
-    "sharp": "^0.32.6",
-    "axios": "^1.5.1"
+    "axios": "^1.6.2",
+    "body-parser": "^1.20.2"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
