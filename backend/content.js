@@ -10,6 +10,9 @@ const timeAgo = new TimeAgo('en-US')
 
 import axios from "axios";
 
+import { EventEmitter } from "events";
+const eventEmitter = new EventEmitter;
+
 async function generateText(promptText) {
   return "fakedata " + promptText;
   console.log(promptText);
@@ -52,10 +55,14 @@ async function generateText(promptText) {
   }
 }
 
+const log = [];
+
 router.post('/api/prompt', async function(req, res, next) {
   console.log(req.body)
   const text = await generateText(req.body.prompt);
   console.log(text);
+  log.push(text);
+  eventEmitter.emit("update content");
   res.send(text)
 });
 
@@ -74,14 +81,12 @@ router.get('/api/content', async function(req, res) {
   req.on('close', () => {
   });
 
-  // function writeData() {
-  //   res.write("data: <div>a</div>\n\n");
-  // }
-  // writeData();
-  // const text = await generateText("what is the future of dance");
-  const text = "oi"
-  res.write(`data: <div>${ text }</div>\n\n`);
-  
+  function writeData() {
+    const text = "oi"
+    res.write(`data: <div>${ log.map(e => `<div>${ e }</div>`) }</div>\n\n`);
+  }
+  writeData();
+  eventEmitter.on("update content", writeData);
 });
 
 export default router;
