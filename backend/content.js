@@ -58,10 +58,10 @@ async function generateText(promptText) {
 const log = [];
 
 router.post('/api/prompt', async function(req, res, next) {
-  console.log(req.body)
-  const text = await generateText(req.body.prompt);
-  console.log(text);
-  log.push(text);
+  const prompt = req.body.prompt;
+  const text = await generateText(prompt);
+  log.push(`<div class="bg-blue-300">${ prompt }</div>`);
+  log.push(`<div class="bg-gray-300">${ text }</div>`);
   eventEmitter.emit("update content");
   res.send(text)
 });
@@ -82,8 +82,12 @@ router.get('/api/content', async function(req, res) {
   });
 
   function writeData() {
-    const text = "oi"
-    res.write(`data: <div>${ log.map(e => `<div>${ e }</div>`) }</div>\n\n`);
+    console.log("write data")
+    res.write("data: <div>" +
+      //log.map(e => `<div>${ e }</div>`)
+      log
+      .join("").replace(/\n/g, "")
+    + `</div>\n\n`);
   }
   writeData();
   eventEmitter.on("update content", writeData);
