@@ -25,24 +25,22 @@
     <script src="https://unpkg.com/htmx.org@1.9.6" type="module" defer></script>
   </head>
   <body>
-    <div>
+    <div class="flex">
       <h1 class="text-xl">chat</h1>
-      you are the
-        <span hx-post="/api/counter" hx-trigger="load">
-          loading
-        </span>th visitor
+<!--       you are the
+      <span hx-post="/api/counter" hx-trigger="load">
+        loading
+      </span>th visitor -->
+      <div hx-sse="connect:/api/content swap:message">
+        loading
+      </div>
       <form hx-post="/api/prompt" hx-swap="none">
-        <div>
-          <label>Prompt</label>
+        <div class="inline">
+          <label class="hidden">Prompt</label>
           <input class="border-2 border-sky-500" type="text" name="prompt" placeholder="...">
         </div>
         <button class="border-2 border-black">Submit</button>
       </form>
-
-
-      <div hx-sse="connect:/api/content swap:message">
-        loading
-      </div>
     </div>
   </body>
 </html>

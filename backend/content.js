@@ -60,8 +60,8 @@ const log = [];
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const text = await generateText(prompt);
-  log.push(`<div class="bg-blue-300">${ prompt }</div>`);
-  log.push(`<div class="bg-gray-300">${ text }</div>`);
+  log.push(`<div class="flex justify-end"><div class="m-1 p-1 bg-blue-300 rounded">${ prompt }</div></div>`);
+  log.push(`<div class="flex justify-start"><div class="m-1 p-1 bg-gray-300 rounded">${ text }</div></div>`);
   eventEmitter.emit("update content");
   res.send(text)
 });
