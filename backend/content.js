@@ -15,15 +15,14 @@ const eventEmitter = new EventEmitter;
 
 import db from "./db.js";
 
-let log = [];
-const snapshot = await db.ref('textlog').get();
+const snapshot = await db.ref('text-log').get();
 let log = snapshot.val();
-if (log === undefined) {
+if (log === null) {
   log = [];
 }
 
 async function generateText(promptText) {
-  return "fakedata " + promptText;
+  // return "fakedata " + promptText;
   console.log(promptText);
   try {
     const HF_API_TOKEN = "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";
@@ -67,8 +66,16 @@ async function generateText(promptText) {
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const text = await generateText(prompt);
+  
+  if (text === undefined) {
+    res.send("failed");
+    return;
+  }
+  
   log.push({ text: prompt, type: "prompt" });
   log.push({ text: text, type: "generated" });
+  const ref = await db.ref('text-log').set(log);
+
   eventEmitter.emit("update content");
   res.send(text)
 });
