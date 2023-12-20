@@ -11,6 +11,7 @@ const timeAgo = new TimeAgo('en-US')
 import axios from "axios";
 
 async function generateText(promptText) {
+  return "fakedata " + promptText;
   console.log(promptText);
   try {
     const HF_API_TOKEN = "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";
@@ -51,6 +52,13 @@ async function generateText(promptText) {
   }
 }
 
+router.post('/api/prompt', async function(req, res, next) {
+  console.log(req.body)
+  const text = await generateText(req.body.prompt);
+  console.log(text);
+  res.send(text)
+});
+
 router.get('/api/content', async function(req, res) {
   res.set({
     'Cache-Control': 'no-cache',
@@ -70,7 +78,8 @@ router.get('/api/content', async function(req, res) {
   //   res.write("data: <div>a</div>\n\n");
   // }
   // writeData();
-  const text = await generateText("what is the future of dance");
+  // const text = await generateText("what is the future of dance");
+  const text = "oi"
   res.write(`data: <div>${ text }</div>\n\n`);
   
 });
