@@ -29,13 +29,14 @@ async function generateText(promptText) {
 
     const response = await axios.post(`https://api-inference.huggingface.co/models/${model}`, {
       headers: { Authorization: `Bearer ${HF_API_TOKEN}` },
-      method: "POST",
-      body: JSON.stringify(data),
+      method: "post",
+      ...data,
     });
+    console.log(response);
 
-    const result = await response.json();
+    const result = response.data;
     if (result.length > 0) {
-      console.log(result);
+      console.log("result", result);
       const generatedText = result[0]["generated_text"];
 
       // Remove the promptText from the beginning of the generated text if it exists
