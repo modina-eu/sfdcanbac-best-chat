@@ -7,7 +7,11 @@ import { AceBase } from "acebase";
 const options = { logLevel: 'warn', storage: { path: '.' } }; // optional settings
 const db = await new AceBase('mydb', options);  // Creates or opens a database with name "mydb"
 
+import bodyParser from "body-parser";
+
 app.use(express.json());
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 const port = !!process.env.BACKEND_PORT ? process.env.BACKEND_PORT : 40000;
 
