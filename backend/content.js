@@ -8,6 +8,8 @@ TimeAgo.addDefaultLocale(en)
 
 const timeAgo = new TimeAgo('en-US')
 
+import axios from "axios";
+
 async function generateText(promptText) {
   console.log(promptText);
   try {
@@ -25,20 +27,12 @@ async function generateText(promptText) {
       },
     };
 
-    const headers = { Authorization: `Bearer ${HF_API_TOKEN}` }; // auth header with bearer token
     const response = await axios.post(`https://api-inference.huggingface.co/models/${model}`, {
-      headers,
+      headers: { Authorization: `Bearer ${HF_API_TOKEN}` },
+      method: "POST",
       body: JSON.stringify(data),
-    })
+    });
 
-    const response = await fetch(
-      `https://api-inference.huggingface.co/models/${model}`,
-      {
-        headers: { Authorization: `Bearer ${HF_API_TOKEN}` },
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
     const result = await response.json();
     if (result.length > 0) {
       console.log(result);
