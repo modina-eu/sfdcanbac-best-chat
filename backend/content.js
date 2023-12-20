@@ -13,6 +13,15 @@ import axios from "axios";
 import { EventEmitter } from "events";
 const eventEmitter = new EventEmitter;
 
+import db from "./db.js";
+
+let log = [];
+const snapshot = await db.ref('textlog').get();
+let log = snapshot.val();
+if (log === undefined) {
+  log = [];
+}
+
 async function generateText(promptText) {
   return "fakedata " + promptText;
   console.log(promptText);
@@ -55,13 +64,11 @@ async function generateText(promptText) {
   }
 }
 
-const log = [];
-
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const text = await generateText(prompt);
-  log.push(`<div class="flex justify-end"><div class="m-1 p-1 bg-blue-300 rounded">${ prompt }</div></div>`);
-  log.push(`<div class="flex justify-start"><div class="m-1 p-1 bg-gray-300 rounded">${ text }</div></div>`);
+  log.push({ text: prompt, type: "prompt" });
+  log.push({ text: text, type: "generated" });
   eventEmitter.emit("update content");
   res.send(text)
 });
@@ -85,7 +92,14 @@ router.get('/api/content', async function(req, res) {
     console.log("write data")
     res.write("data: <div>" +
       //log.map(e => `<div>${ e }</div>`)
-      log
+      log.map(e => {
+        if (e.type == "prompt") {
+          return `<div class="flex justify-end"><div class="m-1 p-1 bg-blue-300 rounded">${ e.text }</div></div>`
+        }
+        else {
+          return `<div class="flex justify-start"><div class="m-1 p-1 bg-gray-300 rounded">${ e.text }</div></div>`
+        }
+      })
       .join("").replace(/\n/g, "")
     + `</div>\n\n`);
   }
