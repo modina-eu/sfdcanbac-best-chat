@@ -31,7 +31,7 @@
       <span hx-post="/api/counter" hx-trigger="load">
         loading
       </span>th visitor -->
-      <div class="h-full overflow-y-scroll" hx-sse="connect:/api/content swap:message" hx-on::after-request="this.reset()">
+      <div class="h-full overflow-y-scroll" hx-sse="connect:/api/content swap:message" hx-on::after-request="console.log('oi')">
         loading
       </div>
       <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-swap="none" hx-on::after-request="this.reset()">
