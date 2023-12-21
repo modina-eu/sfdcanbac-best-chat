@@ -31,7 +31,7 @@
       <span hx-post="/api/counter" hx-trigger="load" hx-on::after-swap="console.log('oi')">
         loading
       </span>th visitor -->
-      <div class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="/api/content" sse-swap="message" hx-on:htmx:after-settle="this.scrollIntoView({behavior:'smooth'})">
+      <div id="chat-messages" class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="/api/content" sse-swap="message" hx-on:htmx:after-settle="document.querySelector('#chat-messages > div').scrollIntoView({behavior: 'smooth', block: 'end'})">
         loading
       </div>
       <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-swap="none" hx-on::after-request="this.reset()">

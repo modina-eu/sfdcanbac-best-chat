@@ -102,12 +102,17 @@ router.get('/api/content', async function(req, res) {
       //log.map(e => `<div>${ e }</div>`)
       log.map(e => {
         if (e.type == "prompt") {
-          return `<div class="flex justify-end"><div class="m-1 p-1 bg-blue-300 rounded">${ e.text }</div></div>`
+          return `
+          <div class="flex justify-end">
+            <div class="m-1 p-1 bg-blue-300 rounded max-w-screen-sm">
+              ${ e.text }
+            </div>
+          </div>`
         }
         else {
           return `
           <div class="flex justify-start">
-            <div class="m-1 p-1 bg-gray-300 rounded">
+            <div class="m-1 p-1 bg-gray-300 rounded max-w-screen-sm">
               ${ e.text }
               ${ e.temperature !== undefined ? `<div class="text-xs">temp: ${ e.temperature }</div>` : "" }
               ${ e.date !== undefined ? `<div class="text-xs">${ timeAgo.format(e.date) }</div>` : "" }
