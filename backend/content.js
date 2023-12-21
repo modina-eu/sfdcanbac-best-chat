@@ -72,6 +72,8 @@ router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const temperature = req.body.temperature;
   let text;
+    res.send("failed - model still loading");
+    return;
   text = await generateText(prompt, temperature);
   // let count = 0;
   // while (text === undefined && count < 5) {
