@@ -72,8 +72,9 @@ router.post('/api/prompt', async function(req, res, next) {
     return;
   }
   
-  log.push({ text: prompt, type: "prompt" });
-  log.push({ text: text, type: "generated" });
+  const date = new Date;
+  log.push({ text: prompt, type: "prompt", temperature, date });
+  log.push({ text: text, type: "generated", temperature, date });
   const ref = await db.ref('text-log').set(log);
 
   eventEmitter.emit("update content");
@@ -104,7 +105,14 @@ router.get('/api/content', async function(req, res) {
           return `<div class="flex justify-end"><div class="m-1 p-1 bg-blue-300 rounded">${ e.text }</div></div>`
         }
         else {
-          return `<div class="flex justify-start"><div class="m-1 p-1 bg-gray-300 rounded">${ e.text }</div></div>`
+          return `
+          <div class="flex justify-start">
+            <div class="m-1 p-1 bg-gray-300 rounded">
+              ${ e.text }
+              ${ e.temperature !== undefined ? `<div class="text-xs">temp: ${ e.temperature }</div>` : "" }
+              ${ e.date !== undefined ? `<div class="text-xs">${ timeAgo.format(e.date) }</div>` : "" }
+            </div>
+          </div>`
         }
       })
       .join("").replace(/\n/g, "")

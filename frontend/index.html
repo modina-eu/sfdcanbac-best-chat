@@ -22,16 +22,16 @@
     <title>chat</title>
     <link rel="stylesheet" href="/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.6" type="module" defer></script>
-  </head>
+    <script src="https://unpkg.com/htmx.org@1.9.9" type="module" defer></script>
+    <script src="https://unpkg.com/htmx.org@1.9.9/dist/ext/sse.js" type="module" defer></script>  </head>
   <body>
     <div class="flex flex-col h-screen">
-      <h1 class="text-xl">chat</h1>
+      <h1 class="text-xl">Best Chat</h1>
 <!--       you are the
       <span hx-post="/api/counter" hx-trigger="load">
         loading
       </span>th visitor -->
-      <div class="h-full overflow-y-scroll" hx-sse="connect:/api/content swap:message">
+      <div class="h-full overflow-y-scroll" hx-sse="connect:/api/content swap:message" hx-on::after-request="this.reset()">
         loading
       </div>
       <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-swap="none" hx-on::after-request="this.reset()">
