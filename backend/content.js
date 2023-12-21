@@ -21,14 +21,13 @@ if (log === null) {
   log = [];
 }
 
-async function generateText(promptText) {
+async function generateText(promptText, temperature) {
   // return "fakedata " + promptText;
   console.log(promptText);
   try {
     const HF_API_TOKEN = "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";
     const model = "blasees/gpt2_bestpractices";
 
-    const temperature = 0.7; //temperatureSlider.value();
     const maxLength = 100; //maxLengthSlider.value();
 
     const data = {
@@ -65,7 +64,8 @@ async function generateText(promptText) {
 
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
-  const text = await generateText(prompt);
+  const temperature = req.body.temperature;
+  const text = await generateText(prompt, temperature);
   
   if (text === undefined) {
     res.send("failed");
