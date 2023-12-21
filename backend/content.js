@@ -62,13 +62,25 @@ async function generateText(promptText, temperature) {
   }
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const temperature = req.body.temperature;
-  const text = await generateText(prompt, temperature);
-  
+  let text;
+  text = await generateText(prompt, temperature);
+  // let count = 0;
+  // while (text === undefined && count < 5) {
+  //   text = await generateText(prompt, temperature);
+  //   sleep(3000);
+  //   count++;
+  // }
   if (text === undefined) {
-    res.send("failed");
+    res.send("failed - model still loading");
     return;
   }
   
