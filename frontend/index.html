@@ -40,6 +40,8 @@
             <label class="hidden">Prompt</label>
             <input class="border-2 border-sky-500 w-full" type="text" name="prompt" placeholder="...">
           </div>
+          <div hx-get="/api/models" hx-trigger="load" hx-target="this" hx-swap="beforeend">
+          </div>
           <div>
             <input class="border-2 border-sky-500 w-20" type="number" name="temperature" min="0.0" max="2.0" step="0.1" value="0.7" />
           </div>

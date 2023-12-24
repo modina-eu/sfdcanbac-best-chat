@@ -95,6 +95,16 @@ router.post('/api/prompt', async function(req, res, next) {
   res.send(text)
 });
 
+
+router.get('/api/models', async function(req, res, next) {
+  res.send(`
+  <select class="border-2 border-sky-500 h-full" name="model">
+    <option value="">model</option>
+    <option value="chat">chat</option>
+    <option value="nthesis">n. thesis</option>
+  </select>`)
+});
+
 router.get('/api/content', async function(req, res) {
   res.set({
     'Cache-Control': 'no-cache',
