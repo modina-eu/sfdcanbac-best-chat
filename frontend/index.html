@@ -35,7 +35,7 @@
         loading
       </div>
       <div>
-        <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-target="#response" hx-swap="beforeend" hx-on::after-request="this.reset()">
+        <form class="p-1 mb-10 flex flex-row" hx-post="/api/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
           <div class="w-full">
             <label class="hidden">Prompt</label>
             <input class="border-2 border-sky-500 w-full" type="text" name="prompt" placeholder="...">

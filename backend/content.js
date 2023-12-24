@@ -23,7 +23,7 @@ if (log === null) {
 
 async function generateText(promptText, { model, temperature }) {
   // return "fakedata " + promptText;
-  console.log(promptText);
+  console.log(promptText, model, temperature);
   try {
     const HF_API_TOKEN = "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";
 
@@ -72,8 +72,8 @@ router.post('/api/prompt', async function(req, res, next) {
   const model = models[req.body.model].api;
   const temperature = req.body.temperature;
   let text;
-    res.send("failed - model still loading");
-    return;
+    // res.send("failed - model still loading");
+    // return;
   text = await generateText(prompt, { model, temperature });
   // let count = 0;
   // while (text === undefined && count < 5) {
@@ -88,7 +88,7 @@ router.post('/api/prompt', async function(req, res, next) {
   
   const date = new Date;
   log.push({ text: prompt, type: "prompt", temperature, date });
-  log.push({ text: text, type: "generated", model: req.bod temperature, date });
+  log.push({ text: text, type: "generated", model: req.body.model, temperature, date });
   const ref = await db.ref('text-log').set(log);
 
   eventEmitter.emit("update content");
@@ -149,6 +149,7 @@ router.get('/api/content', async function(req, res) {
           <div class="flex justify-start">
             <div class="m-1 p-1 bg-gray-300 rounded max-w-screen-sm">
               ${ e.text }
+              ${ e.model !== undefined ? `<div class="text-xs">model: ${ models[e.model].name }</div>` : "" }
               ${ e.temperature !== undefined ? `<div class="text-xs">temp: ${ e.temperature }</div>` : "" }
               ${ e.date !== undefined ? `<div class="text-xs">${ timeAgo.format(e.date) }</div>` : "" }
             </div>
