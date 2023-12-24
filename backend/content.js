@@ -100,6 +100,10 @@ const models = {
     name: "Chat",
     api: "blasees/gpt2_bestpractices",
   },
+  proposal: {
+    name: "Proposal",
+    api: "micuat/gpt2_bestpractices_proposal",
+  },
   nthesis: {
     name: "N. Thesis",
     api: "micuat/gpt2_bestpractices_naoto_thesis",
