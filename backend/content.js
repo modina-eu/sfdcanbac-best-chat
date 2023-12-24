@@ -21,19 +21,18 @@ if (log === null) {
   log = [];
 }
 
-async function generateText(promptText, temperature) {
+async function generateText(promptText, { model, temperature }) {
   // return "fakedata " + promptText;
   console.log(promptText);
   try {
     const HF_API_TOKEN = "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";
-    const model = "blasees/gpt2_bestpractices";
 
     const maxLength = 100; //maxLengthSlider.value();
 
     const data = {
       inputs: promptText || " ",
       parameters: {
-        temperature: temperature,
+        temperature,
         max_length: maxLength,
       },
     };
@@ -70,11 +69,12 @@ function sleep(ms) {
 
 router.post('/api/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
+  const model = models[req.body.model].api;
   const temperature = req.body.temperature;
   let text;
     res.send("failed - model still loading");
     return;
-  text = await generateText(prompt, temperature);
+  text = await generateText(prompt, { model, temperature });
   // let count = 0;
   // while (text === undefined && count < 5) {
   //   text = await generateText(prompt, temperature);
@@ -88,20 +88,31 @@ router.post('/api/prompt', async function(req, res, next) {
   
   const date = new Date;
   log.push({ text: prompt, type: "prompt", temperature, date });
-  log.push({ text: text, type: "generated", temperature, date });
+  log.push({ text: text, type: "generated", model: req.bod temperature, date });
   const ref = await db.ref('text-log').set(log);
 
   eventEmitter.emit("update content");
   res.send(text)
 });
 
+const models = {
+  chat: {
+    name: "Chat",
+    api: "blasees/gpt2_bestpractices",
+  },
+  nthesis: {
+    name: "N. Thesis",
+    api: "micuat/gpt2_bestpractices_naoto_thesis",
+  },
+};
 
 router.get('/api/models', async function(req, res, next) {
   res.send(`
   <select class="border-2 border-sky-500 h-full" name="model">
-    <option value="">model</option>
-    <option value="chat">chat</option>
-    <option value="nthesis">n. thesis</option>
+    ${ Object.keys(models).map(key => `
+    <option value="${ key }">
+      ${ models[key].name }
+    </option>`) }
   </select>`)
 });
 
