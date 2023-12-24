@@ -108,6 +108,10 @@ const models = {
     name: "N. Thesis",
     api: "micuat/gpt2_bestpractices_naoto_thesis",
   },
+  murobushi: {
+    name: "Murobushi",
+    api: "micuat/gpt2_ko_murobushi",
+  },
 };
 
 router.get('/api/models', async function(req, res, next) {
