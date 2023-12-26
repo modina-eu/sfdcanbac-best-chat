@@ -8,8 +8,8 @@ import db from "./db.js";
 import bodyParser from "body-parser";
 
 app.use(express.json());
-app.use(bodyParser.json()) // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 const port = !!process.env.BACKEND_PORT ? process.env.BACKEND_PORT : 40000;
 

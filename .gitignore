@@ -2,4 +2,4 @@ node_modules/
 .config/
 .data/
 .env
-backend/mydb.acebase/
+backend/mydb.acebase/*
