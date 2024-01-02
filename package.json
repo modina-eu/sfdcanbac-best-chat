@@ -9,7 +9,8 @@
     "install:frontend": "npm --prefix frontend install",
     "install:backend": "npm --prefix backend install",
     "build": "npm --prefix frontend run build",
-    "start": "concurrently 'npm:dev:backend' 'npm:dev:frontend'"
+    "start2": "concurrently 'npm:dev:backend' 'npm:dev:frontend'",
+    "start": "concurrently 'npm:dev:frontend'"
   },
   "type": "module",
   "dependencies": {
@@ -33,6 +34,9 @@
   },
   "repository": {
     "url": "https://glitch.com/~vite-node-template"
+  },
+  "glitch": {
+    "projectType": "generated_static"
   },
   "engines": {
     "node": "16.x"
