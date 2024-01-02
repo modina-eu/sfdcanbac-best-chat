@@ -31,16 +31,16 @@
       <span hx-post="/api/counter" hx-trigger="load" hx-on::after-swap="console.log('oi')">
         loading
       </span>th visitor -->
-      <div id="chat-messages" class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="https://the-backend/chat/content" sse-swap="message" hx-on:htmx:after-settle="document.querySelector('#chat-messages > div').scrollIntoView({behavior: 'smooth', block: 'end'})">
+      <div id="chat-messages" class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="https://the-backend.glitch.me/chat/content" sse-swap="message" hx-on:htmx:after-settle="document.querySelector('#chat-messages > div').scrollIntoView({behavior: 'smooth', block: 'end'})">
         loading
       </div>
       <div>
-        <form class="p-1 mb-10 flex flex-row" hx-post="https://the-backend/chat/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
+        <form class="p-1 mb-10 flex flex-row" hx-post="https://the-backend.glitch.me/chat/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
           <div class="w-full">
             <label class="hidden">Prompt</label>
             <input class="border-2 border-sky-500 w-full" type="text" name="prompt" placeholder="...">
           </div>
-          <div hx-get="https://the-backend/chat/models" hx-trigger="load" hx-target="this" hx-swap="beforeend">
+          <div hx-get="https://the-backend.glitch.me/chat/models" hx-trigger="load" hx-target="this" hx-swap="beforeend">
           </div>
           <div>
             <input class="border-2 border-sky-500 w-20" type="number" name="temperature" min="0.0" max="2.0" step="0.1" value="0.7" />
