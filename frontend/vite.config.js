@@ -14,7 +14,7 @@ export default defineConfig(async ({ command, mode }) => {
     ],
     build: {
       cssCodeSplit: false,
-      outDir: "./build",
+      outDir: "../build",
       rollupOptions: {
         context: 'globalThis',
         input: {
