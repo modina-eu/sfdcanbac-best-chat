@@ -27,29 +27,23 @@
   <body>
     <div class="flex justify-center h-screen w-full">
       <dialog class="absolute w-full h-full">
-        <p>Greetings, one and all!</p>
+        <h1 class="text-xl">Best Chat</h1>
+        <p>GPT-2 model and code by <a class="font-bold" href="https://andreiamatos.xyz/" target="_blank">Andreia Matos</a></p>
+        <p>Content by <a class="font-bold" href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a> and <a class="font-bold" href="https://naotohieda.com/" target="_blank">Naoto Hieda</a></p>
+        <p>Front end by Naoto Hieda</p>
+        <p>Developed in the frame of <a class="font-bold" href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a></p>
         <form method="dialog">
-          <button>OK</button>
+          <button>close</button>
         </form>
       </dialog>
-<div id="modals-here"
-        class="absolute w-full h-full"
-        aria-hidden="false"
-        tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-          <div class="modal-content"></div>
-        </div>
-      </div>
 
       <div class="flex flex-col h-full max-w-lg">
         <div class="flex flex-row justify-between">
           <h1 class="text-xl">Best Chat</h1>
           
           <button
-            hx-get="https://the-backend.glitch.me/chat/modal" 
-            hx-target="#modals-here" 
-            hx-trigger="click" 
-            class="btn btn-primary">Info</button>
+            class=""
+            onclick="document.querySelector('dialog').showModal()">Info</button>
         </div>
   <!--       you are the
         <span hx-post="/api/counter" hx-trigger="load" hx-on::after-swap="console.log('oi')">
