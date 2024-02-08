@@ -28,7 +28,7 @@
     <div class="flex justify-center h-screen w-full">
       <dialog class="absolute w-full h-full m-0 bg-transparent">
         <div class="w-full h-full flex justify-center items-center">
-          <div class="max-w-sm bg-white p-4 relative">
+          <div class="bg-white max-w-sm p-4 relative">
             <h1 class="text-xl">Best Chat</h1>
             <p class="my-1">GPT-2 model and code by <a class="font-bold" href="https://andreiamatos.xyz/" target="_blank">Andreia Matos</a></p>
             <p class="my-1">Content by <a class="font-bold" href="https://jorgeguevara.myportfolio.com/" target="_blank">Jorge Guevara</a> and <a class="font-bold" href="https://naotohieda.com/" target="_blank">Naoto Hieda</a></p>
@@ -42,11 +42,13 @@
       </dialog>
 
       <div class="flex flex-col h-full max-w-lg">
-        <div class="bg-white flex flex-row justify-between">
-          <h1 class="text-xl">Best Chat</h1>
+        <div class="grid grid-cols-3">
+          <div>
+          </div>
+          <h1 class="text-xl text-center">Best Chat</h1>
           
           <button
-            class=""
+            class="text-right"
             onclick="document.querySelector('dialog').showModal()">Info</button>
         </div>
   <!--       you are the
@@ -56,8 +58,8 @@
         <div id="chat-messages" class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="https://the-backend.glitch.me/chat/content" sse-swap="message" hx-on:htmx:after-settle="document.querySelector('#chat-messages > div').scrollIntoView({behavior: 'smooth', block: 'end'})">
           loading
         </div>
-        <div>
-          <form class="p-1 mb-10 flex flex-row" hx-post="https://the-backend.glitch.me/chat/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
+        <div class="bg-white">
+          <form class="p-1 flex flex-row" hx-post="https://the-backend.glitch.me/chat/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
             <input type="submit" hidden />
             <div class="w-full">
               <label class="hidden">Prompt</label>
@@ -70,7 +72,7 @@
             </div>
             <button class="border-2 border-black">Submit</button>
           </form>
-          <div id="response">
+          <div id="response" class="hidden">
 
           </div>
         </div>
