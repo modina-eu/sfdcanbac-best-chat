@@ -8,7 +8,9 @@
     "dev": "concurrently 'npm:dev:frontend' 'npm:dev:backend'",
     "install:frontend": "npm --prefix frontend install",
     "install:backend": "npm --prefix backend install",
-    "build": "npm --prefix frontend run build",
+    "build": "concurrently 'npm:build:frontend' 'npm:build:github'",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:github": "git push origin master",
     "start2": "concurrently 'npm:dev:backend' 'npm:dev:frontend'",
     "start": "concurrently 'npm:dev:frontend'"
   },

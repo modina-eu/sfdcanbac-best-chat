@@ -1,4 +1,4 @@
-# vite-node-template
+# best-chat
 
 vite for frontend / node (express) for backend API
 

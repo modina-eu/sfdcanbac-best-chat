@@ -67,11 +67,16 @@ function sleep(ms) {
   });
 }
 
-router.post('/api/prompt', async function(req, res, next) {
+router.post('/prompt', async function(req, res, next) {
   const prompt = req.body.prompt;
   const model = models[req.body.model].api;
   const temperature = req.body.temperature;
   let text;
+  
+  const date = new Date;
+  log.push({ text: prompt, type: "prompt", temperature, date });
+  eventEmitter.emit("update content");
+  
     // res.send("failed - model still loading");
     // return;
   text = await generateText(prompt, { model, temperature });
@@ -82,12 +87,11 @@ router.post('/api/prompt', async function(req, res, next) {
   //   count++;
   // }
   if (text === undefined) {
-    res.send("failed - model still loading");
-    return;
+    text = `<span class="text-red-600">Server temporarily unavailable :( Please, try again in a few seconds!</span>`
+    // res.send("failed - model still loading");
+    // return;
   }
   
-  const date = new Date;
-  log.push({ text: prompt, type: "prompt", temperature, date });
   log.push({ text: text, type: "generated", model: req.body.model, temperature, date });
   const ref = await db.ref('text-log').set(log);
 
@@ -114,7 +118,7 @@ const models = {
   },
 };
 
-router.get('/api/models', async function(req, res, next) {
+router.get('/models', async function(req, res, next) {
   res.send(`
   <select class="border-2 border-sky-500 h-full" name="model">
     ${ Object.keys(models).map(key => `
@@ -124,7 +128,7 @@ router.get('/api/models', async function(req, res, next) {
   </select>`)
 });
 
-router.get('/api/content', async function(req, res) {
+router.get('/content', async function(req, res) {
   res.set({
     'Cache-Control': 'no-cache',
     'Content-Type': 'text/event-stream',
