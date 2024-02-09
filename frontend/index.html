@@ -41,7 +41,7 @@
         </div>
       </dialog>
 
-      <div class="flex flex-col h-full max-w-lg">
+      <div class="relative flex flex-col h-full max-w-lg">
         <div class="grid grid-cols-3">
           <div>
           </div>
@@ -58,7 +58,7 @@
         <div id="chat-messages" class="h-full overflow-y-scroll" hx-ext="sse" sse-connect="https://the-backend.glitch.me/chat/content" sse-swap="message" hx-on:htmx:after-settle="document.querySelector('#chat-messages > div').scrollIntoView({behavior: 'smooth', block: 'end'})">
           loading
         </div>
-        <div class="bg-white s">
+        <div class="bg-white fixed bottom-0 md:relative lg:relative">
           <form class="p-1 flex flex-row" hx-post="https://the-backend.glitch.me/chat/prompt" hx-target="#response" hx-swap="none" hx-on::after-request="this.reset()">
             <input type="submit" hidden />
             <div class="w-full">
