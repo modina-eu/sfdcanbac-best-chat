@@ -1,5 +1,7 @@
 # best-chat
 
+! the current `package.json` only deploys the front end ()
+
 vite for frontend / node (express) for backend API
 
 please set
