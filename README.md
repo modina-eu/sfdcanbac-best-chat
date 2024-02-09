@@ -1,6 +1,6 @@
 # best-chat
 
-! the current `package.json` only deploys the front end ()
+! the current `package.json` only deploys the front end (back end is hosted on https://the-backend.glitch.me/ on glitch). But the back end code is (manually) synced to `backend` folder.
 
 vite for frontend / node (express) for backend API
 
